@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+
+# Node / frontend
+Frontend/node_modules/
+Frontend/dist/
+Frontend/.vite/
+Frontend/.cache/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
