@@ -319,16 +319,25 @@ function AdCard() {
   );
 }
 
-function SidebarPersonCard({ person }) {
+function SidebarPersonCard({ person, enablePending = false }) {
+  const [isPending, setIsPending] = useState(false);
   const initials = person.name.replace(/[^a-zA-Z ]/g,'').split(' ').map(n => n[0]).filter(Boolean).join('').slice(0,2);
+  const isConnectButton = enablePending && person.action === 'Connect';
+
+  const handleActionClick = () => {
+    if (isConnectButton) {
+      setIsPending(true);
+    }
+  };
+
   return (
     <div className="sidebar-person">
       <div className="sb-ava">{initials}</div>
       <div>
         <strong>{person.name}</strong>
         <p>{person.headline}</p>
-        <button className="sb-btn" type="button">
-          {person.action === 'Connect' ? '🤝 ' : '+ '}{person.action}
+        <button className="sb-btn" type="button" onClick={handleActionClick}>
+          {isConnectButton ? (isPending ? <i>Pending</i> : '🤝 Connect') : `+ ${person.action}`}
         </button>
       </div>
     </div>
@@ -344,7 +353,7 @@ function Sidebar() {
       {/* More profiles for you */}
       <div className="card sb-card">
         <h2>More profiles for you</h2>
-        {profile.sidebarProfiles.map(p => <SidebarPersonCard key={p.name} person={p}/>)}
+        {profile.sidebarProfiles.map(p => <SidebarPersonCard key={p.name} person={p} enablePending={true}/>)}
         <button className="show-all-btn compact" type="button">Show all <ChevronRight size={14}/></button>
       </div>
 
