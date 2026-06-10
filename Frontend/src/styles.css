@@ -195,3 +195,26 @@ a { color: var(--blue); text-decoration: none; font-weight: 600; }
   .top-card-body { padding-top: 68px; }
   .messaging-bubble { width: calc(100% - 20px); right: 10px; }
 }
+
+/* INTERESTS */
+.interests-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 8px; }
+.interest-card { border: 1px solid var(--border); border-radius: 10px; padding: 16px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; }
+.interest-ava { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg,#c9d7e4,#607d97); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:16px; margin-bottom:6px; }
+.interest-card strong { font-size: 14px; }
+.interest-card p { font-size: 12px; color: #555; margin: 1px 0; }
+.in-badge { background: var(--blue); color: #fff; font-size: 10px; font-weight: 700; padding: 1px 4px; border-radius: 2px; }
+
+/* PEOPLE YOU MAY KNOW extra line */
+.extra-line { font-size: 12px; color: #555; display: flex; align-items: center; gap: 4px; }
+
+/* FOOTER */
+.site-footer { background: #fff; border-top: 1px solid var(--border); padding: 20px 0 40px; margin-top: 0; }
+.footer-inner { max-width: 1128px; margin: 0 auto; padding: 0 12px; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-bottom: 12px; }
+.footer-links a { font-size: 12px; color: var(--muted); font-weight: 400; text-decoration: none; }
+.footer-links a:hover { text-decoration: underline; color: var(--blue); }
+.footer-bottom { display: flex; align-items: center; gap: 12px; font-size: 12px; color: var(--muted); }
+.footer-brand { font-size: 16px; color: var(--blue); }
+
+/* CURSOR page icon */
+.cursor-icon { background: #191919; }

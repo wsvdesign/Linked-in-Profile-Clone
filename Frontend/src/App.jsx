@@ -2,13 +2,13 @@ import { useState } from 'react';
 import {
   Home, Users, BriefcaseBusiness, MessageCircle, Bell, Grid3X3,
   Search, Send, Plus, MoreHorizontal, ShieldCheck, GraduationCap,
-  ThumbsUp, Repeat2, ChevronRight, ChevronUp, X, Bookmark
+  ThumbsUp, Repeat2, ChevronRight, ChevronUp, X
 } from 'lucide-react';
 import { profile } from './data/profileData.js';
 
 function Navbar() {
   const navItems = [
-    { label: 'Home', icon: Home },
+    { label: 'Home', icon: Home, badge: '6' },
     { label: 'My Network', icon: Users, badge: '2' },
     { label: 'Jobs', icon: BriefcaseBusiness },
     { label: 'Messaging', icon: MessageCircle, badge: '1' },
@@ -76,20 +76,15 @@ function ProfileTopCard() {
   const [showVerify, setShowVerify] = useState(true);
   return (
     <div className="card top-card">
-      {/* Banner */}
       <div className="cover-banner">
         <div className="cover-decoration" />
         <div className="cover-mark">⌁</div>
       </div>
-
-      {/* Profile photo overlapping banner */}
       <div className="profile-photo-ring">
         <div className="profile-photo">{profile.profileInitials}</div>
       </div>
-
       <div className="top-card-body">
         <div className="identity-grid">
-          {/* Left: name + headline */}
           <div className="identity-main">
             <h1 className="profile-name">
               {profile.name}
@@ -97,7 +92,6 @@ function ProfileTopCard() {
             </h1>
             <p className="profile-headline">{profile.headline}</p>
           </div>
-          {/* Right: company + school */}
           <div className="identity-affiliations">
             <div className="affil-row">
               <span className="affil-logo dark">AI</span>
@@ -109,26 +103,18 @@ function ProfileTopCard() {
             </div>
           </div>
         </div>
-
-        {/* Verification prompt */}
         {showVerify && (
           <div className="verify-prompt">
-            <button className="verify-close" onClick={() => setShowVerify(false)} type="button">
-              <X size={18}/>
-            </button>
+            <button className="verify-close" onClick={() => setShowVerify(false)} type="button"><X size={18}/></button>
             <strong>{profile.verificationText}</strong>
             <span>{profile.verificationSubtext}</span>
-            <button className="verify-btn" type="button">
-              <ShieldCheck size={15}/> Verify now
-            </button>
+            <button className="verify-btn" type="button"><ShieldCheck size={15}/> Verify now</button>
           </div>
         )}
-
         <p className="meta-line">{profile.location} · <a href="#contact">Contact info</a></p>
         <p className="followers-line">
           <strong>{profile.followers}</strong> · <strong>{profile.connections}</strong>
         </p>
-
         <div className="action-row">
           <button className="btn btn-primary" type="button"><Plus size={16}/> Follow</button>
           <button className="btn btn-outline-blue" type="button"><Send size={16}/> Message</button>
@@ -143,10 +129,7 @@ function AboutCard() {
   return (
     <div className="card section-pad">
       <h2>About</h2>
-      <p className="body-text">
-        {profile.about}{' '}
-        <button className="text-more" type="button">more</button>
-      </p>
+      <p className="body-text">{profile.about} <button className="text-more" type="button">more</button></p>
     </div>
   );
 }
@@ -162,18 +145,11 @@ function ActivityCard() {
         </div>
         <button className="btn btn-outline-blue sm" type="button"><Plus size={14}/> Follow</button>
       </div>
-
       <div className="tabs">
         {['Posts','Comments'].map(t => (
-          <button
-            key={t}
-            className={`tab-pill ${tab === t ? 'active' : ''}`}
-            onClick={() => setTab(t)}
-            type="button"
-          >{t}</button>
+          <button key={t} className={`tab-pill ${tab === t ? 'active' : ''}`} onClick={() => setTab(t)} type="button">{t}</button>
         ))}
       </div>
-
       <div className="post-grid">
         {profile.activityPosts.map(post => (
           <article className="post-card" key={post.title}>
@@ -207,10 +183,7 @@ function ActivityCard() {
           </article>
         ))}
       </div>
-
-      <button className="show-all-btn" type="button">
-        Show all posts <ChevronRight size={16}/>
-      </button>
+      <button className="show-all-btn" type="button">Show all posts <ChevronRight size={16}/></button>
     </div>
   );
 }
@@ -226,7 +199,6 @@ function ExperienceCard() {
             <div className="exp-body">
               {item.subRoles ? (
                 <>
-                  {/* Company parent row (like Airbnb) */}
                   <h3 className="exp-company-name">{item.company}</h3>
                   <p className="exp-meta">{item.type}</p>
                   <p className="exp-meta">{item.dates}</p>
@@ -250,9 +222,7 @@ function ExperienceCard() {
                   <p className="exp-meta">{item.company} · {item.type}</p>
                   <p className="exp-meta muted">{item.dates}</p>
                   <p className="exp-meta muted">{item.location}</p>
-                  {item.description && (
-                    <p className="exp-desc">{item.description} <button className="text-more" type="button">more</button></p>
-                  )}
+                  {item.description && <p className="exp-desc">{item.description} <button className="text-more" type="button">more</button></p>}
                 </>
               )}
             </div>
@@ -297,7 +267,7 @@ function SkillsCard() {
             <span>{skill.endorsedBy}</span>
           </div>
           <div className="skill-count">
-            <span className="endorse-count-icon">👥</span>
+            <span>👥</span>
             <span>{skill.endorsements}</span>
           </div>
           {i < profile.skills.length - 1 && <div className="skill-divider"/>}
@@ -308,16 +278,66 @@ function SkillsCard() {
   );
 }
 
-function SidebarProfileCard({ person }) {
-  const initials = person.name.split(' ').map(n => n[0]).join('').slice(0, 2);
+function InterestsCard() {
+  const [tab, setTab] = useState('Top Voices');
+  return (
+    <div className="card section-pad">
+      <h2>Interests</h2>
+      <div className="tabs">
+        {['Top Voices','Companies','Groups','Schools'].map(t => (
+          <button key={t} className={`tab-pill ${tab === t ? 'active' : ''}`} onClick={() => setTab(t)} type="button">{t}</button>
+        ))}
+      </div>
+      <div className="interests-grid">
+        {profile.interests.map((person, i) => (
+          <div key={i} className="interest-card">
+            <div className="interest-ava">{person.name.split(' ').map(n=>n[0]).join('').slice(0,2)}</div>
+            <strong>{person.name} {person.badge && <span className="in-badge">in</span>} · 3rd+</strong>
+            <p>{person.headline}</p>
+            <p className="muted-sm">{person.followers}</p>
+            <button className="sb-btn" type="button">+ Follow</button>
+          </div>
+        ))}
+      </div>
+      <button className="show-all-btn" type="button">Show all <ChevronRight size={16}/></button>
+    </div>
+  );
+}
+
+function AdCard() {
+  return (
+    <div className="card ad-card">
+      <div className="ad-label">Promoted</div>
+      <h3>Your job search <span className="ad-blue">powered by your network</span></h3>
+      <button className="explore-btn" type="button">Explore jobs</button>
+      <div className="ad-photos">
+        <span style={{background:'linear-gradient(135deg,#2d6a8a,#4a8fab)'}}/>
+        <span style={{background:'linear-gradient(135deg,#5a8a4a,#7aab6a)'}}/>
+        <span style={{background:'linear-gradient(135deg,#8a5a2d,#ab7a4a)'}}/>
+      </div>
+    </div>
+  );
+}
+
+function SidebarPersonCard({ person, enablePending = false }) {
+  const [isPending, setIsPending] = useState(false);
+  const initials = person.name.replace(/[^a-zA-Z ]/g,'').split(' ').map(n => n[0]).filter(Boolean).join('').slice(0,2);
+  const isConnectButton = enablePending && person.action === 'Connect';
+
+  const handleActionClick = () => {
+    if (isConnectButton) {
+      setIsPending(true);
+    }
+  };
+
   return (
     <div className="sidebar-person">
       <div className="sb-ava">{initials}</div>
       <div>
         <strong>{person.name}</strong>
         <p>{person.headline}</p>
-        <button className="sb-btn" type="button">
-          {person.action === 'Connect' ? '🤝' : '+'} {person.action}
+        <button className="sb-btn" type="button" onClick={handleActionClick}>
+          {isConnectButton ? (isPending ? <i>Pending</i> : '🤝 Connect') : `+ ${person.action}`}
         </button>
       </div>
     </div>
@@ -327,22 +347,13 @@ function SidebarProfileCard({ person }) {
 function Sidebar() {
   return (
     <aside className="sidebar">
-      {/* Ad card */}
-      <div className="card ad-card">
-        <div className="ad-label">Promoted</div>
-        <h3>Your job search <span className="ad-blue">powered by your network</span></h3>
-        <button className="explore-btn" type="button">Explore jobs</button>
-        <div className="ad-photos">
-          <span style={{background:'linear-gradient(135deg,#2d6a8a,#4a8fab)'}}/>
-          <span style={{background:'linear-gradient(135deg,#5a8a4a,#7aab6a)'}}/>
-          <span style={{background:'linear-gradient(135deg,#8a5a2d,#ab7a4a)'}}/>
-        </div>
-      </div>
+      {/* Ad card top */}
+      <AdCard />
 
-      {/* More profiles */}
+      {/* More profiles for you */}
       <div className="card sb-card">
         <h2>More profiles for you</h2>
-        {profile.sidebarProfiles.map(p => <SidebarProfileCard key={p.name} person={p}/>)}
+        {profile.sidebarProfiles.map(p => <SidebarPersonCard key={p.name} person={p} enablePending={true}/>)}
         <button className="show-all-btn compact" type="button">Show all <ChevronRight size={14}/></button>
       </div>
 
@@ -356,12 +367,25 @@ function Sidebar() {
             <div>
               <strong>{page.name}</strong>
               <p>{page.category}</p>
+              {page.extra && <p className="extra-line">👤 {page.extra}</p>}
               <p className="muted-sm">{page.followers}</p>
               <button className="sb-btn" type="button">+ Follow</button>
             </div>
           </div>
         ))}
+        <button className="show-all-btn compact" type="button">Show all <ChevronRight size={14}/></button>
       </div>
+
+      {/* People you may know */}
+      <div className="card sb-card">
+        <h2>People you may know</h2>
+        <p className="section-sub">From Leo's school</p>
+        {profile.peopleYouMayKnow.map(p => <SidebarPersonCard key={p.name} person={p}/>)}
+        <button className="show-all-btn compact" type="button">Show all <ChevronRight size={14}/></button>
+      </div>
+
+      {/* Second ad card */}
+      <AdCard />
     </aside>
   );
 }
@@ -372,9 +396,26 @@ function MessagingBubble() {
       <span className="mini-avatar">N</span>
       <strong>Messaging</strong>
       <span style={{flex:1}}/>
-      <button type="button" style={{border:0,background:'transparent',cursor:'pointer'}}><MoreHorizontal size={18}/></button>
-      <button type="button" style={{border:0,background:'transparent',cursor:'pointer'}}><ChevronUp size={18}/></button>
+      <button type="button" style={{border:0,background:'transparent',cursor:'pointer',color:'#555'}}><MoreHorizontal size={18}/></button>
+      <button type="button" style={{border:0,background:'transparent',cursor:'pointer',color:'#555'}}><ChevronUp size={18}/></button>
     </div>
+  );
+}
+
+function Footer() {
+  const links = ['About','Accessibility','Help Center','Privacy & Terms','Ad Choices','Advertising','Business Services','Get the LinkedIn app','More'];
+  return (
+    <footer className="site-footer">
+      <div className="footer-inner">
+        <div className="footer-links">
+          {links.map(l => <a key={l} href="#">{l}</a>)}
+        </div>
+        <div className="footer-bottom">
+          <span className="footer-brand">Linked<strong>in</strong></span>
+          <span>LinkedIn Corporation © 2025</span>
+        </div>
+      </div>
+    </footer>
   );
 }
 
@@ -391,9 +432,11 @@ export default function App() {
           <ExperienceCard />
           <EducationCard />
           <SkillsCard />
+          <InterestsCard />
         </div>
         <Sidebar />
       </main>
+      <Footer />
       <MessagingBubble />
     </>
   );

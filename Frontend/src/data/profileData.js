@@ -10,11 +10,8 @@ export const profile = {
 
   about: 'Game developer and frontend engineer with a passion for building immersive, systems-driven experiences. I specialize in multiplayer architecture, real-time game UI, and the kind of low-level engine work that makes a game feel alive. Currently pursuing my M.S. in Computer Science at Yale while shipping independent game projects and contributing to the broader developer community. I am obsessed with what happens at the intersection of great design and great engineering — where a mechanic stops being a feature and starts being a feeling.',
 
-  bannerColor: '#c9673e',
-
   verificationText: 'Leo has a verification. You can add one too.',
   verificationSubtext: 'Verified members get 60% more profile views on average.',
-
   profileInitials: 'LM',
   activityFollowers: '12,408 followers',
 
@@ -23,9 +20,9 @@ export const profile = {
       title: 'GTA VI — What Rockstar is really building',
       text: 'GTA 6 drops November 19th and I cannot stop thinking about it from an engineering perspective. The draw distance, the NPC behavior systems, the way weather interacts with gameplay — Rockstar is not just making a game, they are raising the bar for what an open world engine can do. As a developer this is the kind of release that makes you want to completely blow up your current project and start over.',
       source: 'rockstargames.com',
-      reactions: '5,396',
-      comments: '198 comments',
-      reposts: '149 reposts',
+      reactions: '5,405',
+      comments: '196 comments',
+      reposts: '148 reposts',
       age: '1w',
     },
     {
@@ -138,22 +135,34 @@ export const profile = {
       endorsedBy: 'Endorsed by senior engineers and 1 other who is highly skilled at this',
       endorsements: '8 endorsements',
     },
-    {
-      name: 'React & Frontend Engineering',
-      endorsedBy: 'Endorsed by 3 colleagues at Respawn Collective',
-      endorsements: '11 endorsements',
-    },
   ],
 
+  // Right sidebar - "More profiles for you"
   sidebarProfiles: [
     { name: 'Dario Amodei', headline: 'CEO and Co-Founder at Anthropic · 3rd+', action: 'Connect' },
     { name: 'Christopher Olah', headline: 'Member Of Technical Staff at Anthropic · 3rd+', action: 'Connect' },
-    { name: 'Anthony Bastone, M.B.A.', headline: 'Finance Leadership at Anthropic | Senior Finance Executive · 3rd+', action: 'Connect' },
+    { name: 'Anthony Bastone, M.B.A.', headline: 'Finance Leadership at Anthropic | Senior Finance Executive | GTM & ... · 3rd+', action: 'Connect' },
     { name: 'Paul Smith', headline: 'Chief Commercial Officer · 3rd+', action: 'Follow' },
+    { name: 'Varun Krishna', headline: 'CEO at Rocket, Interim CEO at Redfin · 3rd+', action: 'Follow' },
+  ],
+
+  // Right sidebar - "People you may know"
+  peopleYouMayKnow: [
+    { name: 'Natasha Schmitt Caccia Salinas', headline: 'Associate Professor of Law at Fundação Getulio Vargas and Principal ... · 3rd+', action: 'Connect' },
+    { name: 'Amnart Tangkiriphimarn', headline: 'Associate Dean & Assistant Professor (Thammasat Law) | Arbitrator · 3rd+', action: 'Connect' },
+    { name: 'Jason Friedman', headline: 'Incoming J.D. Candidate at Yale Law School · 3rd+', action: 'Connect' },
+    { name: 'Itamar Mann', headline: 'Acting Chair of International Law and International Human Rights La... · 3rd+', action: 'Connect' },
+    { name: 'Jed Rothstein 罗瑞杰', headline: 'Associate | Capital Markets | Davis Polk & Wardwell LLP (Admitted in ... · 3rd+', action: 'Connect' },
   ],
 
   pagesYouMightLike: [
     { name: 'Claude for Business', category: 'Technology, Information and Internet', followers: '54,234 followers' },
-    { name: 'Cursor', category: 'Software Development', followers: '327,894 followers' },
+    { name: 'Cursor', category: 'Software Development', followers: '327,894 followers', extra: 'Rene & 10 other company alumni work here' },
+  ],
+
+  // Interests section
+  interests: [
+    { name: 'David Solomon', headline: 'Chairman & CEO at Goldman Sachs', followers: '1,400,121 followers', badge: true },
+    { name: 'John Waldron', headline: 'President and COO at Goldman Sachs', followers: '93,870 followers', badge: true },
   ],
 };
