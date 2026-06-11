@@ -5,6 +5,7 @@ import {
   ThumbsUp, Repeat2, ChevronRight, ChevronUp, X
 } from 'lucide-react';
 import { profile } from './data/profileData.js';
+import leoProfileImage from './assets/profiles/leo-profile.jpg';
 
 function Navbar() {
   const navItems = [
@@ -81,7 +82,9 @@ function ProfileTopCard() {
         <div className="cover-mark">⌁</div>
       </div>
       <div className="profile-photo-ring">
-        <div className="profile-photo">{profile.profileInitials}</div>
+        <div className="profile-photo">
+          <img className="profile-photo-image" src={leoProfileImage} alt={profile.name} />
+        </div>
       </div>
       <div className="top-card-body">
         <div className="identity-grid">

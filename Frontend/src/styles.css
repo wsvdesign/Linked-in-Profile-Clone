@@ -70,7 +70,8 @@ a { color: var(--blue); text-decoration: none; font-weight: 600; }
 .cover-decoration { position: absolute; width: 260px; height: 260px; border: 10px solid rgba(255,255,255,0.18); border-radius: 50%; right: 40px; top: -70px; }
 .cover-mark { position: absolute; right: 90px; top: 30px; font-size: 90px; font-weight: 200; color: rgba(0,0,0,0.22); transform: rotate(-20deg); line-height: 1; }
 .profile-photo-ring { position: absolute; left: 28px; top: 112px; z-index: 2; }
-.profile-photo { width: 152px; height: 152px; border-radius: 50%; border: 4px solid #fff; background: linear-gradient(135deg,#e7e2dc,#788fa5); display: flex; align-items: center; justify-content: center; font-size: 46px; font-weight: 800; color: #fff; letter-spacing: -2px; }
+.profile-photo { width: 152px; height: 152px; border-radius: 50%; border: 4px solid #fff; background: linear-gradient(135deg,#e7e2dc,#788fa5); display: flex; align-items: center; justify-content: center; font-size: 46px; font-weight: 800; color: #fff; letter-spacing: -2px; overflow: hidden; }
+.profile-photo-image { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block; }
 .top-card-body { padding: 88px 28px 22px; }
 .identity-grid { display: grid; grid-template-columns: 1fr 250px; gap: 16px; margin-bottom: 6px; }
 .profile-name { font-size: 26px; font-weight: 700; display: flex; align-items: center; gap: 6px; }
