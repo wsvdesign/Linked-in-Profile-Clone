@@ -1,11 +1,45 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Home, Users, BriefcaseBusiness, MessageCircle, Bell, Grid3X3,
   Search, Send, Plus, MoreHorizontal, ShieldCheck, GraduationCap,
   ThumbsUp, Repeat2, ChevronRight, ChevronUp, X
 } from 'lucide-react';
-import { profile } from './data/profileData.js';
-import leoProfileImage from './assets/profiles/leo-profile.jpg';
+import { defaultProfileId, profilesById } from './data/profiles.js';
+import peterSuiImage from './assets/refference/profiles/Skll set endorsement images/Peter_Sui.jpg';
+import marcusChenImage from './assets/refference/profiles/Skll set endorsement images/Marcus_Chen.jpg';
+import jamieReyesImage from './assets/refference/profiles/Skll set endorsement images/Jamie_Reyes.jpg';
+import aishaOkaforImage from './assets/refference/profiles/Skll set endorsement images/Aisha_Okafor.jpg';
+import tomNakamuraImage from './assets/refference/profiles/Skll set endorsement images/Tom_Nakamura.jpg';
+import sofiaDelgadoImage from './assets/refference/profiles/Skll set endorsement images/Sofia_Delgado.jpg';
+import eliotParkImage from './assets/refference/profiles/Skll set endorsement images/Eliot_Park.jpg';
+import nadiaFloresImage from './assets/refference/profiles/Skll set endorsement images/Nadia_Flores.jpg';
+import danielYuenImage from './assets/refference/profiles/Skll set endorsement images/Daniel_Yuen.jpg';
+import profAveryBrooksImage from './assets/refference/profiles/Skll set endorsement images/Prof_Avery_Brooks.jpg';
+
+function getProfileIdFromUrl() {
+  if (typeof window === 'undefined') {
+    return defaultProfileId;
+  }
+
+  const urlProfileId = new URL(window.location.href).searchParams.get('profile');
+  return profilesById[urlProfileId] ? urlProfileId : defaultProfileId;
+}
+
+function getViewFromUrl() {
+  if (typeof window === 'undefined') return null;
+  return new URL(window.location.href).searchParams.get('view') || null;
+}
+
+function getInitials(name) {
+  return (name || '')
+    .replace(/[^a-zA-Z ]/g, '')
+    .split(' ')
+    .map((n) => n[0])
+    .filter(Boolean)
+    .join('')
+    .slice(0, 2)
+    .toUpperCase();
+}
 
 function Navbar() {
   const navItems = [
@@ -54,7 +88,7 @@ function Navbar() {
   );
 }
 
-function StickyMiniProfile() {
+function StickyMiniProfile({ profile }) {
   return (
     <div className="sticky-mini-profile">
       <div className="mini-profile-inner">
@@ -73,17 +107,36 @@ function StickyMiniProfile() {
   );
 }
 
-function ProfileTopCard() {
+function ProfileTopCard({ profile }) {
   const [showVerify, setShowVerify] = useState(true);
+  const [imageFailed, setImageFailed] = useState(false);
+  const hasImage = Boolean(profile.profilePhoto) && !imageFailed;
+  const topActions = profile.topActions || ['Follow', 'Message', 'More'];
+  const showVerifyPrompt = profile.showVerificationPrompt !== false && showVerify;
+
+  useEffect(() => {
+    setImageFailed(false);
+  }, [profile.id, profile.profilePhoto]);
+
   return (
     <div className="card top-card">
-      <div className="cover-banner">
+      <div className="cover-banner" style={{ background: profile.coverColor || '#c9673e' }}>
         <div className="cover-decoration" />
         <div className="cover-mark">⌁</div>
       </div>
       <div className="profile-photo-ring">
         <div className="profile-photo">
-          <img className="profile-photo-image" src={leoProfileImage} alt={profile.name} />
+          {hasImage ? (
+            <img
+              className="profile-photo-image"
+              src={profile.profilePhoto}
+              alt={profile.name}
+              style={{ objectPosition: profile.profilePhotoObjectPosition || 'center' }}
+              onError={() => setImageFailed(true)}
+            />
+          ) : (
+            <span>{profile.profileInitials}</span>
+          )}
         </div>
       </div>
       <div className="top-card-body">
@@ -106,7 +159,7 @@ function ProfileTopCard() {
             </div>
           </div>
         </div>
-        {showVerify && (
+        {showVerifyPrompt && (
           <div className="verify-prompt">
             <button className="verify-close" onClick={() => setShowVerify(false)} type="button"><X size={18}/></button>
             <strong>{profile.verificationText}</strong>
@@ -116,19 +169,34 @@ function ProfileTopCard() {
         )}
         <p className="meta-line">{profile.location} · <a href="#contact">Contact info</a></p>
         <p className="followers-line">
-          <strong>{profile.followers}</strong> · <strong>{profile.connections}</strong>
+          {profile.followers && <strong>{profile.followers}</strong>}
+          {profile.followers && profile.connections && ' · '}
+          {profile.connections && <strong>{profile.connections}</strong>}
         </p>
         <div className="action-row">
-          <button className="btn btn-primary" type="button"><Plus size={16}/> Follow</button>
-          <button className="btn btn-outline-blue" type="button"><Send size={16}/> Message</button>
-          <button className="btn btn-ghost" type="button">More</button>
+          {topActions.map((action) => {
+            if (action === 'Follow') {
+              return <button className="btn btn-primary" key={action} type="button"><Plus size={16}/> Follow</button>;
+            }
+            if (action === 'Message') {
+              return <button className="btn btn-primary" key={action} type="button"><Send size={16}/> Message</button>;
+            }
+            if (action === 'Pending') {
+              return <button className="btn btn-ghost" key={action} type="button">Pending</button>;
+            }
+            return <button className="btn btn-ghost" key={action} type="button">{action}</button>;
+          })}
         </div>
       </div>
     </div>
   );
 }
 
-function AboutCard() {
+function AboutCard({ profile }) {
+  if (profile.showAbout === false || !profile.about) {
+    return null;
+  }
+
   return (
     <div className="card section-pad">
       <h2>About</h2>
@@ -137,8 +205,9 @@ function AboutCard() {
   );
 }
 
-function ActivityCard() {
+function ActivityCard({ profile }) {
   const [tab, setTab] = useState('Posts');
+  const hasPosts = profile.activityPosts.length > 0;
   return (
     <div className="card section-pad">
       <div className="section-header">
@@ -153,13 +222,17 @@ function ActivityCard() {
           <button key={t} className={`tab-pill ${tab === t ? 'active' : ''}`} onClick={() => setTab(t)} type="button">{t}</button>
         ))}
       </div>
+      {hasPosts ? (
       <div className="post-grid">
         {profile.activityPosts.map(post => (
           <article className="post-card" key={post.title}>
             <div className="post-head">
               <div className="post-ava">{profile.profileInitials}</div>
               <div>
-                <strong>{profile.name} <ShieldCheck size={12}/></strong>
+                <strong>
+                  {profile.name}
+                  {profile.verified && <ShieldCheck size={12}/>} 
+                </strong>
                 <span>{profile.headline}</span>
                 <span>{post.age} · 🌐</span>
               </div>
@@ -186,12 +259,18 @@ function ActivityCard() {
           </article>
         ))}
       </div>
+      ) : (
+      <div className="activity-empty-state">
+        <h3>{profile.activityEmptyTitle || `${profile.name.split(' ')[0]} has no recent posts`}</h3>
+        <p>{profile.activityEmptyText || `Recent posts ${profile.name.split(' ')[0]} shares will be displayed here.`}</p>
+      </div>
+      )}
       <button className="show-all-btn" type="button">Show all posts <ChevronRight size={16}/></button>
     </div>
   );
 }
 
-function ExperienceCard() {
+function ExperienceCard({ profile }) {
   return (
     <div className="card section-pad">
       <h2>Experience</h2>
@@ -237,7 +316,7 @@ function ExperienceCard() {
   );
 }
 
-function EducationCard() {
+function EducationCard({ profile }) {
   return (
     <div className="card section-pad">
       <h2>Education</h2>
@@ -258,11 +337,105 @@ function EducationCard() {
   );
 }
 
-function SkillsCard() {
+const SKILL_CATEGORIES = ['All skills', 'Industry Knowledge', 'Tools & Technologies', 'Interpersonal Skills', 'Other Skills'];
+
+const LOGO_BG = { PF: '#111', YG: '#00356b', RC: '#c0392b', FL: '#4a4a4a', HG: '#a51c30', H: '#a51c30', Y: '#00356b' };
+
+const ENDORSER_PHOTOS = [
+  { name: 'Peter Sui', src: peterSuiImage },
+  { name: 'Marcus Chen', src: marcusChenImage },
+  { name: 'Jamie Reyes', src: jamieReyesImage },
+  { name: 'Aisha Okafor', src: aishaOkaforImage },
+  { name: 'Tom Nakamura', src: tomNakamuraImage },
+  { name: 'Sofia Delgado', src: sofiaDelgadoImage },
+  { name: 'Eliot Park', src: eliotParkImage },
+  { name: 'Nadia Flores', src: nadiaFloresImage },
+  { name: 'Daniel Yuen', src: danielYuenImage },
+  { name: 'Prof. Avery Brooks', src: profAveryBrooksImage },
+];
+
+function SkillRow({ skill }) {
+  const firstLogo = skill.endorsedByLogos[0];
+  const matchedEndorser = ENDORSER_PHOTOS.find((endorser) => skill.endorsedBy.includes(endorser.name));
+
+  return (
+    <div className="skills-page-row">
+      <h3 className="skills-page-skill-name">{skill.name}</h3>
+      <div className="skills-page-endorse-line">
+        {matchedEndorser ? (
+          <img
+            className="skills-page-endorser-photo"
+            src={matchedEndorser.src}
+            alt={matchedEndorser.name}
+          />
+        ) : firstLogo && (
+          <span className="skills-page-logo" style={{ background: LOGO_BG[firstLogo] || '#888' }}>{firstLogo}</span>
+        )}
+        <span className="skills-page-endorsed-by">{skill.endorsedBy}</span>
+      </div>
+      <div className="skills-page-count-line">
+        <Users size={16} className="skills-page-people-icon" />
+        <span>{skill.endorsements} endorsements</span>
+      </div>
+    </div>
+  );
+}
+
+function SkillsPage({ profile, onBack }) {
+  const [activeCategory, setActiveCategory] = useState('All skills');
+  const filtered = activeCategory === 'All skills'
+    ? profile.skills
+    : profile.skills.filter((s) => s.category === activeCategory);
+
+  return (
+    <main className="page-shell">
+      <div className="main-column">
+        <div className="card section-pad">
+          <div className="skills-page-header">
+            <button className="skills-back-btn" onClick={onBack} type="button">
+              <ChevronRight size={20} style={{ transform: 'rotate(180deg)' }} />
+            </button>
+            <h2 style={{ margin: 0 }}>Skills</h2>
+          </div>
+          <div className="skills-filter-tabs">
+            {SKILL_CATEGORIES.map((cat) => (
+              <button
+                key={cat}
+                className={`skills-filter-pill ${activeCategory === cat ? 'active' : ''}`}
+                onClick={() => setActiveCategory(cat)}
+                type="button"
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+          <div className="skills-page-list">
+            {filtered.map((skill) => (
+              <SkillRow key={skill.name} skill={skill} />
+            ))}
+          </div>
+        </div>
+      </div>
+      <aside className="sidebar">
+        <AdCard />
+        <div className="card sb-card">
+          <h2>More profiles for you</h2>
+          {profile.sidebarProfiles.map((p) => (
+            <SidebarPersonCard key={p.name} person={p} enablePending={true} />
+          ))}
+          <button className="show-all-btn compact" type="button">Show all <ChevronRight size={14}/></button>
+        </div>
+      </aside>
+    </main>
+  );
+}
+
+function SkillsCard({ profile, onShowAll }) {
+  const preview = profile.skills.slice(0, 2);
   return (
     <div className="card section-pad">
       <h2>Skills</h2>
-      {profile.skills.map((skill, i) => (
+      {preview.map((skill, i) => (
         <div key={i} className="skill-block">
           <h3 className="skill-name">{skill.name}</h3>
           <div className="skill-endorsed">
@@ -271,17 +444,17 @@ function SkillsCard() {
           </div>
           <div className="skill-count">
             <span>👥</span>
-            <span>{skill.endorsements}</span>
+            <span>{skill.endorsements} endorsements</span>
           </div>
-          {i < profile.skills.length - 1 && <div className="skill-divider"/>}
+          {i < preview.length - 1 && <div className="skill-divider"/>}
         </div>
       ))}
-      <button className="show-all-btn" type="button">Show all skills <ChevronRight size={16}/></button>
+      <button className="show-all-btn" type="button" onClick={onShowAll}>Show all {profile.skills.length} skills <ChevronRight size={16}/></button>
     </div>
   );
 }
 
-function InterestsCard() {
+function InterestsCard({ profile }) {
   const [tab, setTab] = useState('Top Voices');
   return (
     <div className="card section-pad">
@@ -322,32 +495,75 @@ function AdCard() {
   );
 }
 
-function SidebarPersonCard({ person, enablePending = false }) {
+function SidebarPersonCard({ person, enablePending = false, onOpenProfile, activeProfileId }) {
   const [isPending, setIsPending] = useState(false);
-  const initials = person.name.replace(/[^a-zA-Z ]/g,'').split(' ').map(n => n[0]).filter(Boolean).join('').slice(0,2);
-  const isConnectButton = enablePending && person.action === 'Connect';
+  const initials = getInitials(person.name);
+  const hasAvatarImage = Boolean(person.profilePhoto);
+  const isConnectButton = enablePending && person.action === 'Connect' && person.togglesToPending === true;
+  const canOpenProfile = Boolean(person.profileId && onOpenProfile);
+  const isActiveProfile = person.profileId && person.profileId === activeProfileId;
 
-  const handleActionClick = () => {
+  const handleNavigate = () => {
+    if (canOpenProfile) {
+      onOpenProfile(person.profileId);
+    }
+  };
+
+  const handleKeyDown = (event) => {
+    if (!canOpenProfile) {
+      return;
+    }
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      handleNavigate();
+    }
+  };
+
+  const handleActionClick = (event) => {
+    event.stopPropagation();
     if (isConnectButton) {
       setIsPending(true);
     }
   };
 
   return (
-    <div className="sidebar-person">
-      <div className="sb-ava">{initials}</div>
+    <div
+      className="sidebar-person"
+      onClick={handleNavigate}
+      onKeyDown={handleKeyDown}
+      role={canOpenProfile ? 'button' : undefined}
+      tabIndex={canOpenProfile ? 0 : undefined}
+      style={{
+        cursor: canOpenProfile ? 'pointer' : 'default',
+        background: isActiveProfile ? '#f3f8fd' : 'transparent',
+      }}
+    >
+      <div className="sb-ava">
+        {hasAvatarImage ? (
+          <img
+            src={person.profilePhoto}
+            alt={person.name}
+            className="sb-ava-img"
+            style={{ objectPosition: person.avatarObjectPosition || 'center' }}
+          />
+        ) : (
+          initials
+        )}
+      </div>
       <div>
         <strong>{person.name}</strong>
         <p>{person.headline}</p>
-        <button className="sb-btn" type="button" onClick={handleActionClick}>
-          {isConnectButton ? (isPending ? <i>Pending</i> : '🤝 Connect') : `+ ${person.action}`}
+        <button className="sb-btn" type="button" onClick={handleActionClick} aria-pressed={isConnectButton ? isPending : undefined}>
+          {isConnectButton ? (isPending ? 'Pending' : '🤝 Connect') : `+ ${person.action}`}
         </button>
       </div>
     </div>
   );
 }
 
-function Sidebar() {
+function Sidebar({ profile, onOpenProfile, activeProfileId }) {
+  const firstName = (profile.name || '').split(' ')[0] || 'this';
+
   return (
     <aside className="sidebar">
       {/* Ad card top */}
@@ -356,7 +572,15 @@ function Sidebar() {
       {/* More profiles for you */}
       <div className="card sb-card">
         <h2>More profiles for you</h2>
-        {profile.sidebarProfiles.map(p => <SidebarPersonCard key={p.name} person={p} enablePending={true}/>)}
+        {profile.sidebarProfiles.map((p) => (
+          <SidebarPersonCard
+            key={p.name}
+            person={p}
+            enablePending={true}
+            onOpenProfile={onOpenProfile}
+            activeProfileId={activeProfileId}
+          />
+        ))}
         <button className="show-all-btn compact" type="button">Show all <ChevronRight size={14}/></button>
       </div>
 
@@ -382,8 +606,10 @@ function Sidebar() {
       {/* People you may know */}
       <div className="card sb-card">
         <h2>People you may know</h2>
-        <p className="section-sub">From Leo's school</p>
-        {profile.peopleYouMayKnow.map(p => <SidebarPersonCard key={p.name} person={p}/>)}
+        <p className="section-sub">From {firstName}'s school</p>
+        {profile.peopleYouMayKnow.map((p) => (
+          <SidebarPersonCard key={p.name} person={p} />
+        ))}
         <button className="show-all-btn compact" type="button">Show all <ChevronRight size={14}/></button>
       </div>
 
@@ -423,21 +649,74 @@ function Footer() {
 }
 
 export default function App() {
+  const [activeProfileId, setActiveProfileId] = useState(() => getProfileIdFromUrl());
+  const [activeView, setActiveView] = useState(() => getViewFromUrl());
+  const profile = profilesById[activeProfileId] || profilesById[defaultProfileId];
+
+  useEffect(() => {
+    const handlePopState = () => {
+      setActiveProfileId(getProfileIdFromUrl());
+      setActiveView(getViewFromUrl());
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  const handleOpenProfile = (nextProfileId) => {
+    if (!profilesById[nextProfileId] || nextProfileId === activeProfileId) {
+      return;
+    }
+
+    const nextUrl = new URL(window.location.href);
+    nextUrl.searchParams.set('profile', nextProfileId);
+    nextUrl.searchParams.delete('view');
+    window.history.pushState({ profileId: nextProfileId }, '', nextUrl);
+    setActiveProfileId(nextProfileId);
+    setActiveView(null);
+  };
+
+  const handleShowSkills = () => {
+    const nextUrl = new URL(window.location.href);
+    nextUrl.searchParams.set('view', 'skills');
+    window.history.pushState({ view: 'skills' }, '', nextUrl);
+    setActiveView('skills');
+  };
+
+  const handleBackFromSkills = () => {
+    window.history.back();
+  };
+
+  if (activeView === 'skills') {
+    return (
+      <>
+        <Navbar />
+        <StickyMiniProfile profile={profile} />
+        <SkillsPage profile={profile} onBack={handleBackFromSkills} />
+        <MessagingBubble />
+      </>
+    );
+  }
+
   return (
     <>
       <Navbar />
-      <StickyMiniProfile />
+      <StickyMiniProfile profile={profile} />
       <main className="page-shell">
         <div className="main-column">
-          <ProfileTopCard />
-          <AboutCard />
-          <ActivityCard />
-          <ExperienceCard />
-          <EducationCard />
-          <SkillsCard />
-          <InterestsCard />
+          <ProfileTopCard profile={profile} />
+          <AboutCard profile={profile} />
+          <ActivityCard profile={profile} />
+          <ExperienceCard profile={profile} />
+          <EducationCard profile={profile} />
+          <SkillsCard profile={profile} onShowAll={handleShowSkills} />
+          <InterestsCard profile={profile} />
         </div>
-        <Sidebar />
+        <Sidebar
+          profile={profile}
+          onOpenProfile={handleOpenProfile}
+          activeProfileId={activeProfileId}
+        />
       </main>
       <Footer />
       <MessagingBubble />
