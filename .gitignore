@@ -6,6 +6,9 @@ Frontend/node_modules/
 Frontend/dist/
 Frontend/.vite/
 Frontend/.cache/
+Frontend/playwright-report/
+Frontend/test-results/
+Frontend/.playwright/
 
 # Logs
 npm-debug.log*
