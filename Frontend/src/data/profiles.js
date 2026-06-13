@@ -222,6 +222,7 @@ export const profilesById = {
     educationItems: [
       {
         school: 'Yale University',
+        schoolUrl: 'https://www.linkedin.com/school/yale-law-school/',
         logoText: 'Y',
         logoBg: '#00356b',
         degree: 'Master of Science (M.S.), Computer Science',

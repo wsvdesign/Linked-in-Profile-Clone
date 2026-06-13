@@ -15,6 +15,7 @@ import eliotParkImage from './assets/refference/profiles/Skll set endorsement im
 import nadiaFloresImage from './assets/refference/profiles/Skll set endorsement images/Nadia_Flores.jpg';
 import danielYuenImage from './assets/refference/profiles/Skll set endorsement images/Daniel_Yuen.jpg';
 import profAveryBrooksImage from './assets/refference/profiles/Skll set endorsement images/Prof_Avery_Brooks.jpg';
+import MyNetworkPage from './pages/MyNetworkPage.jsx';
 
 function getProfileIdFromUrl() {
   if (typeof window === 'undefined') {
@@ -41,10 +42,10 @@ function getInitials(name) {
     .toUpperCase();
 }
 
-function Navbar() {
+function Navbar({ onOpenView, activeView }) {
   const navItems = [
-    { label: 'Home', icon: Home, badge: '6' },
-    { label: 'My Network', icon: Users, badge: '2' },
+    { label: 'Home', icon: Home, badge: '6', view: null },
+    { label: 'My Network', icon: Users, badge: '2', view: 'network' },
     { label: 'Jobs', icon: BriefcaseBusiness },
     { label: 'Messaging', icon: MessageCircle, badge: '1' },
     { label: 'Notifications', icon: Bell, badge: '3' },
@@ -60,8 +61,18 @@ function Navbar() {
           </div>
         </div>
         <nav className="nav-links">
-          {navItems.map(({ label, icon: Icon, badge }) => (
-            <button className="nav-item" key={label} type="button">
+          {navItems.map(({ label, icon: Icon, badge, view }) => (
+            <button
+              className="nav-item"
+              key={label}
+              type="button"
+              onClick={() => {
+                if (onOpenView && (view !== undefined || label === 'Home')) {
+                  onOpenView(view ?? null);
+                }
+              }}
+              aria-current={activeView === view && view ? 'page' : undefined}
+            >
               <span className="nav-icon-wrap">
                 <Icon size={22} />
                 {badge && <span className="nav-badge">{badge}</span>}
@@ -325,7 +336,13 @@ function EducationCard({ profile }) {
           <div key={i} className="exp-item">
             <div className="exp-logo school-logo" style={{ background: item.logoBg }}>{item.logoText}</div>
             <div className="exp-body">
-              <h3 className="exp-role">{item.school}</h3>
+              <h3 className="exp-role">
+                {item.schoolUrl ? (
+                  <a href={item.schoolUrl} target="_blank" rel="noreferrer">{item.school}</a>
+                ) : (
+                  item.school
+                )}
+              </h3>
               <p className="exp-meta">{item.degree}</p>
               <p className="exp-meta muted">{item.dates}</p>
               {item.details && <p className="exp-desc">{item.details}</p>}
@@ -495,11 +512,14 @@ function AdCard() {
   );
 }
 
-function SidebarPersonCard({ person, enablePending = false, onOpenProfile, activeProfileId }) {
+function SidebarPersonCard({ person, enablePending = false, pendingMode = 'flagged', onOpenProfile, activeProfileId }) {
   const [isPending, setIsPending] = useState(false);
   const initials = getInitials(person.name);
   const hasAvatarImage = Boolean(person.profilePhoto);
-  const isConnectButton = enablePending && person.action === 'Connect' && person.togglesToPending === true;
+  const isConnectButton =
+    enablePending
+    && person.action === 'Connect'
+    && (pendingMode === 'all' || person.togglesToPending === true);
   const canOpenProfile = Boolean(person.profileId && onOpenProfile);
   const isActiveProfile = person.profileId && person.profileId === activeProfileId;
 
@@ -608,7 +628,7 @@ function Sidebar({ profile, onOpenProfile, activeProfileId }) {
         <h2>People you may know</h2>
         <p className="section-sub">From {firstName}'s school</p>
         {profile.peopleYouMayKnow.map((p) => (
-          <SidebarPersonCard key={p.name} person={p} />
+          <SidebarPersonCard key={p.name} person={p} enablePending={true} pendingMode="all" />
         ))}
         <button className="show-all-btn compact" type="button">Show all <ChevronRight size={14}/></button>
       </div>
@@ -687,10 +707,35 @@ export default function App() {
     window.history.back();
   };
 
+  const handleOpenView = (nextView) => {
+    const nextUrl = new URL(window.location.href);
+
+    if (nextView) {
+      nextUrl.searchParams.set('view', nextView);
+      window.history.pushState({ view: nextView }, '', nextUrl);
+      setActiveView(nextView);
+      return;
+    }
+
+    nextUrl.searchParams.delete('view');
+    window.history.pushState({ view: null }, '', nextUrl);
+    setActiveView(null);
+  };
+
+  if (activeView === 'network') {
+    return (
+      <div className="network-view">
+        <Navbar onOpenView={handleOpenView} activeView={activeView} />
+        <MyNetworkPage />
+        <MessagingBubble />
+      </div>
+    );
+  }
+
   if (activeView === 'skills') {
     return (
       <>
-        <Navbar />
+        <Navbar onOpenView={handleOpenView} activeView={activeView} />
         <StickyMiniProfile profile={profile} />
         <SkillsPage profile={profile} onBack={handleBackFromSkills} />
         <MessagingBubble />
@@ -700,7 +745,7 @@ export default function App() {
 
   return (
     <>
-      <Navbar />
+      <Navbar onOpenView={handleOpenView} activeView={activeView} />
       <StickyMiniProfile profile={profile} />
       <main className="page-shell">
         <div className="main-column">

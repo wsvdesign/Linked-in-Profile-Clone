@@ -9,6 +9,7 @@
   --green: #057642;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
+html, body, #root { width: 100%; }
 body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
 button, input { font: inherit; cursor: pointer; }
 a { color: var(--blue); text-decoration: none; font-weight: 600; }
@@ -180,6 +181,9 @@ a { color: var(--blue); text-decoration: none; font-weight: 600; }
 /* MESSAGING BUBBLE */
 .messaging-bubble { position: fixed; right: 24px; bottom: 0; width: 320px; height: 52px; border: 1px solid var(--border); border-bottom: 0; border-radius: 10px 10px 0 0; background: #fff; box-shadow: 0 -2px 8px rgba(0,0,0,0.1); z-index: 50; display: flex; align-items: center; gap: 8px; padding: 0 12px; }
 .messaging-bubble strong { font-size: 15px; }
+.messaging-bubble.messaging-bubble-docked { width: 172px; height: 28px; right: 24px; gap: 3px; padding: 0 6px; border-radius: 7px 7px 0 0; }
+.messaging-bubble.messaging-bubble-docked .mini-avatar { width: 15px; height: 15px; font-size: 9px; }
+.messaging-bubble.messaging-bubble-docked strong { font-size: 10px; font-weight: 700; }
 
 /* RESPONSIVE */
 @media (max-width: 980px) {
@@ -199,7 +203,9 @@ a { color: var(--blue); text-decoration: none; font-weight: 600; }
   .profile-photo-ring { top: 78px; }
   .top-card-body { padding-top: 68px; }
   .messaging-bubble { width: calc(100% - 20px); right: 10px; }
+  .messaging-bubble.messaging-bubble-docked { width: 172px; right: 10px; }
 }
+
 
 /* INTERESTS */
 .interests-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 8px; }
@@ -242,3 +248,272 @@ a { color: var(--blue); text-decoration: none; font-weight: 600; }
 .skills-page-endorsed-by { font-size: 13px; color: var(--muted); line-height: 1.4; }
 .skills-page-count-line { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); }
 .skills-page-people-icon { color: var(--muted); flex-shrink: 0; }
+
+/* MY NETWORK PAGE */
+.network-page-shell {
+  width: 1128px;
+  min-width: 1128px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 12px;
+}
+
+.network-page-scroll {
+  width: 100%;
+  overflow-x: auto;
+  padding: 16px 12px 104px;
+}
+
+.network-sidebar-column {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: sticky;
+  top: 64px;
+  align-self: start;
+}
+
+.network-sidebar-card,
+.network-footer-card,
+.network-section-card,
+.network-ad-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.network-sidebar-card {
+  padding: 12px 14px;
+}
+
+.network-sidebar-card h2 {
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+
+.network-sidebar-card ul {
+  list-style: none;
+}
+
+.network-sidebar-card li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  font-size: 13px;
+  border-bottom: 1px solid #ececec;
+  color: #444;
+}
+
+.network-sidebar-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.network-sidebar-label svg {
+  color: #666;
+}
+
+.network-sidebar-card li:last-child {
+  border-bottom: 0;
+}
+
+.network-sidebar-card li svg {
+  color: #7a7a7a;
+}
+
+.network-ad-card {
+  padding: 12px 14px;
+  background: linear-gradient(170deg, #eff5ff 0%, #f8fbff 100%);
+}
+
+.network-ad-kicker {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.network-ad-card h3 {
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.network-ad-card p {
+  font-size: 12px;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.network-ad-card button {
+  border: 1px solid var(--blue);
+  color: var(--blue);
+  background: #fff;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 6px 14px;
+}
+
+.network-footer-card {
+  padding: 12px 14px;
+}
+
+.network-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+}
+
+.network-footer-links a {
+  color: var(--muted);
+  font-weight: 500;
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.network-footer-links a:hover {
+  color: var(--blue);
+  text-decoration: underline;
+}
+
+.network-main-column {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.network-section-card {
+  padding: 10px;
+}
+
+.network-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.network-section-header h2 {
+  font-size: 15px;
+  margin-bottom: 2px;
+}
+
+.network-section-header p {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.network-show-all {
+  border: 0;
+  background: transparent;
+  color: var(--blue);
+  font-weight: 700;
+  font-size: 12px;
+  padding: 2px 4px;
+}
+
+.network-card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.network-profile-card {
+  position: relative;
+  border: 1px solid #dfdfdf;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  min-height: 258px;
+}
+
+.network-card-close {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  border: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.85);
+  color: #444;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.network-profile-banner {
+  height: 58px;
+}
+
+.network-profile-avatar {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  margin: -29px auto 0;
+  display: block;
+}
+
+.network-profile-body {
+  padding: 8px 10px 10px;
+  text-align: center;
+}
+
+.network-profile-name {
+  font-size: 13px;
+  line-height: 1.2;
+  margin-bottom: 2px;
+}
+
+.network-profile-headline {
+  font-size: 11px;
+  line-height: 1.35;
+  color: #555;
+  min-height: 30px;
+  margin-bottom: 6px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.network-profile-mutual {
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 7px;
+}
+
+.network-connect-btn {
+  border: 1px solid var(--blue);
+  color: var(--blue);
+  background: #fff;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 12px;
+  min-height: 28px;
+  padding: 0 12px;
+}
+
+@media (max-width: 1240px) {
+  .network-page-scroll {
+    overflow-x: auto;
+    overflow-y: auto;
+  }
+
+  .network-page-shell {
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+
+  .network-view .messaging-bubble {
+    width: 250px;
+    max-width: calc(100vw - 24px);
+    left: auto;
+    right: 12px;
+    bottom: 0;
+  }
+}
