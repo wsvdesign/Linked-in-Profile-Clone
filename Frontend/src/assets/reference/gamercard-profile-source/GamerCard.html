@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Leo Martinez — GamerCard</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:#f3f2ef;color:#191919}
+button,input,textarea{font:inherit;cursor:pointer}
+a{color:#0a66c2;text-decoration:none}
+
+/* NAVBAR */
+.navbar{background:#fff;border-bottom:1px solid #d9d9d9;height:52px;display:flex;align-items:center;padding:0 16px;justify-content:space-between;position:sticky;top:0;z-index:40}
+.navbar-inner{max-width:1128px;width:100%;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.brand{width:34px;height:34px;border-radius:4px;background:#0a66c2;color:#fff;font-weight:900;font-size:22px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.search-box{background:#edf3f8;border-radius:4px;padding:6px 10px;display:flex;align-items:center;gap:6px;width:220px;font-size:13px;color:#666}
+.nav-links{display:flex;align-items:stretch;height:52px}
+.ni{border:0;background:transparent;color:#555;min-width:66px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:11px;padding:0 4px;cursor:pointer;height:52px;border-bottom:2px solid transparent}
+.ni:hover{color:#191919;border-bottom-color:#191919}
+.ni-icon{position:relative;display:inline-flex}
+.badge{position:absolute;top:-6px;right:-8px;background:#cc1016;color:#fff;min-width:15px;height:15px;border-radius:999px;font-size:10px;display:flex;align-items:center;justify-content:center;font-weight:700;padding:0 2px}
+.mini-ava{width:26px;height:26px;border-radius:50%;background:#6847c1;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:11px}
+.nav-div{border-left:1px solid #d9d9d9;margin:10px 4px}
+.prem{border:0;background:transparent;color:#915907;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:11px;padding:0 8px;height:52px;cursor:pointer}
+.gold{width:16px;height:16px;background:linear-gradient(135deg,#e7a33e 50%,#c37d16 50%);border-radius:3px}
+
+/* STICKY MINI */
+.sticky-mini{background:rgba(255,255,255,0.97);border-bottom:1px solid #d9d9d9;position:sticky;top:52px;z-index:35}
+.sticky-inner{max-width:1128px;margin:0 auto;height:46px;display:flex;align-items:center;gap:10px;padding:0 12px}
+.sticky-inner p{margin:0;font-size:11px;color:#666}
+.sticky-ava{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#c9673e,#788fa5);color:#fff;font-weight:800;font-size:11px;display:flex;align-items:center;justify-content:center}
+.sticky-actions{margin-left:auto;display:flex;gap:6px}
+
+/* BUTTONS */
+.btn-primary{background:#0a66c2;border:1px solid #0a66c2;color:#fff;border-radius:999px;padding:5px 14px;font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:4px}
+.btn-primary:hover{background:#004182}
+.btn-outline{background:#fff;border:1px solid #0a66c2;color:#0a66c2;border-radius:999px;padding:5px 14px;font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:4px}
+.btn-outline:hover{background:#eef3f8}
+.btn-ghost{background:#fff;border:1px solid #666;color:#191919;border-radius:999px;padding:5px 14px;font-size:13px;font-weight:700}
+.btn-ghost:hover{background:#f3f2ef}
+.btn-gold{background:#f5c842;border:1px solid #f5c842;color:#191919;border-radius:999px;padding:8px 18px;font-size:14px;font-weight:700;cursor:pointer;margin-top:14px;display:inline-block}
+
+/* LAYOUT */
+.shell{max-width:1128px;margin:16px auto 50px;display:grid;grid-template-columns:1fr 300px;gap:16px;padding:0 12px}
+.main-col{display:flex;flex-direction:column;gap:10px}
+.sidebar{display:flex;flex-direction:column;gap:10px}
+
+/* CARDS */
+.card{background:#fff;border:1px solid #d9d9d9;border-radius:10px;overflow:hidden}
+.sp{padding:18px 24px}
+.card-head{font-size:20px;font-weight:700;margin:0 0 14px}
+.tab-head{font-size:17px;font-weight:700;margin:0 0 14px}
+.muted{color:#666;font-size:13px}
+
+/* PROFILE HEADER */
+/* Same terracotta banner as the LinkedIn profile page */
+.cover{height:200px;background:#c9673e;position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;width:260px;height:260px;border:10px solid rgba(255,255,255,0.18);border-radius:50%;right:40px;top:-60px}
+.cover-mark{position:absolute;right:90px;top:28px;font-size:90px;font-weight:200;color:rgba(0,0,0,0.2);transform:rotate(-18deg);line-height:1}
+.cover-tag{position:absolute;top:16px;left:24px;background:rgba(0,0,0,0.35);color:#fff;font-size:12px;font-weight:700;padding:4px 12px;border-radius:999px;letter-spacing:0.08em}
+
+.photo-wrap{position:relative;margin-left:24px;margin-top:-76px;width:fit-content;z-index:2}
+.photo{width:152px;height:152px;border-radius:50%;border:4px solid #fff;background:linear-gradient(135deg,#c9673e,#788fa5);display:flex;align-items:center;justify-content:center;font-size:46px;font-weight:800;color:#fff;overflow:hidden}
+.photo img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.online-dot{position:absolute;bottom:10px;right:10px;width:18px;height:18px;border-radius:50%;background:#57f287;border:3px solid #fff}
+
+.top-body{padding:10px 24px 20px}
+.identity-grid{display:grid;grid-template-columns:1fr 230px;gap:16px;margin-bottom:6px}
+.profile-name{font-size:26px;font-weight:700;display:flex;align-items:center;gap:6px;margin-bottom:2px}
+.verified-icon{color:#0a66c2;font-size:18px}
+.profile-hl{font-size:15px;margin:3px 0}
+.handle-row{font-size:13px;color:#666;margin:2px 0}
+
+/* CONNECTIONS */
+.connections{display:flex;flex-direction:column;gap:0}
+.conn-label{font-size:11px;color:#666;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px}
+.conn-row{display:flex;align-items:center;gap:8px;padding:4px 0;text-decoration:none}
+.conn-icon{width:22px;height:22px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;color:#fff}
+.conn-row span{font-size:13px;color:#0a66c2;font-weight:600}
+.conn-row .ext{margin-left:auto;color:#999;font-size:11px}
+
+/* SNAP */
+.snap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.snap-card{background:#f8f8f8;border-radius:8px;padding:12px;display:flex;align-items:center;gap:10px;border:1px solid #eee}
+.snap-icon{font-size:22px;flex-shrink:0}
+.snap-label{font-size:10px;color:#666;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin:0 0 2px}
+.snap-val{font-size:14px;font-weight:700;margin:0}
+.avail-badge{display:inline-flex;align-items:center;gap:6px;background:#e8f5e9;color:#2e7d32;padding:6px 14px;border-radius:999px;font-size:13px;font-weight:600}
+.green-dot{width:8px;height:8px;border-radius:50%;background:#4caf50;display:inline-block}
+
+/* TABS */
+.tab-bar{display:flex;border-bottom:1px solid #e5e5e5;padding:0 24px}
+.tab-btn{border:0;background:transparent;padding:12px 16px;font-size:14px;cursor:pointer;border-bottom:2px solid transparent;color:#555}
+.tab-btn.active{border-bottom-color:#0a66c2;color:#0a66c2;font-weight:700}
+.tab-content{padding:18px 24px;display:none}
+.tab-content.active{display:block}
+
+/* GAMES GRID */
+.games-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.game-play-card{border:1px solid #e5e5e5;border-radius:10px;padding:14px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px}
+.game-thumb{width:60px;height:60px;border-radius:8px;background:linear-gradient(135deg,#0f3460,#533483);display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:6px}
+.game-play-card strong{font-size:13px}
+.game-play-card .role{font-size:11px;color:#666;margin:2px 0}
+.game-play-card .rank{font-size:12px;color:#0a66c2;font-weight:600;margin:2px 0}
+.game-play-card .hrs{font-size:11px;color:#999;margin:2px 0}
+
+/* BUILD CARDS */
+.build-card{border:1px solid #e5e5e5;border-radius:10px;padding:18px;margin-bottom:12px}
+.build-card:last-child{margin-bottom:0}
+.build-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.build-title{font-size:16px;font-weight:700}
+.badges{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.badge-status{font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px}
+.shipped{background:#e8f5e9;color:#2e7d32}
+.inprogress{background:#e3f2fd;color:#1565c0}
+.tech-tag{background:#eef3f8;color:#0a66c2;font-size:12px;padding:3px 10px;border-radius:999px;font-weight:600}
+.tech-row{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 12px}
+
+/* ACHIEVEMENTS */
+.achieve-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.achieve-card{border:1px solid #e5e5e5;border-radius:10px;padding:16px;text-align:center}
+.achieve-icon{font-size:32px}
+.achieve-title{font-size:14px;font-weight:700;display:block;margin:8px 0 3px}
+.achieve-detail{font-size:12px;color:#666;margin:0}
+
+/* ROLES */
+.roles-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.role-card{border:1px solid #e5e5e5;border-radius:10px;padding:16px;text-align:center}
+.role-icon{font-size:28px}
+.role-name{font-size:14px;font-weight:700;display:block;margin:8px 0 4px}
+.role-pro{font-size:12px;color:#666;margin:0}
+
+/* DISCORD CARD */
+.discord-card{background:#2b2d31;border-radius:10px;padding:20px;display:grid;grid-template-columns:180px 1fr;gap:20px;color:#fff}
+.discord-left{display:flex;flex-direction:column;align-items:flex-start;position:relative}
+.discord-ava{width:72px;height:72px;border-radius:50%;border:3px solid #5865f2;background:linear-gradient(135deg,#533483,#0f3460);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;color:#fff;overflow:hidden;margin-bottom:10px}
+.discord-ava img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.discord-online{font-size:12px;color:#57f287;font-weight:600;margin:6px 0}
+.discord-since{font-size:11px;color:#aaa;margin:2px 0}
+.discord-right{border-left:1px solid rgba(255,255,255,0.1);padding-left:20px}
+.d-label{font-size:11px;color:#aaa;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;display:block}
+.d-conn-row{display:flex;align-items:center;gap:8px;padding:5px 0;text-decoration:none}
+.d-conn-icon{width:22px;height:22px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;color:#fff}
+.d-conn-platform{font-size:13px;color:#dcddde}
+.d-conn-handle{font-size:12px;color:#0a66c2;margin-left:auto}
+.tags-row{margin-top:14px;display:flex;flex-wrap:wrap;gap:6px}
+.d-tag{background:rgba(88,101,242,0.3);color:#7289da;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:600}
+
+/* SUBMIT GAMES */
+.submit-form{background:#f8f8f8;border-radius:10px;padding:18px;margin-bottom:16px;border:1px solid #e5e5e5;display:none}
+.submit-form.open{display:block}
+.form-input{width:100%;border:1px solid #d9d9d9;border-radius:6px;padding:9px 12px;font-size:14px;outline:none;background:#fff;margin-bottom:10px;display:block}
+textarea.form-input{height:80px;resize:vertical}
+.game-submit-card{border:1px solid #e5e5e5;border-radius:10px;padding:16px;margin-bottom:10px}
+.game-submit-card:last-child{margin-bottom:0}
+.submit-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px}
+.game-type-tag{font-size:11px;background:#eef3f8;color:#0a66c2;padding:3px 10px;border-radius:999px;font-weight:600;white-space:nowrap}
+.ready{background:#e8f5e9;color:#2e7d32}
+.dev{background:#fff3e0;color:#e65100}
+
+/* PREMIUM */
+.premium-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.premium-card{border:2px dashed #d9d9d9;border-radius:10px;padding:14px;text-align:center;position:relative;background:#fafafa}
+.lock-icon{position:absolute;top:10px;right:10px;font-size:14px;color:#915907}
+.prem-icon{font-size:24px}
+.prem-title{font-size:13px;font-weight:700;margin:8px 0 0;display:block}
+
+/* SIDEBAR */
+.sb-card{padding:16px}
+.sb-head{font-size:16px;font-weight:700;margin-bottom:10px}
+.sb-person{display:grid;grid-template-columns:42px 1fr;gap:8px;padding:10px 0;border-bottom:1px solid #e5e5e5}
+.sb-person:last-of-type{border-bottom:0}
+.sb-ava{width:42px;height:42px;border-radius:50%;background:#c9d7e4;color:#425466;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0}
+.sb-person strong{font-size:13px;display:block}
+.sb-person p{font-size:11px;color:#555;margin:2px 0}
+.mini-btn{margin-top:4px;border:1px solid #666;background:#fff;border-radius:999px;padding:4px 12px;font-weight:700;font-size:12px;cursor:pointer}
+.show-all-btn{width:100%;border:0;background:#fff;border-top:1px solid #e5e5e5;padding:10px;font-weight:700;font-size:13px;color:#555;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:4px;margin-top:6px}
+.page-row{display:grid;grid-template-columns:38px 1fr;gap:8px;padding:10px 0;border-bottom:1px solid #e5e5e5}
+.page-row:last-child{border-bottom:0}
+.page-icon{width:38px;height:38px;border-radius:6px;color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.page-row strong{font-size:13px;display:block}
+.page-row p{font-size:11px;color:#555;margin:1px 0}
+.ad-card{background:#08294a;color:#fff;min-height:190px;padding:16px}
+.ad-label{font-size:11px;opacity:0.7;margin-bottom:8px}
+.ad-card h3{font-size:18px;font-weight:700;line-height:1.2;margin-bottom:10px}
+.ad-blue{color:#70b5f9}
+.explore-btn{background:#0a66c2;color:#fff;border:0;border-radius:999px;padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer}
+.ad-photos{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:12px;border-radius:6px;overflow:hidden}
+.ad-photos span{height:50px;display:block;border-radius:3px}
+
+/* MESSAGING BUBBLE */
+.bubble{position:fixed;right:22px;bottom:0;width:300px;height:50px;border:1px solid #d9d9d9;border-bottom:0;border-radius:10px 10px 0 0;background:#fff;box-shadow:0 -2px 8px rgba(0,0,0,0.1);z-index:50;display:flex;align-items:center;gap:8px;padding:0 12px}
+.bubble strong{font-size:14px}
+.icon-btn{border:0;background:transparent;color:#555;cursor:pointer;font-size:18px}
+
+/* FOOTER */
+.footer{background:#fff;border-top:1px solid #d9d9d9;padding:16px 0 40px}
+.footer-inner{max-width:1128px;margin:0 auto;padding:0 12px}
+.footer-links{display:flex;flex-wrap:wrap;gap:6px 14px;margin-bottom:10px}
+.footer-links a{font-size:11px;color:#666;text-decoration:none}
+.footer-links a:hover{text-decoration:underline;color:#0a66c2}
+.footer-brand{font-size:14px;color:#0a66c2;font-weight:900}
+
+@media(max-width:960px){
+  .shell{grid-template-columns:1fr}
+  .sidebar{display:none}
+  .identity-grid{grid-template-columns:1fr}
+  .connections{display:none}
+  .games-grid{grid-template-columns:repeat(2,1fr)}
+  .achieve-grid{grid-template-columns:repeat(2,1fr)}
+  .roles-grid{grid-template-columns:repeat(2,1fr)}
+  .premium-grid{grid-template-columns:repeat(2,1fr)}
+  .snap-grid{grid-template-columns:repeat(2,1fr)}
+  .discord-card{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+  <div class="navbar-inner">
+    <div style="display:flex;align-items:center;gap:8px">
+      <div class="brand">in</div>
+      <div class="search-box">🔍 Search</div>
+    </div>
+    <nav class="nav-links">
+      <button class="ni"><span class="ni-icon">🏠</span><span>Home</span></button>
+      <button class="ni"><span class="ni-icon" style="position:relative">👥<span class="badge">2</span></span><span>My Network</span></button>
+      <button class="ni"><span>💼</span><span>Jobs</span></button>
+      <button class="ni"><span class="ni-icon" style="position:relative">💬<span class="badge">1</span></span><span>Messaging</span></button>
+      <button class="ni"><span class="ni-icon" style="position:relative">🔔<span class="badge">3</span></span><span>Notifications</span></button>
+      <button class="ni"><div class="mini-ava">N</div><span>Me ▾</span></button>
+      <div class="nav-div"></div>
+      <button class="ni"><span>⊞</span><span>For Business ▾</span></button>
+      <button class="prem"><div class="gold"></div><span>Try Premium for $0</span></button>
+    </nav>
+  </div>
+</header>
+
+<!-- STICKY MINI -->
+<div class="sticky-mini">
+  <div class="sticky-inner">
+    <div class="sticky-ava">LM</div>
+    <div>
+      <strong style="font-size:13px">Leo Martinez</strong>
+      <p>@leomartinez · GamerCard</p>
+    </div>
+    <div class="sticky-actions">
+      <button class="btn-ghost" style="font-size:12px;padding:3px 10px">More</button>
+      <button class="btn-outline" style="font-size:12px;padding:3px 10px">✈ Message</button>
+      <button class="btn-primary" style="font-size:12px;padding:3px 10px">+ Follow</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE -->
+<main class="shell">
+  <div class="main-col">
+
+    <!-- PROFILE HEADER CARD -->
+    <div class="card" style="position:relative;overflow:visible">
+      <!-- Same terracotta banner as the LinkedIn profile page -->
+      <div class="cover">
+        <div class="cover-mark">⌁</div>
+        <div class="cover-tag">GAMERCARD</div>
+      </div>
+
+      <!-- Profile photo — swap src with Leo's real photo when Marc sends it -->
+      <div class="photo-wrap">
+        <div class="photo" id="profile-photo">
+          <!-- Replace the LM text below with: <img src="leo-martinez.jpg" alt="Leo Martinez"> -->
+          LM
+        </div>
+        <div class="online-dot" title="Online"></div>
+      </div>
+
+      <div class="top-body">
+        <div class="identity-grid">
+          <div>
+            <div class="profile-name">
+              Leo Martinez
+              <span class="verified-icon">🛡</span>
+            </div>
+            <p class="handle-row">@leomartinez · he/him/his</p>
+            <p class="profile-hl">Game Developer | Frontend Engineer | CS Graduate Student at Yale</p>
+            <p class="muted" style="margin:4px 0">San Francisco Bay Area · Member since Sep 5, 2019</p>
+            <p style="margin:4px 0;font-size:14px">
+              <strong style="color:#0a66c2;cursor:pointer">12,408 followers</strong> ·
+              <strong style="color:#0a66c2;cursor:pointer">500+ connections</strong>
+            </p>
+            <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
+              <button class="btn-primary">+ Follow</button>
+              <button class="btn-outline">✈ Message</button>
+              <button class="btn-ghost">More</button>
+            </div>
+          </div>
+
+          <!-- Platform connections -->
+          <div class="connections">
+            <p class="conn-label">Connections</p>
+            <a href="https://epicgames.com" target="_blank" class="conn-row">
+              <span class="conn-icon" style="background:#2d2d2d">⬛</span>
+              <span>leomartinez</span><span class="ext">↗</span>
+            </a>
+            <a href="https://steam.com" target="_blank" class="conn-row">
+              <span class="conn-icon" style="background:#1b2838">🎮</span>
+              <span>leomartinez</span><span class="ext">↗</span>
+            </a>
+            <a href="https://tiktok.com/@leomartinez" target="_blank" class="conn-row">
+              <span class="conn-icon" style="background:#010101">🎵</span>
+              <span>leomartinez</span><span class="ext">↗</span>
+            </a>
+            <a href="https://twitch.tv/leomartinez" target="_blank" class="conn-row">
+              <span class="conn-icon" style="background:#9146ff">📺</span>
+              <span>leomartinez</span><span class="ext">↗</span>
+            </a>
+            <a href="https://xbox.com" target="_blank" class="conn-row">
+              <span class="conn-icon" style="background:#107c10">🎮</span>
+              <span>leomartinez</span><span class="ext">↗</span>
+            </a>
+            <a href="https://youtube.com/@leomartinez" target="_blank" class="conn-row">
+              <span class="conn-icon" style="background:#ff0000">▶️</span>
+              <span>leomartinez</span><span class="ext">↗</span>
+            </a>
+            <a href="https://discord.com" target="_blank" class="conn-row">
+              <span class="conn-icon" style="background:#5865f2">💬</span>
+              <span>leomartinez</span><span class="ext">↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GAMING SNAPSHOT -->
+    <div class="card sp">
+      <h2 class="card-head">Gaming Snapshot</h2>
+      <div class="snap-grid">
+        <div class="snap-card"><span class="snap-icon">🎮</span><div><p class="snap-label">Main Game</p><p class="snap-val">VOID SIGNAL</p></div></div>
+        <div class="snap-card"><span class="snap-icon">🎯</span><div><p class="snap-label">Top Role</p><p class="snap-val">Strategist / Builder</p></div></div>
+        <div class="snap-card"><span class="snap-icon">💎</span><div><p class="snap-label">Current Rank</p><p class="snap-val">Platinum III</p></div></div>
+        <div class="snap-card"><span class="snap-icon">⏱️</span><div><p class="snap-label">Years Gaming</p><p class="snap-val">12 years</p></div></div>
+        <div class="snap-card"><span class="snap-icon">🖥️</span><div><p class="snap-label">Platform</p><p class="snap-val">PC · PlayStation · Browser</p></div></div>
+        <div class="snap-card"><span class="snap-icon">🔍</span><div><p class="snap-label">Looking For</p><p class="snap-val">Squad · Internship · Collab</p></div></div>
+      </div>
+      <div class="avail-badge"><span class="green-dot"></span> Open to squad · Open to projects</div>
+    </div>
+
+    <!-- TABS -->
+    <div class="card">
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="switchTab('overview',this)">Overview</button>
+        <button class="tab-btn" onclick="switchTab('games',this)">Games</button>
+        <button class="tab-btn" onclick="switchTab('builds',this)">Builds</button>
+        <button class="tab-btn" onclick="switchTab('achievements',this)">Achievements</button>
+      </div>
+
+      <!-- OVERVIEW TAB -->
+      <div class="tab-content active" id="tab-overview">
+        <div style="padding:18px 24px">
+          <h3 class="tab-head">Games I Play</h3>
+          <div class="games-grid" style="margin-bottom:20px">
+            <div class="game-play-card"><div class="game-thumb">🗡️</div><strong>Hollow Knight</strong><p class="role">Solo Explorer</p><p class="rank">Completed 112%</p><p class="hrs">340 hrs</p></div>
+            <div class="game-play-card"><div class="game-thumb">🥊</div><strong>Brawlhalla</strong><p class="role">Fighter</p><p class="rank">Platinum III</p><p class="hrs">210 hrs</p></div>
+            <div class="game-play-card"><div class="game-thumb">📖</div><strong>Deltarune</strong><p class="role">Narrative Player</p><p class="rank">All chapters complete</p><p class="hrs">80 hrs</p></div>
+            <div class="game-play-card"><div class="game-thumb">❤️</div><strong>Undertale</strong><p class="role">Completionist</p><p class="rank">True Pacifist + Genocide</p><p class="hrs">60 hrs</p></div>
+          </div>
+          <h3 class="tab-head">Games I Built</h3>
+          <div class="build-card">
+            <div class="build-top">
+              <span class="build-title">VOID SIGNAL</span>
+              <div class="badges"><span class="badge-status inprogress">In Progress</span><span class="badge-status" style="background:#f3f2ef;color:#555">Browser</span></div>
+            </div>
+            <p style="font-size:14px;color:#555;margin:0 0 10px;line-height:1.5">4-player asymmetric survival game. One player is invisible to everyone else but can see everything. The others must find and eliminate the ghost before time runs out.</p>
+            <p style="font-size:13px;color:#555;margin:0 0 8px"><strong>Role:</strong> Solo Developer</p>
+            <div class="tech-row"><span class="tech-tag">React</span><span class="tech-tag">JavaScript</span><span class="tech-tag">Canvas API</span></div>
+            <a href="#" class="btn-outline" style="font-size:13px;text-decoration:none">View project ↗</a>
+          </div>
+          <div class="build-card">
+            <div class="build-top">
+              <span class="build-title">HOLLOW GRID</span>
+              <div class="badges"><span class="badge-status shipped">Shipped</span><span class="badge-status" style="background:#f3f2ef;color:#555">Browser</span></div>
+            </div>
+            <p style="font-size:14px;color:#555;margin:0 0 10px;line-height:1.5">Browser-based tower defense game where you protect a data center from waves of corrupted code. Built with a team of six at Harvard Game Development Society.</p>
+            <p style="font-size:13px;color:#555;margin:0 0 8px"><strong>Role:</strong> Lead Developer</p>
+            <div class="tech-row"><span class="tech-tag">JavaScript</span><span class="tech-tag">Canvas API</span><span class="tech-tag">HTML5</span></div>
+            <a href="#" class="btn-outline" style="font-size:13px;text-decoration:none">View project ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- GAMES TAB -->
+      <div class="tab-content" id="tab-games">
+        <div style="padding:18px 24px">
+          <h3 class="tab-head">Games I Play</h3>
+          <div class="games-grid">
+            <div class="game-play-card"><div class="game-thumb">🗡️</div><strong>Hollow Knight</strong><p class="role">Solo Explorer</p><p class="rank">Completed 112%</p><p class="hrs">340 hrs</p></div>
+            <div class="game-play-card"><div class="game-thumb">🥊</div><strong>Brawlhalla</strong><p class="role">Fighter</p><p class="rank">Platinum III</p><p class="hrs">210 hrs</p></div>
+            <div class="game-play-card"><div class="game-thumb">📖</div><strong>Deltarune</strong><p class="role">Narrative Player</p><p class="rank">All chapters complete</p><p class="hrs">80 hrs</p></div>
+            <div class="game-play-card"><div class="game-thumb">❤️</div><strong>Undertale</strong><p class="role">Completionist</p><p class="rank">True Pacifist + Genocide</p><p class="hrs">60 hrs</p></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BUILDS TAB -->
+      <div class="tab-content" id="tab-builds">
+        <div style="padding:18px 24px">
+          <h3 class="tab-head">Games I Built</h3>
+          <div class="build-card">
+            <div class="build-top">
+              <span class="build-title">VOID SIGNAL</span>
+              <div class="badges"><span class="badge-status inprogress">In Progress</span><span class="badge-status" style="background:#f3f2ef;color:#555">Browser</span></div>
+            </div>
+            <p style="font-size:14px;color:#555;margin:0 0 10px;line-height:1.5">4-player asymmetric survival game. One player is invisible to everyone else but can see everything. The others must find and eliminate the ghost before time runs out.</p>
+            <p style="font-size:13px;color:#555;margin:0 0 8px"><strong>Role:</strong> Solo Developer</p>
+            <div class="tech-row"><span class="tech-tag">React</span><span class="tech-tag">JavaScript</span><span class="tech-tag">Canvas API</span></div>
+            <a href="#" class="btn-outline" style="font-size:13px;text-decoration:none">View project ↗</a>
+          </div>
+          <div class="build-card">
+            <div class="build-top">
+              <span class="build-title">HOLLOW GRID</span>
+              <div class="badges"><span class="badge-status shipped">Shipped</span><span class="badge-status" style="background:#f3f2ef;color:#555">Browser</span></div>
+            </div>
+            <p style="font-size:14px;color:#555;margin:0 0 10px;line-height:1.5">Browser-based tower defense game where you protect a data center from waves of corrupted code. Built with a team of six at Harvard Game Development Society.</p>
+            <p style="font-size:13px;color:#555;margin:0 0 8px"><strong>Role:</strong> Lead Developer</p>
+            <div class="tech-row"><span class="tech-tag">JavaScript</span><span class="tech-tag">Canvas API</span><span class="tech-tag">HTML5</span></div>
+            <a href="#" class="btn-outline" style="font-size:13px;text-decoration:none">View project ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ACHIEVEMENTS TAB -->
+      <div class="tab-content" id="tab-achievements">
+        <div style="padding:18px 24px">
+          <h3 class="tab-head">Achievements</h3>
+          <div class="achieve-grid">
+            <div class="achieve-card"><div class="achieve-icon">🥈</div><span class="achieve-title">Game Jam Finalist</span><p class="achieve-detail">Harvard CS Game Jam 2023</p></div>
+            <div class="achieve-card"><div class="achieve-icon">🎖️</div><span class="achieve-title">Team Captain</span><p class="achieve-detail">Harvard Game Development Society</p></div>
+            <div class="achieve-card"><div class="achieve-icon">⏱️</div><span class="achieve-title">500+ hrs Strategy Games</span><p class="achieve-detail">Hollow Knight · Brawlhalla · Deltarune</p></div>
+            <div class="achieve-card"><div class="achieve-icon">🚀</div><span class="achieve-title">Shipped Browser Game</span><p class="achieve-detail">HOLLOW GRID — live and playable</p></div>
+            <div class="achieve-card"><div class="achieve-icon">💎</div><span class="achieve-title">Platinum Rank</span><p class="achieve-detail">Brawlhalla — Season 14</p></div>
+            <div class="achieve-card"><div class="achieve-icon">🛠️</div><span class="achieve-title">Original Game in Dev</span><p class="achieve-detail">VOID SIGNAL — active development</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROLES & SKILLS -->
+    <div class="card sp">
+      <h2 class="card-head">Roles & Skills</h2>
+      <p class="muted" style="margin:0 0 16px">How Leo's gaming roles connect to professional skills</p>
+      <div class="roles-grid">
+        <div class="role-card"><div class="role-icon">🧠</div><span class="role-name">Strategist</span><p class="role-pro">Systems thinking · Planning</p></div>
+        <div class="role-card"><div class="role-icon">🎯</div><span class="role-name">Team Captain</span><p class="role-pro">Leadership · Communication</p></div>
+        <div class="role-card"><div class="role-icon">⚙️</div><span class="role-name">Builder / Developer</span><p class="role-pro">Technical creativity · Product thinking</p></div>
+        <div class="role-card"><div class="role-icon">🏆</div><span class="role-name">Competitive Player</span><p class="role-pro">Discipline · Performance under pressure</p></div>
+      </div>
+    </div>
+
+    <!-- DISCORD CONTACT CARD -->
+    <div class="card sp">
+      <h2 class="card-head">Contact & Community</h2>
+      <div class="discord-card">
+        <div class="discord-left">
+          <div class="discord-ava">
+            <!-- Replace LM with <img src="leo-martinez.jpg" alt="Leo Martinez"> when photo arrives -->
+            LM
+          </div>
+          <strong style="font-size:16px">Leo Martinez</strong>
+          <p style="font-size:12px;color:#aaa;margin:2px 0">@leomartinez</p>
+          <p style="font-size:12px;color:#aaa;margin:2px 0">he/him/his</p>
+          <p class="discord-online">🟢 Online · Voice available</p>
+          <p class="discord-since">Member since Sep 5, 2019</p>
+          <p style="font-size:12px;color:#aaa;margin:8px 0 0">Game Developer | Frontend Engineer | CS Graduate Student at Yale</p>
+        </div>
+        <div class="discord-right">
+          <span class="d-label">Platforms</span>
+          <a href="https://epicgames.com" target="_blank" class="d-conn-row"><span class="d-conn-icon" style="background:#2d2d2d">⬛</span><span class="d-conn-platform">Epic Games</span><span class="d-conn-handle">leomartinez</span></a>
+          <a href="https://steam.com" target="_blank" class="d-conn-row"><span class="d-conn-icon" style="background:#1b2838">🎮</span><span class="d-conn-platform">Steam</span><span class="d-conn-handle">leomartinez</span></a>
+          <a href="https://tiktok.com/@leomartinez" target="_blank" class="d-conn-row"><span class="d-conn-icon" style="background:#010101">🎵</span><span class="d-conn-platform">TikTok</span><span class="d-conn-handle">leomartinez</span></a>
+          <a href="https://twitch.tv/leomartinez" target="_blank" class="d-conn-row"><span class="d-conn-icon" style="background:#9146ff">📺</span><span class="d-conn-platform">Twitch</span><span class="d-conn-handle">leomartinez</span></a>
+          <a href="#" target="_blank" class="d-conn-row"><span class="d-conn-icon" style="background:#107c10">🎮</span><span class="d-conn-platform">Xbox</span><span class="d-conn-handle">leomartinez</span></a>
+          <a href="https://youtube.com/@leomartinez" target="_blank" class="d-conn-row"><span class="d-conn-icon" style="background:#ff0000">▶️</span><span class="d-conn-platform">YouTube</span><span class="d-conn-handle">leomartinez</span></a>
+          <a href="https://discord.com" target="_blank" class="d-conn-row"><span class="d-conn-icon" style="background:#5865f2">💬</span><span class="d-conn-platform">Discord</span><span class="d-conn-handle">leomartinez</span></a>
+          <div class="tags-row">
+            <span class="d-tag">team play</span>
+            <span class="d-tag">strategy</span>
+            <span class="d-tag">game dev</span>
+            <span class="d-tag">open to squad</span>
+            <span class="d-tag">modding</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUBMIT GAMES TO LINKEDIN -->
+    <div class="card sp">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px">
+        <div>
+          <h2 class="card-head" style="margin-bottom:4px">Submit Games to LinkedIn</h2>
+          <p class="muted">Share your thinking games with LinkedIn's games platform</p>
+        </div>
+        <button class="btn-outline" onclick="toggleSubmit()">+ Submit a game</button>
+      </div>
+
+      <div class="submit-form" id="submit-form">
+        <h3 style="font-size:16px;font-weight:700;margin:0 0 6px">New Game Submission</h3>
+        <p class="muted" style="margin:0 0 14px">LinkedIn accepts thinking, strategy, and cognitive skill games. One page. No multi-level complexity required.</p>
+        <input class="form-input" placeholder="Game title" />
+        <input class="form-input" placeholder="Game type (e.g. Pattern Recognition, Logic, Memory)" />
+        <textarea class="form-input" placeholder="Short description — what does the player do?"></textarea>
+        <input class="form-input" placeholder="Game URL or demo link" />
+        <button class="btn-primary">Submit for Review</button>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:10px">
+        <div class="game-submit-card">
+          <div class="submit-top">
+            <div><strong style="font-size:15px">Signal Sprint</strong><span class="badge-status ready">Ready to submit</span></div>
+            <span class="game-type-tag">Cognitive Speed</span>
+          </div>
+          <p style="font-size:13px;color:#555;margin:6px 0 10px;line-height:1.4">A fast-thinking pattern recognition game. Identify the signal from the noise in under 5 seconds.</p>
+          <button class="btn-outline" style="font-size:12px;padding:4px 12px">Submit to LinkedIn →</button>
+        </div>
+        <div class="game-submit-card">
+          <div class="submit-top">
+            <div><strong style="font-size:15px">Grid Logic</strong><span class="badge-status ready">Ready to submit</span></div>
+            <span class="game-type-tag">Strategic Thinking</span>
+          </div>
+          <p style="font-size:13px;color:#555;margin:6px 0 10px;line-height:1.4">A spatial reasoning puzzle. Fill the grid using logic — no guessing allowed.</p>
+          <button class="btn-outline" style="font-size:12px;padding:4px 12px">Submit to LinkedIn →</button>
+        </div>
+        <div class="game-submit-card">
+          <div class="submit-top">
+            <div><strong style="font-size:15px">Chain Reaction</strong><span class="badge-status dev">In development</span></div>
+            <span class="game-type-tag">Memory & Sequence</span>
+          </div>
+          <p style="font-size:13px;color:#555;margin:6px 0 10px;line-height:1.4">Connect the dots before the chain breaks. Tests working memory and sequential thinking.</p>
+          <button class="btn-outline" style="font-size:12px;padding:4px 12px">Continue building</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PREMIUM -->
+    <div class="card sp">
+      <h2 class="card-head">Unlock with Premium</h2>
+      <p class="muted" style="margin:0 0 16px">Boost your visibility, credibility, and community</p>
+      <div class="premium-grid">
+        <div class="premium-card"><span class="lock-icon">🔒</span><span class="prem-icon">✅</span><span class="prem-title">Verified Skill Badge</span></div>
+        <div class="premium-card"><span class="lock-icon">🔒</span><span class="prem-icon">🎨</span><span class="prem-title">Custom Profile Theme</span></div>
+        <div class="premium-card"><span class="lock-icon">🔒</span><span class="prem-icon">📊</span><span class="prem-title">Advanced Stats Dashboard</span></div>
+        <div class="premium-card"><span class="lock-icon">🔒</span><span class="prem-icon">🚀</span><span class="prem-title">Boosted Visibility</span></div>
+        <div class="premium-card"><span class="lock-icon">🔒</span><span class="prem-icon">🎬</span><span class="prem-title">Clip Showcase</span></div>
+        <div class="premium-card"><span class="lock-icon">🔒</span><span class="prem-icon">🏅</span><span class="prem-title">Team Recruitment Badge</span></div>
+        <div class="premium-card"><span class="lock-icon">🔒</span><span class="prem-icon">💬</span><span class="prem-title">Community Forum</span></div>
+        <div class="premium-card"><span class="lock-icon">🔒</span><span class="prem-icon">🎮</span><span class="prem-title">Game Upload & Embed</span></div>
+      </div>
+      <button class="btn-gold">Try Premium for $0 — 1 month free</button>
+    </div>
+
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <!-- Ad -->
+    <div class="card ad-card">
+      <div class="ad-label">Promoted</div>
+      <h3>Your job search <span class="ad-blue">powered by your network</span></h3>
+      <button class="explore-btn">Explore jobs</button>
+      <div class="ad-photos">
+        <span style="background:linear-gradient(135deg,#2d6a8a,#4a8fab)"></span>
+        <span style="background:linear-gradient(135deg,#5a8a4a,#7aab6a)"></span>
+        <span style="background:linear-gradient(135deg,#8a5a2d,#ab7a4a)"></span>
+      </div>
+    </div>
+
+    <!-- More profiles -->
+    <div class="card sb-card">
+      <h2 class="sb-head">More profiles for you</h2>
+      <div class="sb-person"><div class="sb-ava">DA</div><div><strong>Dario Amodei</strong><p>CEO and Co-Founder at Anthropic · 3rd+</p><button class="mini-btn">🤝 Connect</button></div></div>
+      <div class="sb-person"><div class="sb-ava">CO</div><div><strong>Christopher Olah</strong><p>Member Of Technical Staff at Anthropic · 3rd+</p><button class="mini-btn">🤝 Connect</button></div></div>
+      <div class="sb-person"><div class="sb-ava">AB</div><div><strong>Anthony Bastone, M.B.A.</strong><p>Finance Leadership at Anthropic · 3rd+</p><button class="mini-btn">🤝 Connect</button></div></div>
+      <div class="sb-person"><div class="sb-ava">PS</div><div><strong>Paul Smith</strong><p>Chief Commercial Officer · 3rd+</p><button class="mini-btn">+ Follow</button></div></div>
+      <div class="sb-person"><div class="sb-ava">VK</div><div><strong>Varun Krishna</strong><p>CEO at Rocket, Interim CEO at Redfin · 3rd+</p><button class="mini-btn">+ Follow</button></div></div>
+      <button class="show-all-btn">Show all →</button>
+    </div>
+
+    <!-- You might like -->
+    <div class="card sb-card">
+      <h2 class="sb-head">You might like</h2>
+      <p class="muted" style="margin-bottom:10px">Pages for you</p>
+      <div class="page-row"><div class="page-icon" style="background:#e46d4d">✳</div><div><strong>Claude for Business</strong><p>Technology, Information and Internet</p><p style="color:#888;font-size:11px">54,234 followers</p><button class="mini-btn">+ Follow</button></div></div>
+      <div class="page-row"><div class="page-icon" style="background:#191919">◈</div><div><strong>Cursor</strong><p>Software Development</p><p style="color:#888;font-size:11px">327,894 followers</p><button class="mini-btn">+ Follow</button></div></div>
+      <button class="show-all-btn">Show all →</button>
+    </div>
+
+    <!-- People you may know -->
+    <div class="card sb-card">
+      <h2 class="sb-head">People you may know</h2>
+      <p class="muted" style="margin-bottom:10px">From Leo's school</p>
+      <div class="sb-person"><div class="sb-ava">NS</div><div><strong>Natasha Schmitt Caccia Salinas</strong><p>Associate Professor of Law · 3rd+</p><button class="mini-btn">🤝 Connect</button></div></div>
+      <div class="sb-person"><div class="sb-ava">JF</div><div><strong>Jason Friedman</strong><p>Incoming J.D. Candidate at Yale · 3rd+</p><button class="mini-btn">🤝 Connect</button></div></div>
+      <div class="sb-person"><div class="sb-ava">JR</div><div><strong>Jed Rothstein 罗瑞杰</strong><p>Associate | Capital Markets | Davis Polk · 3rd+</p><button class="mini-btn">🤝 Connect</button></div></div>
+      <button class="show-all-btn">Show all →</button>
+    </div>
+
+    <!-- Second ad -->
+    <div class="card ad-card">
+      <div class="ad-label">Promoted</div>
+      <h3>Your job search <span class="ad-blue">powered by your network</span></h3>
+      <button class="explore-btn">Explore jobs</button>
+      <div class="ad-photos">
+        <span style="background:linear-gradient(135deg,#2d6a8a,#4a8fab)"></span>
+        <span style="background:linear-gradient(135deg,#5a8a4a,#7aab6a)"></span>
+        <span style="background:linear-gradient(135deg,#8a5a2d,#ab7a4a)"></span>
+      </div>
+    </div>
+  </aside>
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-links">
+      <a href="#">About</a><a href="#">Accessibility</a><a href="#">Help Center</a>
+      <a href="#">Privacy & Terms</a><a href="#">Ad Choices</a><a href="#">Advertising</a>
+      <a href="#">Business Services</a><a href="#">Get the LinkedIn app</a><a href="#">More</a>
+    </div>
+    <span style="font-size:11px;color:#888">
+      <span class="footer-brand">Linked<strong>in</strong></span>
+      &nbsp;&nbsp;LinkedIn Corporation © 2025
+    </span>
+  </div>
+</footer>
+
+<!-- MESSAGING BUBBLE -->
+<div class="bubble">
+  <div class="mini-ava">N</div>
+  <strong>Messaging</strong>
+  <span style="flex:1"></span>
+  <button class="icon-btn">•••</button>
+  <button class="icon-btn">∧</button>
+</div>
+
+<script>
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+function toggleSubmit() {
+  const f = document.getElementById('submit-form');
+  f.classList.toggle('open');
+}
+</script>
+</body>
+</html>
