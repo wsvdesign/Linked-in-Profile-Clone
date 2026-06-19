@@ -1,0 +1,744 @@
+/*
+  GamerCardProfile.css
+  Source of truth: Frontend/src/assets/reference/gamercard-profile-source/GamerCard.html
+  All rules are scoped under .gamercard-page to prevent bleeding into App.jsx styles.
+  JIRO ONO — visual fidelity pass. Do not alter values without approval.
+*/
+
+/* ─── RESET (scoped) ─────────────────────────────────────────── */
+.gamercard-page *,
+.gamercard-page *::before,
+.gamercard-page *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+.gamercard-page {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: #f3f2ef;
+  color: #191919;
+}
+.gamercard-page button,
+.gamercard-page input,
+.gamercard-page textarea {
+  font: inherit;
+  cursor: pointer;
+}
+.gamercard-page a {
+  color: #0a66c2;
+  text-decoration: none;
+}
+
+/* ─── STICKY MINI ─────────────────────────────────────────────── */
+.gamercard-page .sticky-mini {
+  background: rgba(255, 255, 255, 0.97);
+  border-bottom: 1px solid #d9d9d9;
+  position: sticky;
+  top: 52px;
+  z-index: 35;
+}
+.gamercard-page .sticky-inner {
+  max-width: 1128px;
+  margin: 0 auto;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 12px;
+}
+.gamercard-page .sticky-inner p {
+  margin: 0;
+  font-size: 11px;
+  color: #666;
+}
+.gamercard-page .sticky-ava {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #c9673e, #788fa5);
+  color: #fff;
+  font-weight: 800;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.gamercard-page .sticky-actions {
+  margin-left: auto;
+  display: flex;
+  gap: 6px;
+}
+
+/* ─── BUTTONS ─────────────────────────────────────────────────── */
+.gamercard-page .btn-primary {
+  background: #0a66c2;
+  border: 1px solid #0a66c2;
+  color: #fff;
+  border-radius: 999px;
+  padding: 5px 14px;
+  font-size: 13px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.gamercard-page .btn-primary:hover { background: #004182; }
+.gamercard-page .btn-outline {
+  background: #fff;
+  border: 1px solid #0a66c2;
+  color: #0a66c2;
+  border-radius: 999px;
+  padding: 5px 14px;
+  font-size: 13px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.gamercard-page .btn-outline:hover { background: #eef3f8; }
+.gamercard-page .btn-ghost {
+  background: #fff;
+  border: 1px solid #666;
+  color: #191919;
+  border-radius: 999px;
+  padding: 5px 14px;
+  font-size: 13px;
+  font-weight: 700;
+}
+.gamercard-page .btn-ghost:hover { background: #f3f2ef; }
+.gamercard-page .btn-gold {
+  background: #f5c842;
+  border: 1px solid #f5c842;
+  color: #191919;
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 14px;
+  display: inline-block;
+}
+
+/* ─── LAYOUT ─────────────────────────────────────────────────── */
+.gamercard-page .shell {
+  max-width: 1128px;
+  margin: 16px auto 50px;
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 16px;
+  padding: 0 12px;
+}
+.gamercard-page .main-col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.gamercard-page .sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ─── CARDS ─────────────────────────────────────────────────── */
+.gamercard-page .card {
+  background: #fff;
+  border: 1px solid #d9d9d9;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.gamercard-page .sp { padding: 18px 24px; }
+.gamercard-page .card-head {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 14px;
+}
+.gamercard-page .tab-head {
+  font-size: 17px;
+  font-weight: 700;
+  margin: 0 0 14px;
+}
+.gamercard-page .muted { color: #666; font-size: 13px; }
+
+/* ─── PROFILE HEADER ─────────────────────────────────────────── */
+.gamercard-page .cover {
+  height: 200px;
+  background: #c9673e;
+  position: relative;
+  overflow: hidden;
+}
+.gamercard-page .cover::before {
+  content: '';
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border: 10px solid rgba(255, 255, 255, 0.18);
+  border-radius: 50%;
+  right: 40px;
+  top: -60px;
+}
+.gamercard-page .cover-mark {
+  position: absolute;
+  right: 90px;
+  top: 28px;
+  font-size: 90px;
+  font-weight: 200;
+  color: rgba(0, 0, 0, 0.2);
+  transform: rotate(-18deg);
+  line-height: 1;
+}
+.gamercard-page .cover-tag {
+  position: absolute;
+  top: 16px;
+  left: 24px;
+  background: rgba(0, 0, 0, 0.35);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 999px;
+  letter-spacing: 0.08em;
+}
+
+.gamercard-page .photo-wrap {
+  position: relative;
+  margin-left: 24px;
+  margin-top: -76px;
+  width: fit-content;
+  z-index: 2;
+}
+.gamercard-page .photo {
+  width: 152px;
+  height: 152px;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  background: linear-gradient(135deg, #c9673e, #788fa5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 46px;
+  font-weight: 800;
+  color: #fff;
+  overflow: hidden;
+}
+.gamercard-page .photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.gamercard-page .online-dot {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #57f287;
+  border: 3px solid #fff;
+}
+
+.gamercard-page .top-body { padding: 10px 24px 20px; }
+.gamercard-page .identity-grid {
+  display: grid;
+  grid-template-columns: 1fr 230px;
+  gap: 16px;
+  margin-bottom: 6px;
+}
+.gamercard-page .profile-name {
+  font-size: 26px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 2px;
+}
+.gamercard-page .verified-icon { color: #0a66c2; font-size: 18px; }
+.gamercard-page .profile-hl { font-size: 15px; margin: 3px 0; }
+.gamercard-page .handle-row { font-size: 13px; color: #666; margin: 2px 0; }
+
+/* ─── CONNECTIONS ────────────────────────────────────────────── */
+.gamercard-page .connections {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.gamercard-page .conn-label {
+  font-size: 11px;
+  color: #666;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+}
+.gamercard-page .conn-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+  text-decoration: none;
+}
+.gamercard-page .conn-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  flex-shrink: 0;
+  color: #fff;
+}
+.gamercard-page .conn-row span { font-size: 13px; color: #0a66c2; font-weight: 600; }
+.gamercard-page .conn-row .ext { margin-left: auto; color: #999; font-size: 11px; }
+
+/* ─── GAMING SNAPSHOT ────────────────────────────────────────── */
+.gamercard-page .snap-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.gamercard-page .snap-card {
+  background: #f8f8f8;
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #eee;
+}
+.gamercard-page .snap-icon { font-size: 22px; flex-shrink: 0; }
+.gamercard-page .snap-label {
+  font-size: 10px;
+  color: #666;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0 0 2px;
+}
+.gamercard-page .snap-val { font-size: 14px; font-weight: 700; margin: 0; }
+.gamercard-page .avail-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #e8f5e9;
+  color: #2e7d32;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.gamercard-page .green-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #4caf50;
+  display: inline-block;
+}
+
+/* ─── TABS ───────────────────────────────────────────────────── */
+.gamercard-page .tab-bar {
+  display: flex;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 0 24px;
+}
+.gamercard-page .tab-btn {
+  border: 0;
+  background: transparent;
+  padding: 12px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  color: #555;
+}
+.gamercard-page .tab-btn.active {
+  border-bottom-color: #0a66c2;
+  color: #0a66c2;
+  font-weight: 700;
+}
+.gamercard-page .tab-content { padding: 18px 24px; }
+
+/* ─── GAMES GRID ─────────────────────────────────────────────── */
+.gamercard-page .games-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+.gamercard-page .game-play-card {
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 4px;
+}
+.gamercard-page .game-thumb {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #0f3460, #533483);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  margin-bottom: 6px;
+}
+.gamercard-page .game-play-card strong { font-size: 13px; }
+.gamercard-page .game-play-card .role { font-size: 11px; color: #666; margin: 2px 0; }
+.gamercard-page .game-play-card .rank { font-size: 12px; color: #0a66c2; font-weight: 600; margin: 2px 0; }
+.gamercard-page .game-play-card .hrs { font-size: 11px; color: #999; margin: 2px 0; }
+
+/* ─── BUILD CARDS ────────────────────────────────────────────── */
+.gamercard-page .build-card {
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  padding: 18px;
+  margin-bottom: 12px;
+}
+.gamercard-page .build-card:last-child { margin-bottom: 0; }
+.gamercard-page .build-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+.gamercard-page .build-title { font-size: 16px; font-weight: 700; }
+.gamercard-page .badges { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.gamercard-page .badge-status {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+.gamercard-page .shipped { background: #e8f5e9; color: #2e7d32; }
+.gamercard-page .inprogress { background: #e3f2fd; color: #1565c0; }
+.gamercard-page .tech-tag {
+  background: #eef3f8;
+  color: #0a66c2;
+  font-size: 12px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-weight: 600;
+}
+.gamercard-page .tech-row { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0 12px; }
+
+/* ─── ACHIEVEMENTS ───────────────────────────────────────────── */
+.gamercard-page .achieve-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.gamercard-page .achieve-card {
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+}
+.gamercard-page .achieve-icon { font-size: 32px; }
+.gamercard-page .achieve-title { font-size: 14px; font-weight: 700; display: block; margin: 8px 0 3px; }
+.gamercard-page .achieve-detail { font-size: 12px; color: #666; margin: 0; }
+
+/* ─── ROLES ──────────────────────────────────────────────────── */
+.gamercard-page .roles-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+.gamercard-page .role-card {
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+}
+.gamercard-page .role-icon { font-size: 28px; }
+.gamercard-page .role-name { font-size: 14px; font-weight: 700; display: block; margin: 8px 0 4px; }
+.gamercard-page .role-pro { font-size: 12px; color: #666; margin: 0; }
+
+/* ─── DISCORD CARD ───────────────────────────────────────────── */
+.gamercard-page .discord-card {
+  background: #2b2d31;
+  border-radius: 10px;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 20px;
+  color: #fff;
+}
+.gamercard-page .discord-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+}
+.gamercard-page .discord-ava {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 3px solid #5865f2;
+  background: linear-gradient(135deg, #533483, #0f3460);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 800;
+  color: #fff;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.gamercard-page .discord-ava img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.gamercard-page .discord-online { font-size: 12px; color: #57f287; font-weight: 600; margin: 6px 0; }
+.gamercard-page .discord-since { font-size: 11px; color: #aaa; margin: 2px 0; }
+.gamercard-page .discord-right {
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  padding-left: 20px;
+}
+.gamercard-page .d-label {
+  font-size: 11px;
+  color: #aaa;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+  display: block;
+}
+.gamercard-page .d-conn-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 0;
+  text-decoration: none;
+}
+.gamercard-page .d-conn-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  flex-shrink: 0;
+  color: #fff;
+}
+.gamercard-page .d-conn-platform { font-size: 13px; color: #dcddde; }
+.gamercard-page .d-conn-handle { font-size: 12px; color: #0a66c2; margin-left: auto; }
+.gamercard-page .tags-row { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 6px; }
+.gamercard-page .d-tag {
+  background: rgba(88, 101, 242, 0.3);
+  color: #7289da;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* ─── SUBMIT GAMES ───────────────────────────────────────────── */
+.gamercard-page .submit-form {
+  background: #f8f8f8;
+  border-radius: 10px;
+  padding: 18px;
+  margin-bottom: 16px;
+  border: 1px solid #e5e5e5;
+  display: none;
+}
+.gamercard-page .submit-form.open { display: block; }
+.gamercard-page .form-input {
+  width: 100%;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  padding: 9px 12px;
+  font-size: 14px;
+  outline: none;
+  background: #fff;
+  margin-bottom: 10px;
+  display: block;
+}
+.gamercard-page textarea.form-input { height: 80px; resize: vertical; }
+.gamercard-page .game-submit-card {
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 10px;
+}
+.gamercard-page .game-submit-card:last-child { margin-bottom: 0; }
+.gamercard-page .submit-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 6px;
+}
+.gamercard-page .game-type-tag {
+  font-size: 11px;
+  background: #eef3f8;
+  color: #0a66c2;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.gamercard-page .ready { background: #e8f5e9; color: #2e7d32; }
+.gamercard-page .dev { background: #fff3e0; color: #e65100; }
+
+/* ─── PREMIUM ────────────────────────────────────────────────── */
+.gamercard-page .premium-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+.gamercard-page .premium-card {
+  border: 2px dashed #d9d9d9;
+  border-radius: 10px;
+  padding: 14px;
+  text-align: center;
+  position: relative;
+  background: #fafafa;
+}
+.gamercard-page .lock-icon { position: absolute; top: 10px; right: 10px; font-size: 14px; color: #915907; }
+.gamercard-page .prem-icon { font-size: 24px; }
+.gamercard-page .prem-title { font-size: 13px; font-weight: 700; margin: 8px 0 0; display: block; }
+
+/* ─── SIDEBAR ────────────────────────────────────────────────── */
+.gamercard-page .sb-card { padding: 16px; }
+.gamercard-page .sb-head { font-size: 16px; font-weight: 700; margin-bottom: 10px; }
+.gamercard-page .sb-person {
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 8px;
+  padding: 10px 0;
+  border-bottom: 1px solid #e5e5e5;
+}
+.gamercard-page .sb-person:last-of-type { border-bottom: 0; }
+.gamercard-page .sb-ava {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #c9d7e4;
+  color: #425466;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+.gamercard-page .sb-person strong { font-size: 13px; display: block; }
+.gamercard-page .sb-person p { font-size: 11px; color: #555; margin: 2px 0; }
+.gamercard-page .mini-btn {
+  margin-top: 4px;
+  border: 1px solid #666;
+  background: #fff;
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-weight: 700;
+  font-size: 12px;
+  cursor: pointer;
+}
+.gamercard-page .show-all-btn {
+  width: 100%;
+  border: 0;
+  background: #fff;
+  border-top: 1px solid #e5e5e5;
+  padding: 10px;
+  font-weight: 700;
+  font-size: 13px;
+  color: #555;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 6px;
+}
+.gamercard-page .page-row {
+  display: grid;
+  grid-template-columns: 38px 1fr;
+  gap: 8px;
+  padding: 10px 0;
+  border-bottom: 1px solid #e5e5e5;
+}
+.gamercard-page .page-row:last-child { border-bottom: 0; }
+.gamercard-page .page-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 6px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.gamercard-page .page-row strong { font-size: 13px; display: block; }
+.gamercard-page .page-row p { font-size: 11px; color: #555; margin: 1px 0; }
+
+/* ─── AD CARD ────────────────────────────────────────────────── */
+.gamercard-page .ad-card {
+  background: #08294a;
+  color: #fff;
+  min-height: 190px;
+  padding: 16px;
+}
+.gamercard-page .ad-label { font-size: 11px; opacity: 0.7; margin-bottom: 8px; }
+.gamercard-page .ad-card h3 { font-size: 18px; font-weight: 700; line-height: 1.2; margin-bottom: 10px; }
+.gamercard-page .ad-blue { color: #70b5f9; }
+.gamercard-page .explore-btn {
+  background: #0a66c2;
+  color: #fff;
+  border: 0;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.gamercard-page .ad-photos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+  margin-top: 12px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.gamercard-page .ad-photos span { height: 50px; display: block; border-radius: 3px; }
+
+/* ─── FOOTER ─────────────────────────────────────────────────── */
+.gamercard-page .gc-footer {
+  background: #fff;
+  border-top: 1px solid #d9d9d9;
+  padding: 16px 0 40px;
+}
+.gamercard-page .gc-footer-inner {
+  max-width: 1128px;
+  margin: 0 auto;
+  padding: 0 12px;
+}
+.gamercard-page .gc-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin-bottom: 10px;
+}
+.gamercard-page .gc-footer-links a { font-size: 11px; color: #666; text-decoration: none; }
+.gamercard-page .gc-footer-links a:hover { text-decoration: underline; color: #0a66c2; }
+.gamercard-page .gc-footer-brand { font-size: 14px; color: #0a66c2; font-weight: 900; }
+
+/* ─── RESPONSIVE ─────────────────────────────────────────────── */
+@media (max-width: 960px) {
+  .gamercard-page .shell { grid-template-columns: 1fr; }
+  .gamercard-page .sidebar { display: none; }
+  .gamercard-page .identity-grid { grid-template-columns: 1fr; }
+  .gamercard-page .connections { display: none; }
+  .gamercard-page .games-grid { grid-template-columns: repeat(2, 1fr); }
+  .gamercard-page .achieve-grid { grid-template-columns: repeat(2, 1fr); }
+  .gamercard-page .roles-grid { grid-template-columns: repeat(2, 1fr); }
+  .gamercard-page .premium-grid { grid-template-columns: repeat(2, 1fr); }
+  .gamercard-page .snap-grid { grid-template-columns: repeat(2, 1fr); }
+  .gamercard-page .discord-card { grid-template-columns: 1fr; }
+}

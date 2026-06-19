@@ -17,6 +17,7 @@ import nadiaFloresImage from './assets/reference/profiles/Skll set endorsement i
 import danielYuenImage from './assets/reference/profiles/Skll set endorsement images/Daniel_Yuen.jpg';
 import profAveryBrooksImage from './assets/reference/profiles/Skll set endorsement images/Prof_Avery_Brooks.jpg';
 import MyNetworkPage from './pages/MyNetworkPage.jsx';
+import GamerCardProfile from './pages/GamerCardProfile.jsx';
 
 function getProfileIdFromUrl() {
   if (typeof window === 'undefined') {
@@ -119,7 +120,7 @@ function StickyMiniProfile({ profile }) {
   );
 }
 
-function ProfileTopCard({ profile }) {
+function ProfileTopCard({ profile, onOpenGamerCard }) {
   const [showVerify, setShowVerify] = useState(true);
   const [isVerificationModalOpen, setIsVerificationModalOpen] = useState(false);
   const [imageFailed, setImageFailed] = useState(false);
@@ -167,9 +168,16 @@ function ProfileTopCard({ profile }) {
                   <ShieldCheck size={20} className="verified-badge" />
                 </button>
               )}
-              <span className="gamercard-badge" aria-label="GamerCard badge" title="GamerCard">
-                💎
-              </span>
+              {/* GamerCard diamond badge — separate from verification shield */}
+              <button
+                className="verified-badge-trigger"
+                type="button"
+                aria-label="Open GamerCard profile"
+                title="GamerCard"
+                onClick={() => onOpenGamerCard?.()}
+              >
+                <span className="gamercard-badge">💎</span>
+              </button>
             </h1>
             <p className="profile-headline">{profile.headline}</p>
           </div>
@@ -725,6 +733,17 @@ export default function App() {
     window.history.back();
   };
 
+  const handleOpenGamerCard = () => {
+    const nextUrl = new URL(window.location.href);
+    nextUrl.searchParams.set('view', 'gamercard');
+    window.history.pushState({ view: 'gamercard' }, '', nextUrl);
+    setActiveView('gamercard');
+  };
+
+  const handleBackFromGamerCard = () => {
+    window.history.back();
+  };
+
   const handleOpenView = (nextView) => {
     const nextUrl = new URL(window.location.href);
 
@@ -750,6 +769,16 @@ export default function App() {
     );
   }
 
+  if (activeView === 'gamercard') {
+    return (
+      <>
+        <Navbar onOpenView={handleOpenView} activeView={activeView} />
+        <GamerCardProfile onBack={handleBackFromGamerCard} />
+        <MessagingBubble />
+      </>
+    );
+  }
+
   if (activeView === 'skills') {
     return (
       <>
@@ -767,7 +796,7 @@ export default function App() {
       <StickyMiniProfile profile={profile} />
       <main className="page-shell">
         <div className="main-column">
-          <ProfileTopCard profile={profile} />
+          <ProfileTopCard profile={profile} onOpenGamerCard={handleOpenGamerCard} />
           <AboutCard profile={profile} />
           <ActivityCard profile={profile} />
           <ExperienceCard profile={profile} />
