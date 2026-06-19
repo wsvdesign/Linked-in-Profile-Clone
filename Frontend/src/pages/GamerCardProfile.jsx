@@ -15,6 +15,7 @@
  */
 
 import { useState } from 'react';
+import leoProfileImage from '../assets/reference/profiles/leo profile/leo-profile.jpg';
 import './GamerCardProfile.css';
 
 export default function GamerCardProfile({ onBack }) {
@@ -62,10 +63,9 @@ export default function GamerCardProfile({ onBack }) {
               <div className="cover-tag">GAMERCARD</div>
             </div>
 
-            {/* Profile photo — replace LM with <img src="leo-martinez.jpg" alt="Leo Martinez"> when photo is available */}
             <div className="photo-wrap">
               <div className="photo" id="profile-photo">
-                LM
+                <img src={leoProfileImage} alt="Leo Martinez" />
               </div>
               <div className="online-dot" title="Online" />
             </div>
@@ -283,8 +283,7 @@ export default function GamerCardProfile({ onBack }) {
             <h2 className="card-head">Contact &amp; Community</h2>
             <div className="discord-card">
               <div className="discord-left">
-                {/* Replace LM with <img src="leo-martinez.jpg" alt="Leo Martinez"> when photo is available */}
-                <div className="discord-ava">LM</div>
+                  <div className="discord-ava"><img src={leoProfileImage} alt="Leo Martinez" /></div>
                 <strong style={{ fontSize: '16px' }}>Leo Martinez</strong>
                 <p style={{ fontSize: '12px', color: '#aaa', margin: '2px 0' }}>@leomartinez</p>
                 <p style={{ fontSize: '12px', color: '#aaa', margin: '2px 0' }}>he/him/his</p>
