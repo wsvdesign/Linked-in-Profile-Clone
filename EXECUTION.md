@@ -66,6 +66,7 @@ Questions:
 Required commands:
 
 ```bash
+cd Frontend
 npm run dev
 npm run build
 ```

@@ -59,7 +59,7 @@ Clickable does not automatically mean backend.
 ## Recommended File Structure
 
 ```text
-linkedin-profile-clone/
+Linked-in-Profile-Clone/
 ├── README.md
 ├── AGENTS.md
 ├── SECURITY.md
@@ -67,16 +67,21 @@ linkedin-profile-clone/
 ├── EXECUTION.md
 ├── HISTORY.md
 ├── ARCHITECTURE.md
-├── .gitignore
-├── index.html
-├── package.json
-├── vite.config.js
-└── src/
-    ├── main.jsx
-    ├── App.jsx
-    ├── styles.css
-    └── data/
-        └── profileData.js
+├── LinkedIn_Profile_Page_Clone_PRD_by_MPNW_Phase_1.md
+├── GamerCard_Profile_Feature_PRD_Phase_2.md
+└── Frontend/
+   ├── index.html
+   ├── package.json
+   ├── vite.config.js
+   └── src/
+      ├── main.jsx
+      ├── App.jsx
+      ├── styles.css
+      ├── data/
+      │   └── profileData.js
+      ├── pages/
+      └── components/
+         └── VerificationModal.jsx
 ```
 
 ---
@@ -84,13 +89,13 @@ linkedin-profile-clone/
 ## Main Application Flow
 
 ```text
-index.html
+Frontend/index.html
    ↓
-src/main.jsx
+Frontend/src/main.jsx
    ↓
-src/App.jsx
+Frontend/src/App.jsx
    ↓
-profileData.js + styles.css
+Frontend/src/data/profileData.js + Frontend/src/styles.css
    ↓
 Rendered LinkedIn-style profile clone
 ```
@@ -108,7 +113,7 @@ import { profile } from './data/profileData.js';
 Therefore the data file must be located at:
 
 ```text
-src/data/profileData.js
+Frontend/src/data/profileData.js
 ```
 
 `main.jsx` expects:
@@ -120,12 +125,31 @@ import './styles.css';
 Therefore the stylesheet must be located at:
 
 ```text
-src/styles.css
+Frontend/src/styles.css
 ```
 
 ---
 
+## Current Implementation Reality
+
+Current state in this repository:
+
+- Most UI sections are currently implemented as internal React functions inside `Frontend/src/App.jsx`.
+- The shared components folder currently contains `Frontend/src/components/VerificationModal.jsx` and `Frontend/src/components/VerificationModal.css`.
+- `Frontend/src/pages/` is used for page-level surfaces such as My Network.
+
+Planned direction:
+
+- Additional component extraction into `Frontend/src/components/` may be done over time, but this is optional and should not trigger redesign drift.
+
+---
+
 # Component Architecture
+
+Note:
+
+- The component names below describe the UI architecture and behavior boundaries.
+- In the current codebase, many of these are internal functions in `Frontend/src/App.jsx` rather than separate files.
 
 ## App
 

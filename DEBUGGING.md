@@ -138,6 +138,7 @@ Avoid:
 Run:
 
 ```bash
+cd Frontend
 npm run dev
 ```
 
@@ -154,6 +155,7 @@ Confirm:
 Run:
 
 ```bash
+cd Frontend
 npm run build
 ```
 
@@ -168,8 +170,8 @@ Build must succeed before merge approval.
 Expected:
 
 ```text
-src/data/profileData.js
-src/styles.css
+Frontend/src/data/profileData.js
+Frontend/src/styles.css
 ```
 
 ### Import Validation

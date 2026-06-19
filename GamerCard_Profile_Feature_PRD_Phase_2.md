@@ -7,7 +7,7 @@ GamerCard Profile Feature
 
 **Owner:**  
 Natalie — Product / Frontend / Backend / Build Lead  
-Marc P. — Discord Profile Build / Image Support / Research
+Marc Perez — Discord Profile Build / Image Support / Research
 
 **Date:** June 15, 2026
 
@@ -29,7 +29,7 @@ Related prior work: Week 1 LinkedIn-style profile clone, which includes top navi
 
 Product dependency: GamerCard is a feature within the LinkedIn-style clone. It should feel like LinkedIn added a gaming-professional identity layer, not like a separate app.
 
-Team dependency: Natalie is leading product direction, frontend, backend planning, PRD work, and the main GamerCard build. Marc P. is supporting the feature by building the Discord profile reference/component, assisting with Leo image support, and contributing research.
+Team dependency: Natalie is leading product direction, frontend, backend planning, PRD work, and the main GamerCard build. Marc Perez is supporting the feature by building the Discord profile reference/component, assisting with Leo image support, and contributing research.
 
 Design constraint: This feature should not copy Discord’s layout. Discord is useful as a source of gaming identity patterns, such as status, handle, favorite games, widgets, activity, community presence, and platform connections. However, the GamerCard page must remain inside the LinkedIn-style product system: top navigation, profile layout, content cards, action buttons, sidebar areas, tabs, and the fixed Messaging tab.
 

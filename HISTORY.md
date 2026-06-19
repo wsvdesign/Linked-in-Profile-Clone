@@ -438,17 +438,20 @@ Frontend Implementation / UI Polish / Interaction Wiring
 - Styled the GamerCard badge to align with the existing verification icon at ~20px.
 - Increased and italicized the verification subtext sentence for clearer emphasis.
 - Converted uploaded single-file modal source (`verification-modal.source.html`) into:
-	- `Frontend/src/components/VerificationModal.jsx`
-	- `Frontend/src/components/VerificationModal.css`
+
+- `Frontend/src/components/VerificationModal.jsx`
+- `Frontend/src/components/VerificationModal.css`
 - Preserved modal structure and behavior during conversion (no redesign):
-	- open/close via trigger
-	- close via overlay click
-	- close via `Esc`
-	- close via `X` and `Done`
-	- body scroll lock while open
+
+- open/close via trigger
+- close via overlay click
+- close via `Esc`
+- close via `X` and `Done`
+- body scroll lock while open
 - Wired modal opening to:
-	- click on verification badge
-	- click on `Add now` button
+
+- click on verification badge
+- click on `Add now` button
 - Darkened modal scrim slightly for improved focus.
 - Ran build and test checks across changes and confirmed clean results.
 - Staged only intended production files, excluding temporary/reference assets.
@@ -500,5 +503,6 @@ Scope discrepancy resolution note:
 - Phase 1 (Week 1, 2026-06-06 to 2026-06-10) covered strict clone implementation.
 - Phase 2 (Week 2, 2026-06-13 to 2026-06-17) introduced approved feature additions inside the clone.
 - PRD filenames were standardized to reflect this timeline:
-	- `LinkedIn_Profile_Page_Clone_PRD_by_MPNW_Phase_1.md`
-	- `GamerCard_Profile_Feature_PRD_Phase_2.md`
+
+- `LinkedIn_Profile_Page_Clone_PRD_by_MPNW_Phase_1.md`
+- `GamerCard_Profile_Feature_PRD_Phase_2.md`
