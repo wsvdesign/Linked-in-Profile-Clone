@@ -175,7 +175,7 @@ export default function GamerCardProfile({ onBack }) {
                 <h3 className="tab-head">Games I Built</h3>
                 <div className="build-card">
                   <div className="build-top">
-                    <span className="build-title">VOID SIGNAL</span>
+                    <span className="build-title">VOID CODE</span>
                     <div className="badges">
                       <span className="badge-status inprogress">In Progress</span>
                       <span className="badge-status" style={{ background: '#f3f2ef', color: '#555' }}>Browser</span>
@@ -189,7 +189,7 @@ export default function GamerCardProfile({ onBack }) {
                 </div>
                 <div className="build-card">
                   <div className="build-top">
-                    <span className="build-title">HOLLOW GRID</span>
+                    <span className="build-title">HOLLOW ECHO</span>
                     <div className="badges">
                       <span className="badge-status shipped">Shipped</span>
                       <span className="badge-status" style={{ background: '#f3f2ef', color: '#555' }}>Browser</span>
@@ -223,7 +223,7 @@ export default function GamerCardProfile({ onBack }) {
                 <h3 className="tab-head">Games I Built</h3>
                 <div className="build-card">
                   <div className="build-top">
-                    <span className="build-title">VOID SIGNAL</span>
+                    <span className="build-title">VOID CODE</span>
                     <div className="badges">
                       <span className="badge-status inprogress">In Progress</span>
                       <span className="badge-status" style={{ background: '#f3f2ef', color: '#555' }}>Browser</span>
@@ -236,7 +236,7 @@ export default function GamerCardProfile({ onBack }) {
                 </div>
                 <div className="build-card">
                   <div className="build-top">
-                    <span className="build-title">HOLLOW GRID</span>
+                    <span className="build-title">HOLLOW ECHO</span>
                     <div className="badges">
                       <span className="badge-status shipped">Shipped</span>
                       <span className="badge-status" style={{ background: '#f3f2ef', color: '#555' }}>Browser</span>
