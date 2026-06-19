@@ -10,8 +10,8 @@ export const profile = {
 
   about: 'Game developer and frontend engineer with a passion for building immersive, systems-driven experiences. I specialize in multiplayer architecture, real-time game UI, and the kind of low-level engine work that makes a game feel alive. Currently pursuing my M.S. in Computer Science at Yale while shipping independent game projects and contributing to the broader developer community. I am obsessed with what happens at the intersection of great design and great engineering — where a mechanic stops being a feature and starts being a feeling.',
 
-  verificationText: 'Leo has a verification. You can add one too.',
-  verificationSubtext: 'Verified members get 60% more profile views on average.',
+  verificationText: 'Leo has a gamer card. You can add one too.',
+  verificationSubtext: 'GamerCard profiles get 75% more profile views on average.',
   profileInitials: 'LM',
   activityFollowers: '12,408 followers',
 

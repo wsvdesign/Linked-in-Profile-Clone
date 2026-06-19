@@ -156,6 +156,9 @@ function ProfileTopCard({ profile }) {
             <h1 className="profile-name">
               {profile.name}
               {profile.verified && <ShieldCheck size={20} className="verified-badge" />}
+              <span className="gamercard-badge" aria-label="GamerCard badge" title="GamerCard">
+                💎
+              </span>
             </h1>
             <p className="profile-headline">{profile.headline}</p>
           </div>
@@ -175,7 +178,7 @@ function ProfileTopCard({ profile }) {
             <button className="verify-close" onClick={() => setShowVerify(false)} type="button"><X size={18}/></button>
             <strong>{profile.verificationText}</strong>
             <span>{profile.verificationSubtext}</span>
-            <button className="verify-btn" type="button"><ShieldCheck size={15}/> Verify now</button>
+            <button className="verify-btn" type="button">Add now</button>
           </div>
         )}
         <p className="meta-line">{profile.location} · <a href="#contact">Contact info</a></p>
