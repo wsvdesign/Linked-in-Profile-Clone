@@ -1,0 +1,152 @@
+.verify-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.58);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.verify-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.verify-modal {
+  background: #fff;
+  border-radius: 12px;
+  padding: 28px 32px 24px;
+  width: 480px;
+  max-width: 90vw;
+  position: relative;
+  transform: translateY(10px);
+  transition: transform 0.2s ease;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.verify-overlay.open .verify-modal {
+  transform: translateY(0);
+}
+
+.verify-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  border: 0;
+  background: transparent;
+  font-size: 22px;
+  color: #666;
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 50%;
+  font-family: inherit;
+}
+
+.verify-close:hover {
+  background: #f3f2ef;
+  color: #191919;
+}
+
+.verify-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #191919;
+  margin: 0 0 20px;
+}
+
+.verify-section-head {
+  font-size: 17px;
+  font-weight: 700;
+  color: #191919;
+  margin: 18px 0 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.verify-row {
+  margin-bottom: 12px;
+}
+
+.verify-row strong {
+  font-size: 14px;
+  font-weight: 600;
+  color: #191919;
+  display: block;
+  margin-bottom: 1px;
+}
+
+.verify-row span {
+  font-size: 14px;
+  color: #555;
+}
+
+.verify-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.verify-item-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  background: #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.verify-item-text strong {
+  font-size: 14px;
+  font-weight: 600;
+  color: #191919;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.verify-item-text span {
+  font-size: 13px;
+  color: #555;
+}
+
+.verify-link {
+  color: #0a66c2;
+  font-size: 14px;
+  text-decoration: none;
+  display: block;
+  margin-top: 14px;
+}
+
+.verify-link:hover {
+  text-decoration: underline;
+}
+
+.verify-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+.verify-done {
+  background: #0a66c2;
+  color: #fff;
+  border: 0;
+  border-radius: 999px;
+  padding: 10px 28px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.verify-done:hover {
+  background: #004182;
+}

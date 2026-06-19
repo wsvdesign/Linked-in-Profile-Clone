@@ -5,6 +5,7 @@ import {
   ThumbsUp, Repeat2, ChevronRight, ChevronUp, X
 } from 'lucide-react';
 import { defaultProfileId, profilesById } from './data/profiles.js';
+import VerificationModal from './components/VerificationModal.jsx';
 import peterSuiImage from './assets/refference/profiles/Skll set endorsement images/Peter_Sui.jpg';
 import marcusChenImage from './assets/refference/profiles/Skll set endorsement images/Marcus_Chen.jpg';
 import jamieReyesImage from './assets/refference/profiles/Skll set endorsement images/Jamie_Reyes.jpg';
@@ -120,6 +121,7 @@ function StickyMiniProfile({ profile }) {
 
 function ProfileTopCard({ profile }) {
   const [showVerify, setShowVerify] = useState(true);
+  const [isVerificationModalOpen, setIsVerificationModalOpen] = useState(false);
   const [imageFailed, setImageFailed] = useState(false);
   const hasImage = Boolean(profile.profilePhoto) && !imageFailed;
   const topActions = profile.topActions || ['Follow', 'Message', 'More'];
@@ -155,7 +157,16 @@ function ProfileTopCard({ profile }) {
           <div className="identity-main">
             <h1 className="profile-name">
               {profile.name}
-              {profile.verified && <ShieldCheck size={20} className="verified-badge" />}
+              {profile.verified && (
+                <button
+                  className="verified-badge-trigger"
+                  type="button"
+                  aria-label="Open verification details"
+                  onClick={() => setIsVerificationModalOpen(true)}
+                >
+                  <ShieldCheck size={20} className="verified-badge" />
+                </button>
+              )}
               <span className="gamercard-badge" aria-label="GamerCard badge" title="GamerCard">
                 💎
               </span>
@@ -178,7 +189,7 @@ function ProfileTopCard({ profile }) {
             <button className="verify-close" onClick={() => setShowVerify(false)} type="button"><X size={18}/></button>
             <strong>{profile.verificationText}</strong>
             <span>{profile.verificationSubtext}</span>
-            <button className="verify-btn" type="button">Add now</button>
+            <button className="verify-btn" type="button" onClick={() => setIsVerificationModalOpen(true)}>Add now</button>
           </div>
         )}
         <p className="meta-line">{profile.location} · <a href="#contact">Contact info</a></p>
@@ -202,6 +213,10 @@ function ProfileTopCard({ profile }) {
           })}
         </div>
       </div>
+      <VerificationModal
+        isOpen={isVerificationModalOpen}
+        onClose={() => setIsVerificationModalOpen(false)}
+      />
     </div>
   );
 }
