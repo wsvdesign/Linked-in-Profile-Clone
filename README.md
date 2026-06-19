@@ -26,7 +26,10 @@ This project is designed to practice:
 
 This is **not** a redesign.
 
-This is **not** GamerCard.
+This is a **phase-based build**:
+
+- **Phase 1 (Week 1: 2026-06-06 to 2026-06-10):** strict LinkedIn-style profile clone.
+- **Phase 2 (Week 2: 2026-06-13 to 2026-06-17):** approved GamerCard feature additions inside the clone shell.
 
 This is **not** a product revamp.
 
@@ -57,7 +60,7 @@ This project uses named agents for governance:
 ## Project Structure
 
 ```text
-linkedin-profile-clone/
+Linked-in-Profile-Clone/
 ├── README.md
 ├── AGENTS.md
 ├── SECURITY.md
@@ -65,16 +68,18 @@ linkedin-profile-clone/
 ├── EXECUTION.md
 ├── HISTORY.md
 ├── ARCHITECTURE.md
-├── .gitignore
-├── index.html
-├── package.json
-├── vite.config.js
-└── src/
-    ├── main.jsx
-    ├── App.jsx
-    ├── styles.css
-    └── data/
-        └── profileData.js
+├── LinkedIn_Profile_Page_Clone_PRD_by_MPNW_Phase_1.md
+├── GamerCard_Profile_Feature_PRD_Phase_2.md
+└── Frontend/
+    ├── index.html
+    ├── package.json
+    ├── vite.config.js
+    └── src/
+        ├── main.jsx
+        ├── App.jsx
+        ├── styles.css
+        └── data/
+            └── profileData.js
 ```
 
 ## Required File Placement
@@ -88,7 +93,7 @@ import { profile } from './data/profileData.js';
 That means the data file must be located here:
 
 ```text
-src/data/profileData.js
+Frontend/src/data/profileData.js
 ```
 
 `main.jsx` imports the stylesheet from:
@@ -100,7 +105,7 @@ import './styles.css';
 That means the CSS file must be located here:
 
 ```text
-src/styles.css
+Frontend/src/styles.css
 ```
 
 If the CSS file is named `styles(1).css`, rename it to:
@@ -114,6 +119,7 @@ styles.css
 Install dependencies:
 
 ```bash
+cd Frontend
 npm install
 ```
 

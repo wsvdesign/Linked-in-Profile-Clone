@@ -416,3 +416,89 @@ Feature Planning / Documentation / Integration Preparation
 ### Notes
 
 This entry captures today’s documentation and implementation-prep session. No production code conversion was executed yet because game HTML files are pending upload.
+
+---
+
+## 2026-06-19 - Verification UX Updates, Gamer Badge, and Modal Integration
+
+### Project Phase
+
+Frontend Implementation / UI Polish / Interaction Wiring
+
+### Builders
+
+- Natalie Walker
+- GitHub Copilot
+
+### Work Completed
+
+- Updated landing-profile verification copy to GamerCard-focused wording for Leo.
+- Changed verification CTA text from `Verify now` to `Add now`.
+- Added a GamerCard badge using the `💎` emoji next to Leo’s verification shield.
+- Styled the GamerCard badge to align with the existing verification icon at ~20px.
+- Increased and italicized the verification subtext sentence for clearer emphasis.
+- Converted uploaded single-file modal source (`verification-modal.source.html`) into:
+	- `Frontend/src/components/VerificationModal.jsx`
+	- `Frontend/src/components/VerificationModal.css`
+- Preserved modal structure and behavior during conversion (no redesign):
+	- open/close via trigger
+	- close via overlay click
+	- close via `Esc`
+	- close via `X` and `Done`
+	- body scroll lock while open
+- Wired modal opening to:
+	- click on verification badge
+	- click on `Add now` button
+- Darkened modal scrim slightly for improved focus.
+- Ran build and test checks across changes and confirmed clean results.
+- Staged only intended production files, excluding temporary/reference assets.
+- Committed and pushed changes to `main` in focused commits.
+
+### Issues Encountered
+
+- Verification modal initially did not open because the converted component was not yet wired to the badge trigger.
+- Local dev default port was occupied during server refresh and automatically shifted to the next port.
+- Repository contained multiple untracked reference assets that needed to remain out of commit scope.
+
+### Solutions Applied
+
+- Added explicit React state and handlers to control modal open/close from the profile header surface.
+- Added a dedicated clickable wrapper for the verification shield while preserving visual appearance.
+- Applied a constrained CSS opacity adjustment to darken the modal overlay without changing modal layout.
+- Used selective staging to include only app code files and exclude temporary/reference content.
+
+### Decisions Made
+
+- Keep GamerCard badge as an emoji glyph (`💎`) rather than image asset for this iteration.
+- Maintain existing modal visual structure and copy from provided source; perform conversion-only implementation.
+- Continue strict commit hygiene: production code only, no temp/reference assets.
+
+### Next Steps
+
+- Optionally connect `Add now` / verification flow to GamerCard profile navigation once that page is finalized.
+- Optionally add component-level tests for modal open/close behavior.
+- Continue integrating GamerCard features with clone-fidelity guardrails.
+
+### Project Agents
+
+| Agent | Responsibility |
+|---|---|
+| JIRO ONO | Clone Fidelity + Final Execution Approval |
+| Ant Wilson | Security & Data Hygiene |
+| Grace Hopper | Debugging & Build Stability |
+
+### Notes
+
+Related pushed commits from this session include:
+
+- `d67b4c0` - gamer copy + badge prompt updates
+- `4b17778` - verification modal wiring + overlay refinement
+
+Scope discrepancy resolution note:
+
+- The apparent conflict between clone-only governance and GamerCard work was resolved as a phase transition, not a scope violation.
+- Phase 1 (Week 1, 2026-06-06 to 2026-06-10) covered strict clone implementation.
+- Phase 2 (Week 2, 2026-06-13 to 2026-06-17) introduced approved feature additions inside the clone.
+- PRD filenames were standardized to reflect this timeline:
+	- `LinkedIn_Profile_Page_Clone_PRD_by_MPNW_Phase_1.md`
+	- `GamerCard_Profile_Feature_PRD_Phase_2.md`

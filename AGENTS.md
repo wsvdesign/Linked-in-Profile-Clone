@@ -21,6 +21,13 @@ The purpose is to create a decision framework that prevents:
 
 No agent may override another agent's authority outside their assigned domain.
 
+## Project Scope Phases
+
+- **Phase 1 (Week 1: 2026-06-06 to 2026-06-10):** strict LinkedIn-style profile clone.
+- **Phase 2 (Week 2: 2026-06-13 to 2026-06-17):** approved GamerCard feature additions inside the clone shell.
+
+Governance applies to the active phase. In Phase 2, feature work is allowed when it preserves overall layout fidelity and does not violate security/debugging constraints.
+
 ---
 
 # JIRO ONO
@@ -76,9 +83,8 @@ If a change alters the appearance, layout, hierarchy, spacing, or visual behavio
 
 - Redesigning the clone
 - Changing the project concept
-- Adding product features
+- Adding product features outside the active approved phase
 - Adding unrelated UI ideas
-- Turning the clone into GamerCard
 - Approving layout drift
 
 ---
