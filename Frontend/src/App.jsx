@@ -6,16 +6,16 @@ import {
 } from 'lucide-react';
 import { defaultProfileId, profilesById } from './data/profiles.js';
 import VerificationModal from './components/VerificationModal.jsx';
-import peterSuiImage from './assets/refference/profiles/Skll set endorsement images/Peter_Sui.jpg';
-import marcusChenImage from './assets/refference/profiles/Skll set endorsement images/Marcus_Chen.jpg';
-import jamieReyesImage from './assets/refference/profiles/Skll set endorsement images/Jamie_Reyes.jpg';
-import aishaOkaforImage from './assets/refference/profiles/Skll set endorsement images/Aisha_Okafor.jpg';
-import tomNakamuraImage from './assets/refference/profiles/Skll set endorsement images/Tom_Nakamura.jpg';
-import sofiaDelgadoImage from './assets/refference/profiles/Skll set endorsement images/Sofia_Delgado.jpg';
-import eliotParkImage from './assets/refference/profiles/Skll set endorsement images/Eliot_Park.jpg';
-import nadiaFloresImage from './assets/refference/profiles/Skll set endorsement images/Nadia_Flores.jpg';
-import danielYuenImage from './assets/refference/profiles/Skll set endorsement images/Daniel_Yuen.jpg';
-import profAveryBrooksImage from './assets/refference/profiles/Skll set endorsement images/Prof_Avery_Brooks.jpg';
+import peterSuiImage from './assets/reference/profiles/Skll set endorsement images/Peter_Sui.jpg';
+import marcusChenImage from './assets/reference/profiles/Skll set endorsement images/Marcus_Chen.jpg';
+import jamieReyesImage from './assets/reference/profiles/Skll set endorsement images/Jamie_Reyes.jpg';
+import aishaOkaforImage from './assets/reference/profiles/Skll set endorsement images/Aisha_Okafor.jpg';
+import tomNakamuraImage from './assets/reference/profiles/Skll set endorsement images/Tom_Nakamura.jpg';
+import sofiaDelgadoImage from './assets/reference/profiles/Skll set endorsement images/Sofia_Delgado.jpg';
+import eliotParkImage from './assets/reference/profiles/Skll set endorsement images/Eliot_Park.jpg';
+import nadiaFloresImage from './assets/reference/profiles/Skll set endorsement images/Nadia_Flores.jpg';
+import danielYuenImage from './assets/reference/profiles/Skll set endorsement images/Daniel_Yuen.jpg';
+import profAveryBrooksImage from './assets/reference/profiles/Skll set endorsement images/Prof_Avery_Brooks.jpg';
 import MyNetworkPage from './pages/MyNetworkPage.jsx';
 
 function getProfileIdFromUrl() {

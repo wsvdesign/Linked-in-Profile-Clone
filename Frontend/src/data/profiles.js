@@ -1,4 +1,4 @@
-import leoProfileImage from '../assets/refference/profiles/leo profile/leo-profile.jpg';
+import leoProfileImage from '../assets/reference/profiles/leo profile/leo-profile.jpg';
 import darioProfileImage from '../assets/profiles/Dario Profile/dario.jpeg';
 
 const leoSidebarProfiles = [
