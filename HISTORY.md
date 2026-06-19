@@ -506,3 +506,119 @@ Scope discrepancy resolution note:
 
 - `LinkedIn_Profile_Page_Clone_PRD_by_MPNW_Phase_1.md`
 - `GamerCard_Profile_Feature_PRD_Phase_2.md`
+
+---
+
+## 2026-06-19 - Documentation Discrepancy Audit and Fixes
+
+### Project Phase
+
+Documentation / Quality Assurance / Repository Hygiene
+
+### Builders
+
+- Natalie Walker
+- GitHub Copilot
+
+### Work Completed
+
+- Performed comprehensive cross-document audit to identify scope conflicts, path mismatches, and stale/inconsistent content across all Markdown files.
+- Identified and resolved 10 discrepancy categories ranging from critical scope conflict to low-severity formatting issues.
+- Updated ARCHITECTURE.md to reflect actual Frontend subdirectory structure instead of root-level src layout.
+- Added "Current Implementation Reality" section to ARCHITECTURE.md to clarify what is currently built vs what is planned.
+- Updated file structure diagrams in ARCHITECTURE.md to show Linked-in-Profile-Clone/ as project root, Frontend/ as app subdirectory, and Phase 1/2 PRDs at root.
+- Updated all import/path examples in ARCHITECTURE.md to use Frontend-prefixed paths (Frontend/src/data/profileData.js, etc.).
+- Updated DEBUGGING.md to include `cd Frontend` before all npm commands and to show Frontend/src/ path expectations.
+- Updated EXECUTION.md to include `cd Frontend` before required npm commands.
+- Standardized Marc's name from "Marc P." to "Marc Perez" in GamerCard_Profile_Feature_PRD_Phase_2.md for consistency with full name usage.
+- Flattened nested indented bullet lists in HISTORY.md 2026-06-19 entry to improve readability while preserving content.
+
+### Issues Encountered
+
+- Documentation described root-level app structure but actual code exists under Frontend/ subdirectory, causing onboarding confusion.
+- Architecture doc described many UI pieces as separate component files when most are currently internal functions in App.jsx.
+- Team name inconsistency: Marc referred to as both "Marc P." and full name elsewhere.
+- Nested indented bullets in history made content harder to scan.
+
+### Solutions Applied
+
+- Rewrote file structure sections to match actual Frontend-based layout.
+- Added explicit note to ARCHITECTURE.md that component boundaries describe architecture conceptually but implementation may use internal functions.
+- Standardized all team references to full names (Natalie Walker, Marc Perez).
+- Flattened all nested bullets while maintaining markdown semantic structure.
+- Verified all path updates do not affect code by running build/test suite after edits.
+
+### Decisions Made
+
+- Document actual codebase structure, not aspirational structure.
+- Keep "Current Implementation Reality" section in ARCHITECTURE.md to allow future component extraction without forcing doc rewrites.
+- Use full names consistently across all team member references.
+- Maintain clean bullet formatting for future history entries.
+
+### Validation
+
+- Frontend build: passed
+- Test suite: 4/4 tests passed
+- No broken imports or path conflicts introduced
+
+### Next Steps
+
+- Optional: rename Frontend/src/assets/refference/ folder to reference/ (correcting typo) if path migration is acceptable.
+- Continue adding Leo's game page HTML and converting to React components.
+- Maintain doc-sync practices as feature work proceeds.
+
+### Project Agents
+
+| Agent | Responsibility |
+|---|---|
+| JIRO ONO | Clone Fidelity + Final Execution Approval |
+| Ant Wilson | Security & Data Hygiene |
+| Grace Hopper | Debugging & Build Stability |
+
+### Notes
+
+Related pushed commit from this session:
+
+- `d6d519c` - docs: align architecture paths and standardize PRD naming
+
+This entry documents the documentation audit and remediation pass. All discrepancies identified during the comprehensive cross-file review were either resolved or noted for future work.
+
+---
+
+## 2026-06-19 - GamerCard Naming Update and Push Sequence Addendum
+
+### Project Phase
+
+Phase 2 / GamerCard Integration / Controlled Scope Update
+
+### Builders
+
+- Natalie Walker
+- GitHub Copilot
+
+### Work Completed
+
+- Updated game names in GamerCard profile "Games I Built" sections only, without changing any other content or layout.
+- Renamed `VOID SIGNAL` to `VOID CODE` in both locations where "Games I Built" is rendered.
+- Renamed `HOLLOW GRID` to `HOLLOW ECHO` in both locations where "Games I Built" is rendered.
+- Preserved all surrounding card copy, badges, spacing, links, and section structure under JIRO ONO clone-fidelity constraints.
+
+### Files Updated
+
+- `Frontend/src/pages/GamerCardProfile.jsx`
+
+### Review and Debug Validation
+
+- Verified scoped text-only change in `Frontend/src/pages/GamerCardProfile.jsx`.
+- Frontend build: passed.
+- Test suite: 4/4 passed.
+
+### Commit and Push Sequence
+
+- `5be0a84` - chore(gamercard): rename built game titles to VOID CODE and HOLLOW ECHO
+- `e017ad7` - chore(assets): finalize refference to reference asset path migration
+
+### Notes
+
+- The GamerCard naming update was intentionally committed as a small, isolated change first.
+- Asset-path migration was committed and pushed afterward as a separate operation to keep scope clean and reviewable.
