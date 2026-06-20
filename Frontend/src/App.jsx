@@ -18,6 +18,8 @@ import danielYuenImage from './assets/reference/profiles/Skll set endorsement im
 import profAveryBrooksImage from './assets/reference/profiles/Skll set endorsement images/Prof_Avery_Brooks.jpg';
 import MyNetworkPage from './pages/MyNetworkPage.jsx';
 import GamerCardProfile from './pages/GamerCardProfile.jsx';
+import SignalSprint from './pages/SignalSprint.jsx';
+import GridLogic from './pages/GridLogic.jsx';
 
 function getProfileIdFromUrl() {
   if (typeof window === 'undefined') {
@@ -30,7 +32,18 @@ function getProfileIdFromUrl() {
 
 function getViewFromUrl() {
   if (typeof window === 'undefined') return null;
-  return new URL(window.location.href).searchParams.get('view') || null;
+
+  const url = new URL(window.location.href);
+
+  if (url.pathname === '/games/signal-sprint') {
+    return 'signal-sprint';
+  }
+
+  if (url.pathname === '/games/grid-logic') {
+    return 'grid-logic';
+  }
+
+  return url.searchParams.get('view') || null;
 }
 
 function getInitials(name) {
@@ -715,6 +728,7 @@ export default function App() {
     }
 
     const nextUrl = new URL(window.location.href);
+    nextUrl.pathname = '/';
     nextUrl.searchParams.set('profile', nextProfileId);
     nextUrl.searchParams.delete('view');
     window.history.pushState({ profileId: nextProfileId }, '', nextUrl);
@@ -724,6 +738,7 @@ export default function App() {
 
   const handleShowSkills = () => {
     const nextUrl = new URL(window.location.href);
+    nextUrl.pathname = '/';
     nextUrl.searchParams.set('view', 'skills');
     window.history.pushState({ view: 'skills' }, '', nextUrl);
     setActiveView('skills');
@@ -735,9 +750,26 @@ export default function App() {
 
   const handleOpenGamerCard = () => {
     const nextUrl = new URL(window.location.href);
+    nextUrl.pathname = '/';
     nextUrl.searchParams.set('view', 'gamercard');
     window.history.pushState({ view: 'gamercard' }, '', nextUrl);
     setActiveView('gamercard');
+  };
+
+  const handleOpenSignalSprint = () => {
+    const nextUrl = new URL(window.location.href);
+    nextUrl.pathname = '/games/signal-sprint';
+    nextUrl.search = '';
+    window.history.pushState({ view: 'signal-sprint' }, '', nextUrl);
+    setActiveView('signal-sprint');
+  };
+
+  const handleOpenGridLogic = () => {
+    const nextUrl = new URL(window.location.href);
+    nextUrl.pathname = '/games/grid-logic';
+    nextUrl.search = '';
+    window.history.pushState({ view: 'grid-logic' }, '', nextUrl);
+    setActiveView('grid-logic');
   };
 
   const handleBackFromGamerCard = () => {
@@ -748,12 +780,14 @@ export default function App() {
     const nextUrl = new URL(window.location.href);
 
     if (nextView) {
+      nextUrl.pathname = '/';
       nextUrl.searchParams.set('view', nextView);
       window.history.pushState({ view: nextView }, '', nextUrl);
       setActiveView(nextView);
       return;
     }
 
+    nextUrl.pathname = '/';
     nextUrl.searchParams.delete('view');
     window.history.pushState({ view: null }, '', nextUrl);
     setActiveView(null);
@@ -769,11 +803,33 @@ export default function App() {
     );
   }
 
+  if (activeView === 'signal-sprint') {
+    return (
+      <>
+        <SignalSprint />
+        <MessagingBubble />
+      </>
+    );
+  }
+
+  if (activeView === 'grid-logic') {
+    return (
+      <>
+        <GridLogic />
+        <MessagingBubble />
+      </>
+    );
+  }
+
   if (activeView === 'gamercard') {
     return (
       <>
         <Navbar onOpenView={handleOpenView} activeView={activeView} />
-        <GamerCardProfile onBack={handleBackFromGamerCard} />
+        <GamerCardProfile
+          onBack={handleBackFromGamerCard}
+          onOpenSignalSprint={handleOpenSignalSprint}
+          onOpenGridLogic={handleOpenGridLogic}
+        />
         <MessagingBubble />
       </>
     );

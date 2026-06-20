@@ -1,0 +1,440 @@
+.grid-logic-page,
+.grid-logic-page * {
+  box-sizing: border-box;
+}
+
+.grid-logic-page {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #f3f2ef;
+  color: #191919;
+  min-height: 100vh;
+}
+.grid-logic-page .navbar {
+  background: #fff;
+  border-bottom: 1px solid #d9d9d9;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+.grid-logic-page .navbar-inner {
+  max-width: 1128px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.grid-logic-page .brand {
+  width: 34px;
+  height: 34px;
+  border-radius: 4px;
+  background: #0a66c2;
+  color: #fff;
+  font-weight: 900;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.grid-logic-page .search-box {
+  background: #edf3f8;
+  border-radius: 4px;
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 220px;
+  font-size: 13px;
+  color: #666;
+}
+.grid-logic-page .nav-links {
+  display: flex;
+  align-items: stretch;
+  height: 52px;
+}
+.grid-logic-page .ni {
+  border: 0;
+  background: transparent;
+  color: #555;
+  min-width: 66px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  font-size: 11px;
+  padding: 0 4px;
+  cursor: pointer;
+  height: 52px;
+  border-bottom: 2px solid transparent;
+}
+.grid-logic-page .ni:hover {
+  color: #191919;
+  border-bottom-color: #191919;
+}
+.grid-logic-page .ni-icon {
+  position: relative;
+  display: inline-flex;
+}
+.grid-logic-page .nbadge {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  background: #cc1016;
+  color: #fff;
+  min-width: 15px;
+  height: 15px;
+  border-radius: 999px;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  padding: 0 2px;
+}
+.grid-logic-page .mini-ava {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #6847c1;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 11px;
+  overflow: hidden;
+}
+.grid-logic-page .nav-div {
+  border-left: 1px solid #d9d9d9;
+  margin: 10px 4px;
+}
+.grid-logic-page .prem {
+  border: 0;
+  background: transparent;
+  color: #915907;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  font-size: 11px;
+  padding: 0 8px;
+  height: 52px;
+  cursor: pointer;
+}
+.grid-logic-page .gold {
+  width: 16px;
+  height: 16px;
+  background: linear-gradient(135deg, #e7a33e 50%, #c37d16 50%);
+  border-radius: 3px;
+}
+.grid-logic-page .leo-bar {
+  background: rgba(255, 255, 255, 0.97);
+  border-bottom: 1px solid #d9d9d9;
+  position: sticky;
+  top: 52px;
+  z-index: 35;
+}
+.grid-logic-page .leo-bar-inner {
+  max-width: 1128px;
+  margin: 0 auto;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 16px;
+}
+.grid-logic-page .leo-photo {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 2px solid #d9d9d9;
+}
+.grid-logic-page .leo-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.grid-logic-page .leo-info strong {
+  font-size: 14px;
+  display: block;
+}
+.grid-logic-page .leo-info span {
+  font-size: 12px;
+  color: #666;
+}
+.grid-logic-page .leo-actions {
+  margin-left: auto;
+  display: flex;
+  gap: 8px;
+}
+.grid-logic-page .lbtn {
+  border-radius: 999px;
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.grid-logic-page .lbtn-ghost {
+  border: 1px solid #666;
+  background: #fff;
+  color: #191919;
+}
+.grid-logic-page .lbtn-outline {
+  border: 1px solid #0a66c2;
+  background: #fff;
+  color: #0a66c2;
+}
+.grid-logic-page .lbtn-primary {
+  border: 1px solid #0a66c2;
+  background: #0a66c2;
+  color: #fff;
+}
+.grid-logic-page .page {
+  max-width: 900px;
+  margin: 32px auto;
+  padding: 0 16px;
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 32px;
+  align-items: start;
+}
+.grid-logic-page .game-area {
+  background: #fff;
+  border: 1px solid #d9d9d9;
+  border-radius: 12px;
+  padding: 28px;
+  text-align: center;
+}
+.grid-logic-page .game-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.grid-logic-page .game-subtitle {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 6px;
+}
+.grid-logic-page .puzzle-num {
+  font-size: 13px;
+  color: #999;
+  margin-bottom: 24px;
+}
+.grid-logic-page .grid-wrap {
+  display: inline-block;
+  margin: 0 auto 24px;
+  border: 2px solid #333;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.grid-logic-page .grid-row {
+  display: flex;
+}
+.grid-logic-page .cell {
+  width: 64px;
+  height: 64px;
+  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background 0.12s;
+  position: relative;
+  background: #fff;
+  user-select: none;
+}
+.grid-logic-page .cell.given {
+  cursor: default;
+  background: #f8f8f8;
+}
+.grid-logic-page .cell.empty:hover {
+  background: #eef3f8;
+}
+.grid-logic-page .cell.filled {
+  background: #0a66c2;
+  color: #fff;
+}
+.grid-logic-page .cell.filled:hover {
+  background: #004182;
+}
+.grid-logic-page .cell.error {
+  background: #fdecea;
+  border-color: #cc1016;
+}
+.grid-logic-page .cell.solved-correct {
+  background: #e8f5e9;
+  color: #057642;
+}
+.grid-logic-page .action-row {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 8px;
+}
+.grid-logic-page .action-btn {
+  border-radius: 999px;
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  border: 0;
+}
+.grid-logic-page .btn-primary {
+  background: #0a66c2;
+  color: #fff;
+}
+.grid-logic-page .btn-primary:hover {
+  background: #004182;
+}
+.grid-logic-page .btn-ghost {
+  background: #fff;
+  border: 1px solid #d9d9d9;
+  color: #555;
+}
+.grid-logic-page .btn-ghost:hover {
+  background: #f3f2ef;
+}
+.grid-logic-page .btn-hint {
+  background: #fff;
+  border: 1px solid #0a66c2;
+  color: #0a66c2;
+}
+.grid-logic-page .btn-hint:hover {
+  background: #eef3f8;
+}
+.grid-logic-page .feedback {
+  font-size: 14px;
+  font-weight: 400;
+  font-style: italic;
+  min-height: 22px;
+  margin-bottom: 16px;
+}
+.grid-logic-page .feedback.good {
+  color: #057642;
+}
+.grid-logic-page .feedback.bad {
+  color: #cc1016;
+}
+.grid-logic-page .feedback.info {
+  color: #0a66c2;
+}
+.grid-logic-page .info-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.grid-logic-page .info-card {
+  background: #fff;
+  border: 1px solid #d9d9d9;
+  border-radius: 12px;
+  padding: 20px;
+}
+.grid-logic-page .info-card h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 10px;
+}
+.grid-logic-page .info-card p {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.5;
+  margin: 0;
+}
+.grid-logic-page .how-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.grid-logic-page .how-num {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #0a66c2;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.grid-logic-page .how-text {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.4;
+}
+.grid-logic-page .moves-display {
+  font-size: 36px;
+  font-weight: 900;
+  color: #0a66c2;
+  text-align: center;
+  margin: 8px 0;
+}
+.grid-logic-page .moves-label {
+  font-size: 12px;
+  color: #666;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.grid-logic-page .share-btn {
+  width: 100%;
+  border: 1px solid #0a66c2;
+  background: #fff;
+  color: #0a66c2;
+  border-radius: 999px;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 10px;
+}
+.grid-logic-page .share-btn:hover {
+  background: #eef3f8;
+}
+.grid-logic-page .result-box {
+  text-align: center;
+  padding: 16px 0;
+}
+.grid-logic-page .result-title {
+  font-size: 26px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+.grid-logic-page .result-sub {
+  font-size: 15px;
+  color: #666;
+  margin-bottom: 20px;
+}
+.grid-logic-page .result-score {
+  font-size: 56px;
+  font-weight: 900;
+  color: #0a66c2;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.grid-logic-page .result-label {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 28px;
+}
+@media (max-width: 960px) {
+  .grid-logic-page .page {
+    grid-template-columns: 1fr;
+  }
+}

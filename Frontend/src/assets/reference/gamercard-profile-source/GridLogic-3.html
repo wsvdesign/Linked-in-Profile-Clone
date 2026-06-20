@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Grid Logic | LinkedIn</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#f3f2ef;color:#191919}
+
+.navbar{background:#fff;border-bottom:1px solid #d9d9d9;height:52px;display:flex;align-items:center;padding:0 16px;justify-content:space-between;position:sticky;top:0;z-index:40}
+.navbar-inner{max-width:1128px;width:100%;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.brand{width:34px;height:34px;border-radius:4px;background:#0a66c2;color:#fff;font-weight:900;font-size:22px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.search-box{background:#edf3f8;border-radius:4px;padding:6px 10px;display:flex;align-items:center;gap:6px;width:220px;font-size:13px;color:#666}
+.nav-links{display:flex;align-items:stretch;height:52px}
+.ni{border:0;background:transparent;color:#555;min-width:66px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:11px;padding:0 4px;cursor:pointer;height:52px;border-bottom:2px solid transparent}
+.ni:hover{color:#191919;border-bottom-color:#191919}
+.ni-icon{position:relative;display:inline-flex}
+.nbadge{position:absolute;top:-6px;right:-8px;background:#cc1016;color:#fff;min-width:15px;height:15px;border-radius:999px;font-size:10px;display:flex;align-items:center;justify-content:center;font-weight:700;padding:0 2px}
+.mini-ava{width:26px;height:26px;border-radius:50%;background:#6847c1;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;overflow:hidden}
+.nav-div{border-left:1px solid #d9d9d9;margin:10px 4px}
+.prem{border:0;background:transparent;color:#915907;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:11px;padding:0 8px;height:52px;cursor:pointer}
+.gold{width:16px;height:16px;background:linear-gradient(135deg,#e7a33e 50%,#c37d16 50%);border-radius:3px}
+.leo-bar{background:rgba(255,255,255,0.97);border-bottom:1px solid #d9d9d9;position:sticky;top:52px;z-index:35}
+.leo-bar-inner{max-width:1128px;margin:0 auto;height:52px;display:flex;align-items:center;gap:10px;padding:0 16px}
+.leo-photo{width:38px;height:38px;border-radius:50%;overflow:hidden;flex-shrink:0;border:2px solid #d9d9d9}
+.leo-photo img{width:100%;height:100%;object-fit:cover}
+.leo-info strong{font-size:14px;display:block}
+.leo-info span{font-size:12px;color:#666}
+.leo-actions{margin-left:auto;display:flex;gap:8px}
+.lbtn{border-radius:999px;padding:6px 16px;font-size:13px;font-weight:700;cursor:pointer}
+.lbtn-ghost{border:1px solid #666;background:#fff;color:#191919}
+.lbtn-outline{border:1px solid #0a66c2;background:#fff;color:#0a66c2}
+.lbtn-primary{border:1px solid #0a66c2;background:#0a66c2;color:#fff}
+
+.page{max-width:900px;margin:32px auto;padding:0 16px;display:grid;grid-template-columns:1fr 300px;gap:32px;align-items:start}
+
+.game-area{background:#fff;border:1px solid #d9d9d9;border-radius:12px;padding:28px;text-align:center}
+.game-title{font-size:22px;font-weight:700;margin-bottom:4px}
+.game-subtitle{font-size:14px;color:#666;margin-bottom:6px}
+.puzzle-num{font-size:13px;color:#999;margin-bottom:24px}
+
+/* GRID */
+.grid-wrap{display:inline-block;margin:0 auto 24px;border:2px solid #333;border-radius:4px;overflow:hidden}
+.grid-row{display:flex}
+.cell{
+  width:64px;height:64px;
+  border:1px solid #ccc;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;font-weight:800;
+  cursor:pointer;
+  transition:background 0.12s;
+  position:relative;
+  background:#fff;
+  user-select:none;
+}
+.cell.given{cursor:default;background:#f8f8f8}
+.cell.given .cell-num{color:#191919}
+.cell.empty{cursor:pointer}
+.cell.empty:hover{background:#eef3f8}
+.cell.filled{background:#0a66c2;color:#fff;cursor:pointer}
+.cell.filled:hover{background:#004182}
+.cell.error{background:#fdecea;border-color:#cc1016}
+.cell.solved-correct{background:#e8f5e9;color:#057642}
+.cell-num{font-size:13px;color:#555;font-weight:700}
+
+/* CLUES */
+.clues-section{margin-bottom:20px;text-align:left}
+.clues-title{font-size:13px;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px}
+.clue-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:14px}
+.clue-dot{width:14px;height:14px;border-radius:50%;flex-shrink:0}
+.clue-dot.blue{background:#0a66c2}
+.clue-dot.empty{background:#fff;border:2px solid #555}
+
+/* ACTIONS */
+.action-row{display:flex;gap:10px;justify-content:center;margin-top:8px}
+.action-btn{border-radius:999px;padding:10px 24px;font-size:14px;font-weight:700;cursor:pointer;border:0}
+.btn-primary{background:#0a66c2;color:#fff}
+.btn-primary:hover{background:#004182}
+.btn-ghost{background:#fff;border:1px solid #d9d9d9;color:#555}
+.btn-ghost:hover{background:#f3f2ef}
+.btn-hint{background:#fff;border:1px solid #0a66c2;color:#0a66c2}
+.btn-hint:hover{background:#eef3f8}
+
+.feedback{font-size:14px;font-weight:400;font-style:italic;min-height:22px;margin-bottom:16px}
+.feedback.good{color:#057642}
+.feedback.bad{color:#cc1016}
+.feedback.info{color:#0a66c2}
+
+/* INFO */
+.info-panel{display:flex;flex-direction:column;gap:16px}
+.info-card{background:#fff;border:1px solid #d9d9d9;border-radius:12px;padding:20px}
+.info-card h3{font-size:16px;font-weight:700;margin-bottom:10px}
+.info-card p{font-size:14px;color:#555;line-height:1.5}
+.how-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px}
+.how-num{width:24px;height:24px;border-radius:50%;background:#0a66c2;color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.how-text{font-size:14px;color:#555;line-height:1.4}
+.moves-display{font-size:36px;font-weight:900;color:#0a66c2;text-align:center;margin:8px 0}
+.moves-label{font-size:12px;color:#666;text-align:center;text-transform:uppercase;letter-spacing:0.06em}
+.share-btn{width:100%;border:1px solid #0a66c2;background:#fff;color:#0a66c2;border-radius:999px;padding:10px;font-size:14px;font-weight:700;cursor:pointer;margin-top:10px}
+.share-btn:hover{background:#eef3f8}
+
+/* RESULT */
+.result-box{text-align:center;padding:16px 0}
+.result-title{font-size:26px;font-weight:800;margin-bottom:8px}
+.result-sub{font-size:15px;color:#666;margin-bottom:20px}
+.result-score{font-size:56px;font-weight:900;color:#0a66c2;line-height:1;margin-bottom:4px}
+.result-label{font-size:14px;color:#666;margin-bottom:28px}
+</style>
+</head>
+<body>
+
+<header class="navbar">
+  <div class="navbar-inner">
+    <div style="display:flex;align-items:center;gap:8px">
+      <div class="brand">in</div>
+      <div class="search-box">🔍 Search</div>
+    </div>
+    <nav class="nav-links">
+      <button class="ni">🏠<span>Home</span></button>
+      <button class="ni"><span class="ni-icon">👥<span class="nbadge">2</span></span><span>My Network</span></button>
+      <button class="ni">💼<span>Jobs</span></button>
+      <button class="ni"><span class="ni-icon">💬<span class="nbadge">1</span></span><span>Messaging</span></button>
+      <button class="ni"><span class="ni-icon">🔔<span class="nbadge">3</span></span><span>Notifications</span></button>
+      <button class="ni"><div class="mini-ava">N</div><span>Me ▾</span></button>
+      <div class="nav-div"></div>
+      <button class="ni">⊞<span>For Business ▾</span></button>
+      <button class="prem"><div class="gold"></div><span>Try Premium for $0</span></button>
+    </nav>
+  </div>
+</header>
+
+<div class="leo-bar">
+  <div class="leo-bar-inner">
+    <div class="leo-photo">
+      <img src="leoprofile.jpg" alt="Leo Martinez" onerror="this.parentElement.innerHTML='<div style=\'width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#c9673e,#788fa5);display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:13px\'>LM</div>'">
+    </div>
+    <div class="leo-info">
+      <strong>Leo Martinez</strong>
+      <span>Game Developer | Frontend Engineer | Computer Science Graduate Student at Yale</span>
+    </div>
+    <div class="leo-actions">
+      <button class="lbtn lbtn-ghost">More</button>
+      <button class="lbtn lbtn-outline">✈ Message</button>
+      <button class="lbtn lbtn-primary">+ Follow</button>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="game-area" id="game-area"></div>
+  <div class="info-panel">
+    <div class="info-card">
+      <h3>How to play</h3>
+      <div class="how-row"><div class="how-num">1</div><div class="how-text">Fill every row and column with exactly one ● and one ○.</div></div>
+      <div class="how-row"><div class="how-num">2</div><div class="how-text">No two ● or ○ can be adjacent — horizontally or vertically.</div></div>
+      <div class="how-row"><div class="how-num">3</div><div class="how-text">Click once for blue ●, click again for white ○ (empty circle with border), click again to clear.</div></div>
+      <div class="how-row"><div class="how-num">4</div><div class="how-text">Use logic only. No guessing needed.</div></div>
+    </div>
+    <div class="info-card">
+      <h3>Your moves</h3>
+      <div class="moves-display" id="moves-display">0</div>
+      <div class="moves-label">moves made</div>
+    </div>
+    <div class="info-card">
+      <h3>About Grid Logic</h3>
+      <p>A spatial reasoning puzzle. Fill the grid using pure logic — no guessing allowed. Every puzzle has exactly one solution.</p>
+      <button class="share-btn">Share your result</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── PUZZLES ──────────────────────────────────────────────────────────────────
+// Each puzzle: 4x4 grid
+// 0 = empty, 1 = filled (●), 2 = open (○), -1 = given filled, -2 = given open
+// Rules: each row and col has exactly one ● and one ○, no two same adjacent
+
+const puzzles = [
+  {
+    label: 'Puzzle #1',
+    // given cells: [row, col, value] — 1=● 2=○
+    givens: [[0,0,1],[1,3,2],[2,1,1],[3,2,2]],
+    solution: [
+      [1,0,0,2],
+      [0,1,2,0], // wait — let me use simpler rule
+      [0,2,1,0],
+      [2,0,0,1],
+    ],
+    size: 4,
+  },
+];
+
+// Simpler approach: Binary puzzle (Binairo-style 4x4)
+// Rules: each row/col has equal 0s and 1s, no 3 in a row
+// 0 = white, 1 = blue, -1 = given white, -2 = given blue
+
+const PUZZLES = [
+  {
+    // Solution: checkerboard ● ○ ● ○ / ○ ● ○ ● / ● ○ ● ○ / ○ ● ○ ●
+    // Givens: corners only — (0,0)=blue, (0,3)=white, (3,0)=white, (3,3)=blue
+    label: 'Puzzle #1 — Warm Up',
+    size: 4,
+    grid: [
+      [-2, 0, 0,-1],
+      [ 0, 0, 0, 0],
+      [ 0, 0, 0, 0],
+      [-1, 0, 0,-2],
+    ],
+    solution: [
+      [1,0,1,0],
+      [0,1,0,1],
+      [1,0,1,0],
+      [0,1,0,1],
+    ],
+    clues: [
+      'Each row has exactly 2 blue ● and 2 white ○',
+      'Each column has exactly 2 blue ● and 2 white ○',
+      'No three of the same color can be adjacent',
+    ],
+  },
+  {
+    // Solution: ○ ● ○ ● / ● ○ ● ○ / ○ ● ○ ● / ● ○ ● ○
+    // Givens: (0,1)=blue, (1,0)=blue, (2,3)=blue, (3,2)=blue
+    label: 'Puzzle #2 — Focus',
+    size: 4,
+    grid: [
+      [ 0,-2, 0, 0],
+      [-2, 0, 0, 0],
+      [ 0, 0, 0,-2],
+      [ 0, 0,-2, 0],
+    ],
+    solution: [
+      [0,1,0,1],
+      [1,0,1,0],
+      [0,1,0,1],
+      [1,0,1,0],
+    ],
+    clues: [
+      'Each row has exactly 2 blue ● and 2 white ○',
+      'Each column has exactly 2 blue ● and 2 white ○',
+      'No three of the same color can be adjacent',
+    ],
+  },
+  {
+    // Solution: ● ● ○ ○ / ○ ○ ● ● / ● ● ○ ○ / ○ ○ ● ●
+    // Givens: (0,0)=blue, (0,1)=blue, (1,2)=blue, (1,3)=blue, (2,0)=blue, (3,3)=blue
+    label: 'Puzzle #3 — Sharp',
+    size: 4,
+    grid: [
+      [-2,-2, 0, 0],
+      [ 0, 0,-2,-2],
+      [-2, 0, 0, 0],
+      [ 0, 0, 0,-2],
+    ],
+    solution: [
+      [1,1,0,0],
+      [0,0,1,1],
+      [1,1,0,0],
+      [0,0,1,1],
+    ],
+    clues: [
+      'Each row has exactly 2 blue ● and 2 white ○',
+      'Each column has exactly 2 blue ● and 2 white ○',
+      'No three of the same color can be adjacent',
+    ],
+  },
+];
+
+let puzzleIndex = 0;
+let userGrid = [];
+let moves = 0;
+let hints = 0;
+let solved = false;
+let wrong = false;
+let history = [];
+let seconds = 0;
+let timerInterval = null;
+
+function formatTime(s) {
+  const m = Math.floor(s / 60).toString().padStart(2,'0');
+  const sec = (s % 60).toString().padStart(2,'0');
+  return m + ':' + sec;
+}
+
+function startTimer() {
+  clearInterval(timerInterval);
+  seconds = 0;
+  timerInterval = setInterval(() => {
+    seconds++;
+    const el = document.getElementById('timer-display');
+    if (el) el.textContent = formatTime(seconds);
+  }, 1000);
+}
+
+function stopTimer() {
+  clearInterval(timerInterval);
+}
+
+function initPuzzle() {
+  const p = PUZZLES[puzzleIndex];
+  userGrid = p.grid.map(row => row.map(v => v));
+  moves = 0;
+  hints = 0;
+  solved = false;
+  wrong = false;
+  history = [];
+  stopTimer();
+  startTimer();
+  renderGame();
+}
+
+function buildGrid() {
+  const p = PUZZLES[puzzleIndex];
+  let gridHTML = '<div class="grid-wrap">';
+  for (let r = 0; r < p.size; r++) {
+    gridHTML += '<div class="grid-row">';
+    for (let c = 0; c < p.size; c++) {
+      const v = userGrid[r][c];
+      const isGiven = v === -1 || v === -2;
+      let inner = '';
+      let bgStyle = '';
+      let extraStyle = '';
+
+      if (v === -2) {
+        // given blue
+        bgStyle = 'background:#0a66c2;';
+        inner = `<span style="font-size:28px;color:#fff;font-weight:800">●</span>`;
+      } else if (v === -1) {
+        // given white — white circle with blue border ring
+        bgStyle = 'background:#f8f8f8;';
+        inner = `<div style="width:34px;height:34px;border-radius:50%;border:3px solid #191919;background:#fff;"></div>`;
+      } else if (v === 1) {
+        // user blue
+        bgStyle = 'background:#0a66c2;';
+        inner = `<span style="font-size:28px;color:#fff;font-weight:800">●</span>`;
+      } else if (v === 2) {
+        // user white — clearly visible white circle with dark border
+        bgStyle = 'background:#fff;';
+        inner = `<div style="width:34px;height:34px;border-radius:50%;border:3px solid #191919;background:#fff;"></div>`;
+      } else {
+        // empty
+        bgStyle = 'background:#fff;';
+        inner = '';
+      }
+
+      gridHTML += `<div class="cell ${isGiven ? 'given' : ''}" style="${bgStyle}${isGiven ? 'cursor:default;' : ''}"
+        onclick="${isGiven ? '' : `cycleCell(${r},${c})`}">
+        ${inner}
+      </div>`;
+    }
+    gridHTML += '</div>';
+  }
+  return gridHTML + '</div>';
+}
+
+function renderGame() {
+  const p = PUZZLES[puzzleIndex];
+  const area = document.getElementById('game-area');
+
+  // ── SOLVED ──
+  if (solved) {
+    stopTimer();
+    area.innerHTML = `
+      <div class="result-box">
+        <div style="font-size:48px;margin-bottom:12px">🎉</div>
+        <div class="result-title">Solved!</div>
+        <div class="result-sub">${p.label} completed</div>
+        <div style="display:flex;justify-content:center;gap:32px;margin-bottom:20px">
+          <div style="text-align:center">
+            <div class="result-score" style="font-size:40px">${formatTime(seconds)}</div>
+            <div class="result-label">time</div>
+          </div>
+          <div style="text-align:center">
+            <div class="result-score" style="font-size:40px">${moves}</div>
+            <div class="result-label">moves</div>
+          </div>
+        </div>
+        ${puzzleIndex < PUZZLES.length - 1
+          ? `<button class="action-btn btn-primary" onclick="nextPuzzle()">Next puzzle →</button>`
+          : `<div style="font-size:15px;color:#057642;font-weight:700;margin-bottom:16px">🏆 All puzzles complete!</div>`
+        }
+        <button class="action-btn btn-ghost" onclick="resetPuzzle()" style="margin-left:8px">Play again</button>
+      </div>
+    `;
+    return;
+  }
+
+  const clueItems = p.clues.map(c => `<li style="font-size:13px;color:#555;margin-bottom:6px">${c}</li>`).join('');
+  const feedbackHTML = wrong
+    ? `<div class="feedback bad" id="fb">That's not right — check your logic and try again.</div>`
+    : `<div class="feedback" id="fb"></div>`;
+
+  area.innerHTML = `
+    <div class="game-title">Grid Logic</div>
+    <div class="game-subtitle">Fill the grid — no guessing allowed</div>
+    <div class="puzzle-num">${p.label}</div>
+
+    <div style="display:flex;justify-content:center;gap:28px;margin-bottom:18px">
+      <div style="text-align:center">
+        <div style="font-size:26px;font-weight:800;color:#0a66c2" id="timer-display">${formatTime(seconds)}</div>
+        <div style="font-size:11px;color:#666;text-transform:uppercase;letter-spacing:0.06em;font-weight:600">Time</div>
+      </div>
+      <div style="text-align:center">
+        <div style="font-size:26px;font-weight:800" id="moves-display">${moves}</div>
+        <div style="font-size:11px;color:#666;text-transform:uppercase;letter-spacing:0.06em;font-weight:600">Moves</div>
+      </div>
+    </div>
+
+    <div style="background:#f8f8f8;border-radius:8px;padding:12px 16px;margin-bottom:16px;text-align:left">
+      <div style="font-size:12px;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px">Rules</div>
+      <ul style="list-style:none;padding:0">${clueItems}</ul>
+    </div>
+    <div style="margin-bottom:10px;font-size:13px;color:#666">Click a cell: <strong>empty</strong> → <span style="color:#0a66c2;font-weight:700">● blue</span> → <span style="font-weight:700">○ white (empty circle)</span> → empty</div>
+    ${buildGrid()}
+    ${feedbackHTML}
+    <div class="action-row">
+      <button class="action-btn btn-hint" onclick="giveHint()">Hint</button>
+      <button class="action-btn btn-ghost" onclick="resetPuzzle()">Reset</button>
+    </div>
+  `;
+}
+
+function cycleCell(r, c) {
+  if (solved) return;
+  wrong = false;
+  const v = userGrid[r][c];
+  userGrid[r][c] = v === 0 ? 1 : v === 1 ? 2 : 0;
+  moves++;
+  checkState();
+  renderGame();
+}
+
+function undoLast() {
+  if (history.length === 0) return;
+  userGrid = history.pop();
+  wrong = false;
+  moves = Math.max(0, moves - 1);
+  renderGame();
+}
+
+function giveHint() {
+  const p = PUZZLES[puzzleIndex];
+  const hints = [
+    'Look at the row with the most given symbols — what must the remaining cells be?',
+    'If a row already has 2 blue ●, the rest of that row must be white ○.',
+    'Check your columns — each needs exactly 2 blue and 2 white.',
+    'Two of the same color side by side means the cells around them cannot be that color.',
+    'Find a row where only one empty cell can legally be blue. That\'s your next move.',
+    'Count the blues in each column — any column missing both? Start there.',
+  ];
+  const hintText = hints[hints.length > 0 ? Math.floor(Math.random() * hints.length) : 0];
+  const fb = document.getElementById('fb');
+  if (fb) {
+    fb.textContent = '💡 ' + hintText;
+    fb.className = 'feedback info';
+  }
+}
+
+function isGridFull() {
+  return userGrid.every(row => row.every(v => v !== 0));
+}
+
+function checkState() {
+  const p = PUZZLES[puzzleIndex];
+  // Check if all cells are filled
+  if (!isGridFull()) return;
+
+  // Check if solution matches
+  let allCorrect = true;
+  for (let r = 0; r < p.size; r++) {
+    for (let c = 0; c < p.size; c++) {
+      const v = userGrid[r][c];
+      const sol = p.solution[r][c];
+      const userVal = (v === 1 || v === -2) ? 1 : (v === 2 || v === -1) ? 0 : -1;
+      if (userVal !== sol) { allCorrect = false; break; }
+    }
+    if (!allCorrect) break;
+  }
+
+  if (allCorrect) {
+    solved = true;
+  } else {
+    wrong = true;
+  }
+}
+
+function nextPuzzle() {
+  if (puzzleIndex < PUZZLES.length - 1) {
+    puzzleIndex++;
+    initPuzzle();
+  }
+}
+
+function resetPuzzle() {
+  initPuzzle();
+}
+
+initPuzzle();
+</script>
+</body>
+</html>

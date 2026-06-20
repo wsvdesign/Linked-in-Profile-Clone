@@ -18,7 +18,7 @@ import { useState } from 'react';
 import leoProfileImage from '../assets/reference/profiles/leo profile/leo-profile.jpg';
 import './GamerCardProfile.css';
 
-export default function GamerCardProfile({ onBack }) {
+export default function GamerCardProfile({ onBack, onOpenSignalSprint, onOpenGridLogic }) {
   const [activeTab, setActiveTab] = useState('overview');
   const [submitOpen, setSubmitOpen] = useState(false);
 
@@ -375,7 +375,7 @@ export default function GamerCardProfile({ onBack }) {
                   <span className="game-type-tag">Cognitive Speed</span>
                 </div>
                 <p style={{ fontSize: '13px', color: '#555', margin: '6px 0 10px', lineHeight: 1.4 }}>A fast-thinking pattern recognition game. Identify the signal from the noise in under 5 seconds.</p>
-                <button className="btn-outline" style={{ fontSize: '12px', padding: '4px 12px' }} type="button">Submit to LinkedIn →</button>
+                <button className="btn-outline" style={{ fontSize: '12px', padding: '4px 12px' }} type="button" onClick={() => onOpenSignalSprint?.()}>Submit to LinkedIn →</button>
               </div>
               <div className="game-submit-card">
                 <div className="submit-top">
@@ -386,7 +386,7 @@ export default function GamerCardProfile({ onBack }) {
                   <span className="game-type-tag">Strategic Thinking</span>
                 </div>
                 <p style={{ fontSize: '13px', color: '#555', margin: '6px 0 10px', lineHeight: 1.4 }}>A spatial reasoning puzzle. Fill the grid using logic — no guessing allowed.</p>
-                <button className="btn-outline" style={{ fontSize: '12px', padding: '4px 12px' }} type="button">Submit to LinkedIn →</button>
+                <button className="btn-outline" style={{ fontSize: '12px', padding: '4px 12px' }} type="button" onClick={() => onOpenGridLogic?.()}>Submit to LinkedIn →</button>
               </div>
               <div className="game-submit-card">
                 <div className="submit-top">
