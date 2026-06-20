@@ -185,7 +185,7 @@ export default function GamerCardProfile({ onBack }) {
                   <p style={{ fontSize: '13px', color: '#555', margin: '0 0 8px' }}><strong>Role:</strong> Solo Developer</p>
                   <div className="tech-row"><span className="tech-tag">React</span><span className="tech-tag">JavaScript</span><span className="tech-tag">Canvas API</span></div>
                   {/* Portfolio link — wire to real URL when available */}
-                  <a href="/games/void-code/" target="_blank" rel="noreferrer" className="btn-outline" style={{ fontSize: '13px', textDecoration: 'none' }}>View project ↗</a>
+                  <a href="/games/void-code/VoidCode-2.html" target="_blank" rel="noreferrer" className="btn-outline" style={{ fontSize: '13px', textDecoration: 'none' }}>View project ↗</a>
                 </div>
                 <div className="build-card">
                   <div className="build-top">
@@ -199,7 +199,7 @@ export default function GamerCardProfile({ onBack }) {
                   <p style={{ fontSize: '13px', color: '#555', margin: '0 0 8px' }}><strong>Role:</strong> Lead Developer</p>
                   <div className="tech-row"><span className="tech-tag">JavaScript</span><span className="tech-tag">Canvas API</span><span className="tech-tag">HTML5</span></div>
                   {/* Portfolio link — wire to real URL when available */}
-                  <a href="/games/hollow-echo/" target="_blank" rel="noreferrer" className="btn-outline" style={{ fontSize: '13px', textDecoration: 'none' }}>View project ↗</a>
+                  <a href="/games/hollow-echo/HollowEcho.html" target="_blank" rel="noreferrer" className="btn-outline" style={{ fontSize: '13px', textDecoration: 'none' }}>View project ↗</a>
                 </div>
               </div>
             )}
@@ -232,7 +232,7 @@ export default function GamerCardProfile({ onBack }) {
                   <p style={{ fontSize: '14px', color: '#555', margin: '0 0 10px', lineHeight: 1.5 }}>A browser-based debugging game where a function runs but returns nothing. Read the code, find the missing value, and restore the signal before the clock runs out.</p>
                   <p style={{ fontSize: '13px', color: '#555', margin: '0 0 8px' }}><strong>Role:</strong> Solo Developer</p>
                   <div className="tech-row"><span className="tech-tag">React</span><span className="tech-tag">JavaScript</span><span className="tech-tag">Canvas API</span></div>
-                  <a href="/games/void-code/" target="_blank" rel="noreferrer" className="btn-outline" style={{ fontSize: '13px', textDecoration: 'none' }}>View project ↗</a>
+                  <a href="/games/void-code/VoidCode-2.html" target="_blank" rel="noreferrer" className="btn-outline" style={{ fontSize: '13px', textDecoration: 'none' }}>View project ↗</a>
                 </div>
                 <div className="build-card">
                   <div className="build-top">
@@ -245,7 +245,7 @@ export default function GamerCardProfile({ onBack }) {
                   <p style={{ fontSize: '14px', color: '#555', margin: '0 0 10px', lineHeight: 1.5 }}>A signal distortion game where what was sent and what came back are not the same. Study the original signal and the corrupted echo - find what changed in transmission before the echo fades.</p>
                   <p style={{ fontSize: '13px', color: '#555', margin: '0 0 8px' }}><strong>Role:</strong> Lead Developer</p>
                   <div className="tech-row"><span className="tech-tag">JavaScript</span><span className="tech-tag">Canvas API</span><span className="tech-tag">HTML5</span></div>
-                  <a href="/games/hollow-echo/" target="_blank" rel="noreferrer" className="btn-outline" style={{ fontSize: '13px', textDecoration: 'none' }}>View project ↗</a>
+                  <a href="/games/hollow-echo/HollowEcho.html" target="_blank" rel="noreferrer" className="btn-outline" style={{ fontSize: '13px', textDecoration: 'none' }}>View project ↗</a>
                 </div>
               </div>
             )}
