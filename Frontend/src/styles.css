@@ -87,13 +87,16 @@ a { color: var(--blue); text-decoration: none; font-weight: 600; }
   cursor: pointer;
   line-height: 1;
 }
+.verified-badge-trigger + .verified-badge-trigger {
+  margin-left: 2px;
+}
 .gamercard-badge {
   font-size: 20px;
   line-height: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-left: 6px;
+  margin-left: 0;
 }
 .profile-headline { font-size: 16px; margin-top: 3px; }
 .identity-affiliations { display: flex; flex-direction: column; gap: 12px; padding-top: 4px; }

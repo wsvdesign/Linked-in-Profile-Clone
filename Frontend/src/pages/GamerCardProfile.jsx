@@ -14,6 +14,7 @@
  * - All content, layout, spacing, colors, cards, badges, sections preserved exactly.
  */
 
+import { ShieldCheck } from 'lucide-react';
 import { useState } from 'react';
 import leoProfileImage from '../assets/reference/profiles/leo profile/leo-profile.jpg';
 import './GamerCardProfile.css';
@@ -75,7 +76,21 @@ export default function GamerCardProfile({ onBack, onOpenSignalSprint, onOpenGri
                 <div>
                   <div className="profile-name">
                     Leo Martinez
-                    <span className="verified-icon">🛡</span>
+                    <button
+                      className="verified-badge-trigger"
+                      type="button"
+                      aria-label="Open verification details"
+                    >
+                      <ShieldCheck size={20} className="verified-badge" />
+                    </button>
+                    <button
+                      className="verified-badge-trigger"
+                      type="button"
+                      aria-label="Open GamerCard profile"
+                      title="GamerCard"
+                    >
+                      <span className="gamercard-badge">💎</span>
+                    </button>
                   </div>
                   <p className="handle-row">@leomartinez · he/him/his</p>
                   <p className="profile-hl">Game Developer | Frontend Engineer | CS Graduate Student at Yale</p>
