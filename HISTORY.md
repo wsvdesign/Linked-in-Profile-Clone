@@ -622,3 +622,92 @@ Phase 2 / GamerCard Integration / Controlled Scope Update
 
 - The GamerCard naming update was intentionally committed as a small, isolated change first.
 - Asset-path migration was committed and pushed afterward as a separate operation to keep scope clean and reviewable.
+
+---
+
+## 2026-06-20 - GamerCard Routing, Static Game Launch Fixes, and Badge Fidelity Alignment
+
+### Project Phase
+
+Phase 2 / GamerCard Integration / Navigation Stabilization
+
+### Builders
+
+- Natalie Walker
+- GitHub Copilot
+
+### Work Completed
+
+- Added same-domain static game launch links from GamerCard "View project" actions.
+- Corrected static game links to explicit HTML filenames so deployments resolve reliably.
+- Added routed React game pages for Submit-to-LinkedIn flow:
+- `/games/signal-sprint`
+- `/games/grid-logic`
+- Wired GamerCard "Submit Games to LinkedIn" buttons to open the two new routes.
+- Added path-based route detection in app view resolution for direct route entry and refresh behavior.
+- Added Netlify SPA fallback redirects file for route handling on deployed environments.
+- Moved and retained raw source HTML files in canonical reference folder under GamerCard source assets.
+- Replaced temporary custom name-row badge rendering in GamerCard with the same clone badge implementation used in the main profile:
+- verification shield via shared badge trigger pattern
+- GamerCard diamond via shared `.gamercard-badge`
+- Tightened global spacing so diamond sits closer to verification badge across all relevant views.
+
+### Files Updated
+
+- `Frontend/src/App.jsx`
+- `Frontend/src/pages/GamerCardProfile.jsx`
+- `Frontend/src/pages/GamerCardProfile.css`
+- `Frontend/src/pages/SignalSprint.jsx`
+- `Frontend/src/pages/SignalSprint.css`
+- `Frontend/src/pages/GridLogic.jsx`
+- `Frontend/src/pages/GridLogic.css`
+- `Frontend/src/styles.css`
+- `Frontend/public/_redirects`
+- `Frontend/src/assets/reference/gamercard-profile-source/SignalSprint-3.html`
+- `Frontend/src/assets/reference/gamercard-profile-source/GridLogic-3.html`
+
+### Issues Encountered
+
+- Submit buttons appeared non-functional in shared testing because routing changes existed locally before being committed and deployed.
+- Static link targets initially failed when using directory-only paths without explicit HTML entry files.
+- A temporary custom badge rendering for Leo's name row diverged from clone badge implementation and needed to be aligned.
+
+### Solutions Applied
+
+- Committed and pushed the routed page conversion and button wiring bundle as one controlled feature update.
+- Switched static game URLs to exact HTML filenames.
+- Added deployment-safe SPA redirects for route reload/direct navigation.
+- Reused existing clone badge classes/structure instead of maintaining GamerCard-only badge styling.
+- Applied a global micro-spacing adjustment between adjacent badge triggers to align visual fidelity.
+
+### Review and Debug Validation
+
+- Frontend build: passed after routing/page integration.
+- Test suite: 4/4 tests passed.
+- Frontend build: passed after badge fidelity and spacing alignment updates.
+- Working tree verified clean after staged commits and pushes.
+
+### Commit and Push Sequence
+
+- `a9c11c8` - feat(gamercard): link View project buttons to same-domain static game pages
+- `f4ae5f6` - fix(gamercard): point View project links to explicit static game HTML files
+- `d871d05` - feat(gamercard): route Submit to LinkedIn buttons to Signal Sprint and Grid Logic pages
+- `e45503b` - fix(gamercard): use clone badges and tighten diamond spacing
+
+### Next Steps
+
+- Monitor deployed route behavior for direct-load and refresh paths in Netlify.
+- Add focused tests for Submit-to-LinkedIn route triggers if regression protection is expanded.
+- Continue Phase 2 additions under JIRO clone-fidelity and no-redesign constraints.
+
+### Project Agents
+
+| Agent | Responsibility |
+|---|---|
+| JIRO ONO | Clone Fidelity + Final Execution Approval |
+| Ant Wilson | Security & Data Hygiene |
+| Grace Hopper | Debugging & Build Stability |
+
+### Notes
+
+- This entry captures all shipped changes after the prior HISTORY update and consolidates the routing, static launch reliability, and badge-fidelity work into one audit-ready record.

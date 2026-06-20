@@ -827,8 +827,10 @@ export default function App() {
         <Navbar onOpenView={handleOpenView} activeView={activeView} />
         <GamerCardProfile
           onBack={handleBackFromGamerCard}
+          onOpenProfile={handleOpenProfile}
           onOpenSignalSprint={handleOpenSignalSprint}
           onOpenGridLogic={handleOpenGridLogic}
+          activeProfileId={activeProfileId}
         />
         <MessagingBubble />
       </>

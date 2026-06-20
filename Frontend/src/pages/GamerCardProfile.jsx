@@ -14,14 +14,121 @@
  * - All content, layout, spacing, colors, cards, badges, sections preserved exactly.
  */
 
-import { ShieldCheck } from 'lucide-react';
+import { ShieldCheck, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
 import leoProfileImage from '../assets/reference/profiles/leo profile/leo-profile.jpg';
+import darioProfileImage from '../assets/profiles/Dario Profile/dario.jpeg';
 import './GamerCardProfile.css';
 
-export default function GamerCardProfile({ onBack, onOpenSignalSprint, onOpenGridLogic }) {
+function SidebarPersonCard({ person, enablePending = false, pendingMode = 'flagged', onOpenProfile, activeProfileId }) {
+  const [isPending, setIsPending] = useState(false);
+  const initials = (person.name || '')
+    .replace(/[^a-zA-Z ]/g, '')
+    .split(' ')
+    .map((n) => n[0])
+    .filter(Boolean)
+    .join('')
+    .slice(0, 2)
+    .toUpperCase();
+  const hasAvatarImage = Boolean(person.profilePhoto);
+  const isConnectButton = enablePending && person.action === 'Connect' && (pendingMode === 'all' || person.togglesToPending === true);
+  const canOpenProfile = Boolean(person.profileId && onOpenProfile);
+  const isActiveProfile = person.profileId && person.profileId === activeProfileId;
+
+  const handleNavigate = () => {
+    if (canOpenProfile) {
+      onOpenProfile(person.profileId);
+    }
+  };
+
+  const handleKeyDown = (event) => {
+    if (!canOpenProfile) {
+      return;
+    }
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      handleNavigate();
+    }
+  };
+
+  const handleActionClick = (event) => {
+    event.stopPropagation();
+    if (isConnectButton) {
+      setIsPending(true);
+    }
+  };
+
+  return (
+    <div
+      className="sidebar-person"
+      onClick={handleNavigate}
+      onKeyDown={handleKeyDown}
+      role={canOpenProfile ? 'button' : undefined}
+      tabIndex={canOpenProfile ? 0 : undefined}
+      style={{
+        cursor: canOpenProfile ? 'pointer' : 'default',
+        background: isActiveProfile ? '#f3f8fd' : 'transparent',
+      }}
+    >
+      <div className="sb-ava">
+        {hasAvatarImage ? (
+          <img
+            src={person.profilePhoto}
+            alt={person.name}
+            className="sb-ava-img"
+            style={{ objectPosition: person.avatarObjectPosition || 'center' }}
+          />
+        ) : (
+          initials
+        )}
+      </div>
+      <div>
+        <strong>{person.name}</strong>
+        <p>{person.headline}</p>
+        <button className="sb-btn" type="button" onClick={handleActionClick} aria-pressed={isConnectButton ? isPending : undefined}>
+          {isConnectButton ? (isPending ? 'Pending' : '🤝 Connect') : `+ ${person.action}`}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+export default function GamerCardProfile({ onBack, onOpenProfile, onOpenSignalSprint, onOpenGridLogic, activeProfileId }) {
   const [activeTab, setActiveTab] = useState('overview');
   const [submitOpen, setSubmitOpen] = useState(false);
+
+  const sidebarProfiles = [
+    {
+      profileId: 'dario-amodei',
+      name: 'Dario Amodei',
+      headline: 'CEO and Co-Founder at Anthropic · 3rd+',
+      profilePhoto: darioProfileImage,
+      action: 'Connect',
+      togglesToPending: true,
+    },
+    {
+      name: 'Christopher Olah',
+      headline: 'Member Of Technical Staff at Anthropic · 3rd+',
+      action: 'Connect',
+      togglesToPending: true,
+    },
+    {
+      name: 'Anthony Bastone, M.B.A.',
+      headline: 'Finance Leadership at Anthropic · 3rd+',
+      action: 'Connect',
+      togglesToPending: true,
+    },
+    {
+      name: 'Paul Smith',
+      headline: 'Chief Commercial Officer · 3rd+',
+      action: 'Follow',
+    },
+    {
+      name: 'Varun Krishna',
+      headline: 'CEO at Rocket, Interim CEO at Redfin · 3rd+',
+      action: 'Follow',
+    },
+  ];
 
   return (
     <div className="gamercard-page">
@@ -453,12 +560,16 @@ export default function GamerCardProfile({ onBack, onOpenSignalSprint, onOpenGri
           {/* More profiles for you */}
           <div className="card sb-card">
             <h2 className="sb-head">More profiles for you</h2>
-            <div className="sb-person"><div className="sb-ava">DA</div><div><strong>Dario Amodei</strong><p>CEO and Co-Founder at Anthropic · 3rd+</p><button className="mini-btn" type="button">🤝 Connect</button></div></div>
-            <div className="sb-person"><div className="sb-ava">CO</div><div><strong>Christopher Olah</strong><p>Member Of Technical Staff at Anthropic · 3rd+</p><button className="mini-btn" type="button">🤝 Connect</button></div></div>
-            <div className="sb-person"><div className="sb-ava">AB</div><div><strong>Anthony Bastone, M.B.A.</strong><p>Finance Leadership at Anthropic · 3rd+</p><button className="mini-btn" type="button">🤝 Connect</button></div></div>
-            <div className="sb-person"><div className="sb-ava">PS</div><div><strong>Paul Smith</strong><p>Chief Commercial Officer · 3rd+</p><button className="mini-btn" type="button">+ Follow</button></div></div>
-            <div className="sb-person"><div className="sb-ava">VK</div><div><strong>Varun Krishna</strong><p>CEO at Rocket, Interim CEO at Redfin · 3rd+</p><button className="mini-btn" type="button">+ Follow</button></div></div>
-            <button className="show-all-btn" type="button">Show all →</button>
+            {sidebarProfiles.map((person) => (
+              <SidebarPersonCard
+                key={person.name}
+                person={person}
+                enablePending={true}
+                onOpenProfile={onOpenProfile}
+                activeProfileId={activeProfileId}
+              />
+            ))}
+            <button className="show-all-btn" type="button">Show all <ChevronRight size={14} /></button>
           </div>
 
           {/* You might like */}
@@ -483,7 +594,7 @@ export default function GamerCardProfile({ onBack, onOpenSignalSprint, onOpenGri
             <div className="sb-person"><div className="sb-ava">NS</div><div><strong>Natasha Schmitt Caccia Salinas</strong><p>Associate Professor of Law · 3rd+</p><button className="mini-btn" type="button">🤝 Connect</button></div></div>
             <div className="sb-person"><div className="sb-ava">JF</div><div><strong>Jason Friedman</strong><p>Incoming J.D. Candidate at Yale · 3rd+</p><button className="mini-btn" type="button">🤝 Connect</button></div></div>
             <div className="sb-person"><div className="sb-ava">JR</div><div><strong>Jed Rothstein 罗瑞杰</strong><p>Associate | Capital Markets | Davis Polk · 3rd+</p><button className="mini-btn" type="button">🤝 Connect</button></div></div>
-            <button className="show-all-btn" type="button">Show all →</button>
+            <button className="show-all-btn" type="button">Show all <ChevronRight size={14} /></button>
           </div>
 
           {/* Second ad */}
