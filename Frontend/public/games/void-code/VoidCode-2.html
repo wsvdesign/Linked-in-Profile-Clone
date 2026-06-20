@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>VOID CODE — Leo Martinez</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#fff;color:#191919}
+button{cursor:pointer;font:inherit}
+
+/* BLACK HEADER */
+.site-header{background:#191919;padding:28px 24px 20px;text-align:center;position:sticky;top:0;z-index:40}
+.leo-name-link{
+  font-family:'Copperplate Gothic Light','Copperplate Gothic','Copperplate','Century Gothic',sans-serif;
+  font-size:36px;font-weight:400;letter-spacing:0.22em;text-transform:uppercase;
+  color:#fff;text-decoration:none;display:inline-block;margin-bottom:16px;
+}
+.leo-name-link:hover{opacity:0.75}
+.divider-wrap{display:flex;align-items:center;justify-content:center;width:65%;margin:0 auto 10px}
+.red-left{flex:1;height:2px;background:#cc1016}
+.black-mid{width:200px;height:4px;background:#fff;flex-shrink:0}
+.red-right{flex:1;height:2px;background:#cc1016}
+.game-name-header{
+  font-family:'Copperplate Gothic Light','Copperplate Gothic','Copperplate','Century Gothic',sans-serif;
+  font-size:14px;letter-spacing:0.28em;text-transform:uppercase;color:rgba(255,255,255,0.7);
+  margin-top:8px;
+}
+
+/* SETTINGS BAR */
+.settings-bar{background:#f3f2f0;border-bottom:1px solid #e0ddd8;padding:8px 24px;display:flex;align-items:center;justify-content:flex-end;gap:8px;position:sticky;top:0;z-index:39}
+.set-btn{background:#191919;color:#fff;border:0;border-radius:6px;padding:6px 16px;font-size:13px;font-weight:600;cursor:pointer;position:relative}
+.set-btn:hover{background:#333}
+.set-dropdown{position:absolute;top:calc(100% + 6px);right:0;background:#fff;border:1px solid #d9d9d9;border-radius:8px;padding:8px 0;min-width:200px;box-shadow:0 4px 12px rgba(0,0,0,0.12);z-index:100;display:none}
+.set-dropdown.open{display:block}
+.set-item{padding:10px 16px;font-size:13px;color:#aaa;cursor:not-allowed;display:flex;align-items:center;justify-content:space-between}
+.set-item span{font-size:11px;color:#ccc;font-style:italic}
+
+/* PAGE */
+.page{max-width:900px;margin:28px auto;padding:0 16px;display:grid;grid-template-columns:1fr 300px;gap:28px;align-items:start}
+
+.game-area{background:#fff;border:1px solid #d9d9d9;border-radius:12px;padding:28px;text-align:center}
+.game-title{font-size:22px;font-weight:900;margin-bottom:4px;letter-spacing:0.06em}
+.game-sub{font-size:13px;color:#666;margin-bottom:20px}
+
+.timer-wrap{background:#eee;border-radius:999px;height:7px;margin-bottom:18px;overflow:hidden}
+.timer-bar{height:7px;border-radius:999px;background:#191919;transition:width 0.08s linear}
+.timer-bar.urgent{background:#cc1016}
+
+.stats-row{display:flex;justify-content:center;gap:32px;margin-bottom:22px}
+.stat{text-align:center}
+.stat-num{font-size:28px;font-weight:800}
+.stat-label{font-size:11px;color:#666;font-weight:700;text-transform:uppercase;letter-spacing:0.06em}
+
+.round-label{font-size:12px;color:#666;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px}
+.prompt{font-size:15px;font-weight:600;color:#555;margin-bottom:6px}
+
+.code-block{background:#1e1e2e;border-radius:10px;padding:20px 24px;margin-bottom:20px;text-align:left;font-family:monospace;position:relative}
+.code-line{font-size:17px;color:#cdd6f4;line-height:1.7}
+.code-line .kw{color:#cba6f7}
+.code-line .fn{color:#89b4fa}
+.code-line .str{color:#a6e3a1}
+.code-line .num{color:#fab387}
+.code-line .op{color:#89dceb}
+.code-line .void-mark{color:#f38ba8;font-weight:700;text-decoration:underline;text-decoration-color:#f38ba8}
+.code-badge{position:absolute;top:10px;right:12px;font-size:10px;color:#585b70;font-weight:700;text-transform:uppercase;letter-spacing:0.08em}
+
+.options{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+.opt{border:2px solid #d9d9d9;border-radius:10px;padding:14px 18px;font-size:15px;font-family:monospace;font-weight:700;background:#fff;cursor:pointer;transition:all 0.15s;text-align:left;color:#191919}
+.opt:hover{border-color:#191919;background:#f8f8f8}
+.opt.correct{border-color:#057642;background:#e8f5e9;color:#057642}
+.opt.wrong{border-color:#cc1016;background:#fdecea;color:#cc1016}
+.opt.disabled{pointer-events:none;opacity:0.55}
+
+.feedback{font-size:14px;font-style:italic;font-weight:400;min-height:20px;margin-bottom:14px}
+.feedback.good{color:#057642}
+.feedback.bad{color:#cc1016}
+
+.action-btn{border-radius:999px;padding:10px 28px;font-size:14px;font-weight:700;cursor:pointer;margin:0 5px;border:0}
+.btn-p{background:#191919;color:#fff}
+.btn-p:hover{background:#333}
+.btn-g{background:#fff;border:1px solid #d9d9d9;color:#555}
+.btn-g:hover{background:#f3f2ef}
+
+.result{text-align:center;padding:10px 0}
+.result-emoji{font-size:48px;margin-bottom:12px}
+.result-title{font-size:26px;font-weight:800;margin-bottom:6px}
+.result-sub{font-size:14px;color:#666;margin-bottom:20px}
+.result-nums{display:flex;justify-content:center;gap:32px;margin-bottom:24px}
+.result-num{font-size:42px;font-weight:900;color:#191919;line-height:1}
+.result-nl{font-size:13px;color:#666}
+
+.panel{display:flex;flex-direction:column;gap:14px}
+.pcard{background:#fff;border:1px solid #d9d9d9;border-radius:12px;padding:18px}
+.pcard h3{font-size:15px;font-weight:700;margin-bottom:10px}
+.pcard p{font-size:13px;color:#555;line-height:1.5}
+.how-row{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px}
+.how-n{width:22px;height:22px;border-radius:50%;background:#191919;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.how-t{font-size:13px;color:#555;line-height:1.4}
+.streak-big{font-size:36px;font-weight:900;color:#191919;text-align:center;margin:6px 0}
+.streak-lbl{font-size:11px;color:#666;text-align:center;text-transform:uppercase;letter-spacing:0.06em}
+.share-btn{width:100%;border:1px solid #191919;background:#fff;color:#191919;border-radius:999px;padding:9px;font-size:13px;font-weight:700;cursor:pointer;margin-top:8px}
+.share-btn:hover{background:#f3f2ef}
+
+footer{background:#191919;color:rgba(255,255,255,0.7);padding:20px 24px;margin-top:40px}
+.footer-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.footer-name{font-family:'Copperplate Gothic Light','Copperplate Gothic','Copperplate',sans-serif;font-size:14px;letter-spacing:0.14em;text-transform:uppercase;color:#fff}
+.footer-links{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+.footer-links a{font-size:12px;font-weight:600;text-decoration:none;opacity:0.7}
+.footer-links a:hover{opacity:1}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="mailto:leo.martinez@yale.edu" class="leo-name-link">Leo Martinez</a>
+  <div class="divider-wrap">
+    <div class="red-left"></div>
+    <div class="black-mid"></div>
+    <div class="red-right"></div>
+  </div>
+  <div class="game-name-header">Void Code</div>
+</header>
+
+<div class="settings-bar">
+  <div style="position:relative">
+    <button class="set-btn" onclick="toggleSettings()">⚙ Settings</button>
+    <div class="set-dropdown" id="set-drop">
+      <div class="set-item">Sound effects <span>coming soon</span></div>
+      <div class="set-item">Difficulty <span>coming soon</span></div>
+      <div class="set-item">Timer speed <span>coming soon</span></div>
+      <div class="set-item">Colorblind mode <span>coming soon</span></div>
+      <div class="set-item">Language <span>coming soon</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="game-area" id="game-area"></div>
+  <div class="panel">
+    <div class="pcard">
+      <h3>How to play</h3>
+      <div class="how-row"><div class="how-n">1</div><div class="how-t">A code block runs — but returns <strong>void</strong>. Something is missing.</div></div>
+      <div class="how-row"><div class="how-n">2</div><div class="how-t">The underlined <span style="color:#f38ba8;font-weight:700">red value</span> has been erased. What should it be?</div></div>
+      <div class="how-row"><div class="how-n">3</div><div class="how-t">Pick the correct return value from the four options before time runs out.</div></div>
+      <div class="how-row"><div class="how-n">4</div><div class="how-t">No guessing — use logic to read the code.</div></div>
+    </div>
+    <div class="pcard">
+      <h3>Current streak</h3>
+      <div class="streak-big" id="streak-display">0</div>
+      <div class="streak-lbl">correct in a row</div>
+    </div>
+    <div class="pcard">
+      <h3>About Void Code</h3>
+      <p>A function ran. It returned nothing. Somewhere in the code, the value was erased. Read the logic, find what's missing, and restore the signal before the clock runs out.</p>
+      <button class="share-btn">Share your score</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-name">Leo Martinez</div>
+    <div class="footer-links">
+      <a href="https://discord.com" target="_blank" style="color:#7289da">Discord</a>
+      <a href="https://steam.com" target="_blank" style="color:#c6d4df">Steam</a>
+      <a href="https://twitch.tv" target="_blank" style="color:#9146ff">Twitch</a>
+      <a href="https://xbox.com" target="_blank" style="color:#52b043">Xbox</a>
+      <a href="https://youtube.com" target="_blank" style="color:#ff0000">YouTube</a>
+      <a href="https://linkedn-professional-profile-clone.netlify.app" target="_blank" style="color:#70b5f9;display:inline-flex;align-items:center;gap:4px">
+        <span style="width:14px;height:14px;border-radius:2px;background:#0a66c2;color:#fff;font-size:9px;font-weight:900;display:inline-flex;align-items:center;justify-content:center">in</span>
+        LinkedIn
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+function toggleSettings(){
+  document.getElementById('set-drop').classList.toggle('open');
+}
+document.addEventListener('click',function(e){
+  if(!e.target.closest('.set-btn') && !e.target.closest('.set-dropdown')){
+    document.getElementById('set-drop').classList.remove('open');
+  }
+});
+
+const rounds = [
+  {prompt:'This function adds two numbers. What does it return?',code:`<span class="kw">function</span> <span class="fn">add</span>(a, b) {\n  <span class="kw">return</span> <span class="void-mark">___</span>;\n}`,hint:'// add(3, 4)',options:['a - b','a + b','a * b','a / b'],answer:1},
+  {prompt:'What value is missing from this condition?',code:`<span class="kw">if</span> (score <span class="op">></span> <span class="void-mark">___</span>) {\n  <span class="fn">celebrate</span>();\n}`,hint:'// triggers when score is passing',options:['100','0','-1','1000'],answer:1},
+  {prompt:'This loop runs 5 times. What is i at the end?',code:`<span class="kw">let</span> i = <span class="num">0</span>;\n<span class="kw">while</span> (i <span class="op"><</span> <span class="num">5</span>) {\n  i++;\n}\n<span class="kw">return</span> <span class="void-mark">___</span>;`,hint:'// i starts at 0, increments 5 times',options:['4','5','6','0'],answer:1},
+  {prompt:'What does this function return?',code:`<span class="kw">function</span> <span class="fn">greet</span>(name) {\n  <span class="kw">return</span> <span class="str">"Hello, "</span> + <span class="void-mark">___</span>;\n}`,hint:'// greet("Leo") → "Hello, Leo"',options:['"Leo"','name','"name"','greet'],answer:1},
+  {prompt:'What is the missing array index?',code:`<span class="kw">const</span> items = [<span class="str">"a"</span>, <span class="str">"b"</span>, <span class="str">"c"</span>];\n<span class="kw">return</span> items[<span class="void-mark">___</span>];\n<span class="op">// → "c"</span>`,hint:'// arrays are zero-indexed',options:['0','1','2','3'],answer:2},
+  {prompt:'What value makes this true?',code:`<span class="kw">const</span> x = <span class="void-mark">___</span>;\n<span class="fn">console</span>.<span class="fn">log</span>(x <span class="op">===</span> x + <span class="num">0</span>);\n<span class="op">// → true</span>`,hint:'// x === x + 0 is true for any number',options:['null','undefined','5','NaN'],answer:2},
+  {prompt:'This function doubles a number. What is missing?',code:`<span class="kw">function</span> <span class="fn">double</span>(n) {\n  <span class="kw">return</span> n <span class="op">*</span> <span class="void-mark">___</span>;\n}`,hint:'// double(6) → 12',options:['n','0','2','3'],answer:2},
+  {prompt:'What does this boolean expression return?',code:`<span class="kw">const</span> a = <span class="num">true</span>;\n<span class="kw">const</span> b = <span class="num">false</span>;\n<span class="kw">return</span> a <span class="op">&&</span> <span class="void-mark">___</span>;\n<span class="op">// → false</span>`,hint:'// true && ? → false',options:['true','a','false','null'],answer:2},
+  {prompt:'What is the missing operator?',code:`<span class="kw">const</span> x = <span class="num">10</span>;\n<span class="kw">const</span> y = <span class="num">3</span>;\n<span class="kw">return</span> x <span class="void-mark">___</span> y;\n<span class="op">// → 1</span>`,hint:'// 10 ? 3 → 1 (the remainder)',options:['+','-','%','/'],answer:2},
+  {prompt:'What value does this return?',code:`<span class="kw">function</span> <span class="fn">check</span>(n) {\n  <span class="kw">if</span> (n <span class="op">%</span> <span class="num">2</span> <span class="op">===</span> <span class="num">0</span>)\n    <span class="kw">return</span> <span class="void-mark">___</span>;\n}\n<span class="fn">check</span>(<span class="num">4</span>);`,hint:'// 4 % 2 === 0 → even number',options:['"odd"','false','"even"','0'],answer:2},
+];
+
+const TIME=5000;
+let current=0,score=0,streak=0,best=0,timer;
+
+function render(){
+  const area=document.getElementById('game-area');
+  if(current>=rounds.length){showResult(area);return;}
+  const r=rounds[current];
+  area.innerHTML=`
+    <div class="game-title">VOID CODE</div>
+    <div class="game-sub">The function returned nothing. Find what's missing.</div>
+    <div class="timer-wrap"><div class="timer-bar" id="tbar" style="width:100%"></div></div>
+    <div class="stats-row">
+      <div class="stat"><div class="stat-num">${score}</div><div class="stat-label">Score</div></div>
+      <div class="stat"><div class="stat-num">${current+1}/${rounds.length}</div><div class="stat-label">Round</div></div>
+      <div class="stat"><div class="stat-num">${best}</div><div class="stat-label">Best streak</div></div>
+    </div>
+    <div class="round-label">Round ${current+1}</div>
+    <div class="prompt">${r.prompt}</div>
+    <div class="code-block">
+      <span class="code-badge">JavaScript</span>
+      ${r.code.split('\n').map(l=>`<div class="code-line">${l}</div>`).join('')}
+      <div style="margin-top:8px;font-size:12px;color:#585b70;font-family:monospace">${r.hint}</div>
+    </div>
+    <div class="options">
+      ${r.options.map((o,i)=>`<button class="opt" id="opt${i}" onclick="pick(${i})">${o}</button>`).join('')}
+    </div>
+    <div class="feedback" id="fb"></div>
+    <button class="action-btn btn-g" onclick="resetGame()">Restart</button>
+  `;
+  startTimer();
+}
+
+function startTimer(){
+  clearInterval(timer);
+  const start=Date.now();
+  timer=setInterval(()=>{
+    const elapsed=Date.now()-start;
+    const pct=Math.max(0,100-(elapsed/TIME)*100);
+    const bar=document.getElementById('tbar');
+    if(bar){bar.style.width=pct+'%';if(pct<30)bar.classList.add('urgent');}
+    if(elapsed>=TIME){clearInterval(timer);timeOut();}
+  },50);
+}
+
+function pick(i){
+  clearInterval(timer);
+  const r=rounds[current];
+  document.querySelectorAll('.opt').forEach(o=>o.classList.add('disabled'));
+  const fb=document.getElementById('fb');
+  if(i===r.answer){
+    document.getElementById('opt'+i).classList.add('correct');
+    streak++;if(streak>best)best=streak;score+=10;
+    fb.textContent='✓ Correct!';fb.className='feedback good';
+  }else{
+    document.getElementById('opt'+i).classList.add('wrong');
+    document.getElementById('opt'+r.answer).classList.add('correct');
+    streak=0;fb.textContent='Not quite — read the logic carefully.';fb.className='feedback bad';
+  }
+  document.getElementById('streak-display').textContent=streak;
+  current++;setTimeout(render,950);
+}
+
+function timeOut(){
+  const r=rounds[current];
+  document.querySelectorAll('.opt').forEach(o=>o.classList.add('disabled'));
+  document.getElementById('opt'+r.answer).classList.add('correct');
+  streak=0;document.getElementById('streak-display').textContent=0;
+  const fb=document.getElementById('fb');
+  if(fb){fb.textContent="⏱ Time's up!";fb.className='feedback bad';}
+  current++;setTimeout(render,950);
+}
+
+function showResult(area){
+  area.innerHTML=`
+    <div class="result">
+      <div class="result-emoji">🖥️</div>
+      <div class="result-title">Code restored!</div>
+      <div class="result-sub">The void has been filled</div>
+      <div class="result-nums">
+        <div><div class="result-num">${score}</div><div class="result-nl">score</div></div>
+        <div><div class="result-num">${best}</div><div class="result-nl">best streak</div></div>
+      </div>
+      <button class="action-btn btn-p" onclick="resetGame()">Play again</button>
+      <button class="action-btn btn-g">Share result</button>
+    </div>
+  `;
+}
+
+function resetGame(){
+  current=0;score=0;streak=0;best=0;
+  clearInterval(timer);
+  document.getElementById('streak-display').textContent=0;
+  render();
+}
+
+render();
+</script>
+</body>
+</html>
