@@ -711,3 +711,68 @@ Phase 2 / GamerCard Integration / Navigation Stabilization
 ### Notes
 
 - This entry captures all shipped changes after the prior HISTORY update and consolidates the routing, static launch reliability, and badge-fidelity work into one audit-ready record.
+
+---
+
+## 2026-06-20 - GamerCard Sidebar Photo Restoration and Clone-Behavior Match
+
+### Project Phase
+
+Phase 2 / GamerCard Integration / Sidebar Behavior Stabilization
+
+### Builders
+
+- Natalie Walker
+- GitHub Copilot
+
+### Work Completed
+
+- Restored the Dario Amodei profile photo in the GamerCard "More profiles for you" sidebar card.
+- Kept the GamerCard right sidebar visible in the wider layout and preserved the original clone-style profile-card behavior.
+- Verified the sidebar still renders the Dario, Christopher Olah, Anthony Bastone, Paul Smith, and Varun Krishna entries.
+- Confirmed the Dario sidebar card continues to open the same profile route behavior as the original clone.
+- Confirmed the Connect button still flips to Pending using the original clone-style interaction.
+
+### Files Updated
+
+- `Frontend/src/pages/GamerCardProfile.jsx`
+- `HISTORY.md`
+
+### Issues Encountered
+
+- The GamerCard sidebar initially fell back to initials for Dario because the sidebar profile photo asset was not assigned.
+- There was a momentary concern that the right sidebar had disappeared, which was traced to the narrow viewport breakpoint rather than removal from the page.
+
+### Solutions Applied
+
+- Reused the existing Dario profile image asset already present in the repository.
+- Re-verified the sidebar in a wide viewport to confirm the column, photo, and interactions remained intact.
+
+### Review and Debug Validation
+
+- Frontend build: passed after the sidebar photo restoration.
+- Wide-viewport browser check: sidebar visible.
+- Dario sidebar entry: photo present.
+- Dario sidebar card click: navigates to `/?profile=dario-amodei`.
+- Dario Connect button: changes to `Pending` after click.
+
+### Commit and Push Sequence
+
+- `f7f55bf` - fix(gamercard): restore sidebar photo and behavior
+
+### Next Steps
+
+- Keep the GamerCard sidebar aligned with the original clone if additional profile cards or assets are introduced later.
+- Avoid altering the right sidebar layout or responsive behavior unless explicitly requested.
+
+### Project Agents
+
+| Agent | Responsibility |
+|---|---|
+| JIRO ONO | Clone Fidelity + Final Execution Approval |
+| Ant Wilson | Security & Data Hygiene |
+| Grace Hopper | Debugging & Build Stability |
+
+### Notes
+
+- This entry records the final sidebar-photo correction and confirms that the GamerCard right column matches the original clone's behavior without changing the main GamerCard content or the game routes.
